@@ -8,12 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		6504F4891C2FA41F0095668B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6504F4881C2FA41F0095668B /* AppDelegate.swift */; };
-		6504F48B1C2FA41F0095668B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6504F48A1C2FA41F0095668B /* ViewController.swift */; };
 		6504F48E1C2FA41F0095668B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6504F48C1C2FA41F0095668B /* Main.storyboard */; };
 		6504F4911C2FA41F0095668B /* StockSwift.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6504F48F1C2FA41F0095668B /* StockSwift.xcdatamodeld */; };
 		6504F4931C2FA41F0095668B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6504F4921C2FA41F0095668B /* Assets.xcassets */; };
 		6504F4961C2FA41F0095668B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6504F4941C2FA41F0095668B /* LaunchScreen.storyboard */; };
 		6504F4A11C2FA41F0095668B /* StockSwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6504F4A01C2FA41F0095668B /* StockSwiftTests.swift */; };
+		6504F4AF1C2FA45E0095668B /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6504F4AE1C2FA45E0095668B /* SWRevealViewController.m */; settings = {ASSET_TAGS = (); }; };
+		6504F4B11C2FAB680095668B /* StocktakeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6504F4B01C2FAB680095668B /* StocktakeTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		6504F4B51C2FB0330095668B /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6504F4B41C2FB0330095668B /* MenuTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		6504F4B71C2FB7120095668B /* Dummy1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6504F4B61C2FB7120095668B /* Dummy1ViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		6504F4B91C2FBB3F0095668B /* Dummy2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6504F4B81C2FBB3F0095668B /* Dummy2ViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		6504F4BB1C2FBC8F0095668B /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6504F4BA1C2FBC8F0095668B /* SettingsViewController.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,7 +34,6 @@
 /* Begin PBXFileReference section */
 		6504F4851C2FA41F0095668B /* StockSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StockSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6504F4881C2FA41F0095668B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		6504F48A1C2FA41F0095668B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		6504F48D1C2FA41F0095668B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6504F4901C2FA41F0095668B /* StockSwift.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = StockSwift.xcdatamodel; sourceTree = "<group>"; };
 		6504F4921C2FA41F0095668B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -38,6 +42,14 @@
 		6504F49C1C2FA41F0095668B /* StockSwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StockSwiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6504F4A01C2FA41F0095668B /* StockSwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StockSwiftTests.swift; sourceTree = "<group>"; };
 		6504F4A21C2FA41F0095668B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6504F4AC1C2FA45E0095668B /* StockSwift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StockSwift-Bridging-Header.h"; sourceTree = "<group>"; };
+		6504F4AD1C2FA45E0095668B /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		6504F4AE1C2FA45E0095668B /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		6504F4B01C2FAB680095668B /* StocktakeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StocktakeTableViewController.swift; sourceTree = "<group>"; };
+		6504F4B41C2FB0330095668B /* MenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
+		6504F4B61C2FB7120095668B /* Dummy1ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dummy1ViewController.swift; sourceTree = "<group>"; };
+		6504F4B81C2FBB3F0095668B /* Dummy2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dummy2ViewController.swift; sourceTree = "<group>"; };
+		6504F4BA1C2FBC8F0095668B /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,13 +91,18 @@
 		6504F4871C2FA41F0095668B /* StockSwift */ = {
 			isa = PBXGroup;
 			children = (
+				6504F4AB1C2FA4430095668B /* SWRevealViewController */,
 				6504F4881C2FA41F0095668B /* AppDelegate.swift */,
-				6504F48A1C2FA41F0095668B /* ViewController.swift */,
 				6504F48C1C2FA41F0095668B /* Main.storyboard */,
 				6504F4921C2FA41F0095668B /* Assets.xcassets */,
+				6504F4B61C2FB7120095668B /* Dummy1ViewController.swift */,
+				6504F4B81C2FBB3F0095668B /* Dummy2ViewController.swift */,
 				6504F4941C2FA41F0095668B /* LaunchScreen.storyboard */,
 				6504F4971C2FA41F0095668B /* Info.plist */,
 				6504F48F1C2FA41F0095668B /* StockSwift.xcdatamodeld */,
+				6504F4B01C2FAB680095668B /* StocktakeTableViewController.swift */,
+				6504F4B41C2FB0330095668B /* MenuTableViewController.swift */,
+				6504F4BA1C2FBC8F0095668B /* SettingsViewController.swift */,
 			);
 			path = StockSwift;
 			sourceTree = "<group>";
@@ -97,6 +114,16 @@
 				6504F4A21C2FA41F0095668B /* Info.plist */,
 			);
 			path = StockSwiftTests;
+			sourceTree = "<group>";
+		};
+		6504F4AB1C2FA4430095668B /* SWRevealViewController */ = {
+			isa = PBXGroup;
+			children = (
+				6504F4AD1C2FA45E0095668B /* SWRevealViewController.h */,
+				6504F4AE1C2FA45E0095668B /* SWRevealViewController.m */,
+				6504F4AC1C2FA45E0095668B /* StockSwift-Bridging-Header.h */,
+			);
+			name = SWRevealViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,6 +170,7 @@
 		6504F47D1C2FA41F0095668B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "andre trosky";
 				TargetAttributes = {
@@ -201,9 +229,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6504F48B1C2FA41F0095668B /* ViewController.swift in Sources */,
+				6504F4B91C2FBB3F0095668B /* Dummy2ViewController.swift in Sources */,
 				6504F4891C2FA41F0095668B /* AppDelegate.swift in Sources */,
+				6504F4B51C2FB0330095668B /* MenuTableViewController.swift in Sources */,
 				6504F4911C2FA41F0095668B /* StockSwift.xcdatamodeld in Sources */,
+				6504F4B11C2FAB680095668B /* StocktakeTableViewController.swift in Sources */,
+				6504F4AF1C2FA45E0095668B /* SWRevealViewController.m in Sources */,
+				6504F4B71C2FB7120095668B /* Dummy1ViewController.swift in Sources */,
+				6504F4BB1C2FBC8F0095668B /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -332,10 +365,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = StockSwift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = au.com.andretrosky.StockSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "StockSwift/StockSwift-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -343,10 +379,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = StockSwift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = au.com.andretrosky.StockSwift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "StockSwift/StockSwift-Bridging-Header.h";
 			};
 			name = Release;
 		};
