@@ -11,9 +11,9 @@ import UIKit
 class StocktakeTableViewController: UITableViewController {
 
     // MARK: Properties
-    
-
     @IBOutlet weak var menuButton: UIBarButtonItem!
+    
+    var stockItems = [StockItem]()
     
     
     override func viewDidLoad() {
@@ -30,6 +30,45 @@ class StocktakeTableViewController: UITableViewController {
             menuButton.action = "revealToggle:"
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
+        
+        
+        loadHardcodedStocktakeItems()
+    }
+    
+    
+    func loadHardcodedStocktakeItems() {
+        
+        let photo1 = UIImage(named: "stock1")
+        let stockItem1 = StockItem(
+            photo: photo1,
+            description: "beef porterhouse",
+            invCode: 101114,
+            lastCost: 23.4,
+            units: "Kilogram",
+            physicalAmount: 100.1,
+            moneyAmount: 300.2)
+        
+        let photo2 = UIImage(named: "stock2")
+        let stockItem2 = StockItem(
+            photo: photo2,
+            description: "chicken fillet",
+            invCode: 101101,
+            lastCost: 10.2,
+            units: "Kilogram",
+            physicalAmount: 12.1,
+            moneyAmount: 3322.2)
+        
+        let photo3 = UIImage(named: "stock3")
+        let stockItem3 = StockItem(
+            photo: photo3,
+            description: "atlantic salmon",
+            invCode: 143888,
+            lastCost: 51.1,
+            units: "Kilogram",
+            physicalAmount: 10.2,
+            moneyAmount: 414.2)
+        
+        stockItems += [stockItem1, stockItem2, stockItem3]
     }
 
     override func didReceiveMemoryWarning() {
@@ -46,18 +85,26 @@ class StocktakeTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        return stockItems.count
     }
 
-    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
+        let cellIdentifier = "StockItemTableViewCell"
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! StockItemTableViewCell
+        let stockItem = stockItems[indexPath.row]
 
         // Configure the cell...
+        cell.stockPhotoImageView.image = stockItem.photo
+        cell.stockDescriptionLabel.text = stockItem.description
+        cell.stockInvCodeLabel.text = String(stockItem.invCode)
+        cell.stockLastCostLabel.text = String(stockItem.lastCost)
+        cell.stockUnitsLabel.text = stockItem.units
+        cell.stockPhysicalAmountLabel.text = String(stockItem.physicalAmount)
+        cell.stockMoneyAmountLabel.text = String(stockItem.moneyAmount)
 
+        print(cell.stockMoneyAmountLabel.text!)
         return cell
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.
