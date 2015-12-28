@@ -268,14 +268,25 @@ class StocktakeTableViewController: UITableViewController {
     }
     */
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "showStockItemDetails" {
+            let stockItemDetailViewController = segue.destinationViewController as! StockItemDetailsViewController
+            // get the cell that generated the segue
+            if let selectedStockCell = sender as? StockItemTableViewCell {
+                let indexPath = tableView.indexPathForCell(selectedStockCell)!
+                let selectedStockItem = stockItems[indexPath.row]
+                stockItemDetailViewController.stockItem = selectedStockItem
+            }
+        
+        
+        
+        }
+        
     }
-    */
 
 }

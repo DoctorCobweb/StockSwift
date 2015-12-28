@@ -22,6 +22,7 @@
 		6504F4BD1C2FEA080095668B /* StockItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6504F4BC1C2FEA080095668B /* StockItemTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		6504F4C31C2FEFD40095668B /* StockItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6504F4C21C2FEFD40095668B /* StockItem.swift */; settings = {ASSET_TAGS = (); }; };
 		6504F4C41C2FEFD40095668B /* StockItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6504F4C21C2FEFD40095668B /* StockItem.swift */; settings = {ASSET_TAGS = (); }; };
+		65917B4D1C31045F00D20561 /* StockItemDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65917B4C1C31045F00D20561 /* StockItemDetailsViewController.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		6504F4BA1C2FBC8F0095668B /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		6504F4BC1C2FEA080095668B /* StockItemTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockItemTableViewCell.swift; sourceTree = "<group>"; };
 		6504F4C21C2FEFD40095668B /* StockItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockItem.swift; sourceTree = "<group>"; };
+		65917B4C1C31045F00D20561 /* StockItemDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockItemDetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 				6504F4BA1C2FBC8F0095668B /* SettingsViewController.swift */,
 				6504F4BC1C2FEA080095668B /* StockItemTableViewCell.swift */,
 				6504F4C21C2FEFD40095668B /* StockItem.swift */,
+				65917B4C1C31045F00D20561 /* StockItemDetailsViewController.swift */,
 			);
 			path = StockSwift;
 			sourceTree = "<group>";
@@ -243,6 +246,7 @@
 				6504F4911C2FA41F0095668B /* StockSwift.xcdatamodeld in Sources */,
 				6504F4B11C2FAB680095668B /* StocktakeTableViewController.swift in Sources */,
 				6504F4AF1C2FA45E0095668B /* SWRevealViewController.m in Sources */,
+				65917B4D1C31045F00D20561 /* StockItemDetailsViewController.swift in Sources */,
 				6504F4B71C2FB7120095668B /* Dummy1ViewController.swift in Sources */,
 				6504F4BD1C2FEA080095668B /* StockItemTableViewCell.swift in Sources */,
 				6504F4BB1C2FBC8F0095668B /* SettingsViewController.swift in Sources */,
