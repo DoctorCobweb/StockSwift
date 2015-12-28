@@ -160,50 +160,51 @@
         <scene sceneID="Wn4-V9-0Qx">
             <objects>
                 <tableViewController id="Vph-MQ-Qqm" customClass="StocktakeTableViewController" customModule="StockSwift" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" id="Xtg-Km-SJL">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" id="Xtg-Km-SJL">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="StockItemTableViewCell" rowHeight="60" id="Auj-eD-1fV" customClass="StockItemTableViewCell" customModule="StockSwift" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="600" height="60"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="StockItemTableViewCell" rowHeight="80" id="Auj-eD-1fV" customClass="StockItemTableViewCell" customModule="StockSwift" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="600" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Auj-eD-1fV" id="Qfg-Os-axa">
-                                    <rect key="frame" x="0.0" y="0.0" width="567" height="59"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="79"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KvG-ha-nAc">
-                                            <rect key="frame" x="0.0" y="-1" width="60" height="60"/>
+                                            <rect key="frame" x="12" y="12" width="60" height="60"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="60" id="Fhv-gO-VIV"/>
-                                                <constraint firstAttribute="height" constant="60" id="N5e-bj-TT2"/>
+                                                <constraint firstAttribute="height" constant="60" id="Kyg-q1-cYB"/>
+                                                <constraint firstAttribute="width" constant="60" id="ftz-EO-YjO"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="URl-7q-IIA">
-                                            <rect key="frame" x="68" y="8" width="491" height="21"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="URl-7q-IIA">
+                                            <rect key="frame" x="76" y="12" width="485" height="18"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="myH-2r-n7Z">
-                                            <rect key="frame" x="68" y="31" width="491" height="20"/>
+                                            <rect key="frame" x="76" y="47" width="485" height="12"/>
                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="10"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="URl-7q-IIA" firstAttribute="trailing" secondItem="Qfg-Os-axa" secondAttribute="trailingMargin" constant="8" id="5oO-fO-8X5"/>
-                                        <constraint firstItem="URl-7q-IIA" firstAttribute="leading" secondItem="KvG-ha-nAc" secondAttribute="trailing" constant="8" id="6mp-I9-YM5"/>
-                                        <constraint firstItem="myH-2r-n7Z" firstAttribute="leading" secondItem="URl-7q-IIA" secondAttribute="leading" id="PTL-kx-r9D"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="KvG-ha-nAc" secondAttribute="bottom" constant="-8" id="Sbj-sR-70I"/>
-                                        <constraint firstItem="URl-7q-IIA" firstAttribute="top" secondItem="Qfg-Os-axa" secondAttribute="topMargin" constant="2" id="WvI-NE-jfR"/>
-                                        <constraint firstItem="myH-2r-n7Z" firstAttribute="top" secondItem="URl-7q-IIA" secondAttribute="bottom" constant="2" id="Y3t-09-tPA"/>
-                                        <constraint firstItem="myH-2r-n7Z" firstAttribute="trailing" secondItem="Qfg-Os-axa" secondAttribute="trailingMargin" constant="8" id="aKE-4h-qpU"/>
-                                        <constraint firstItem="KvG-ha-nAc" firstAttribute="top" secondItem="Qfg-Os-axa" secondAttribute="topMargin" constant="-9" id="b5n-8p-Y7W"/>
-                                        <constraint firstItem="myH-2r-n7Z" firstAttribute="leading" secondItem="KvG-ha-nAc" secondAttribute="trailing" constant="8" id="bCr-dt-a11"/>
-                                        <constraint firstItem="KvG-ha-nAc" firstAttribute="leading" secondItem="Qfg-Os-axa" secondAttribute="leadingMargin" constant="-8" id="lHM-06-7gG"/>
-                                        <constraint firstItem="myH-2r-n7Z" firstAttribute="leading" secondItem="KvG-ha-nAc" secondAttribute="trailing" constant="8" id="wUX-qs-cwK"/>
+                                        <constraint firstItem="KvG-ha-nAc" firstAttribute="top" secondItem="Qfg-Os-axa" secondAttribute="topMargin" constant="4" id="0pQ-zN-T2m"/>
+                                        <constraint firstItem="myH-2r-n7Z" firstAttribute="leading" secondItem="KvG-ha-nAc" secondAttribute="trailing" constant="4" id="BU6-Vx-cvJ"/>
+                                        <constraint firstItem="myH-2r-n7Z" firstAttribute="top" secondItem="URl-7q-IIA" secondAttribute="bottom" constant="4" id="DQB-QF-6Ag"/>
+                                        <constraint firstItem="URl-7q-IIA" firstAttribute="leading" secondItem="KvG-ha-nAc" secondAttribute="trailing" constant="4" id="GFI-Zn-cx1"/>
+                                        <constraint firstItem="myH-2r-n7Z" firstAttribute="trailing" secondItem="Qfg-Os-axa" secondAttribute="trailingMargin" constant="2" id="H7z-t4-H3J"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="KvG-ha-nAc" secondAttribute="bottom" constant="4" id="Wh3-aB-mzW"/>
+                                        <constraint firstItem="KvG-ha-nAc" firstAttribute="leading" secondItem="Qfg-Os-axa" secondAttribute="leadingMargin" constant="4" id="Xel-cg-CuS"/>
+                                        <constraint firstItem="myH-2r-n7Z" firstAttribute="leading" secondItem="KvG-ha-nAc" secondAttribute="trailing" constant="4" id="b5d-Zu-XpM"/>
+                                        <constraint firstItem="URl-7q-IIA" firstAttribute="top" secondItem="Qfg-Os-axa" secondAttribute="topMargin" constant="4" id="dMH-mj-qHF"/>
+                                        <constraint firstItem="myH-2r-n7Z" firstAttribute="top" secondItem="URl-7q-IIA" secondAttribute="bottom" constant="4" id="iWw-2b-paW"/>
+                                        <constraint firstItem="URl-7q-IIA" firstAttribute="trailing" secondItem="Qfg-Os-axa" secondAttribute="trailingMargin" constant="2" id="l9E-5c-UIe"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="myH-2r-n7Z" secondAttribute="bottom" constant="4" id="nyZ-fd-ixu"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>

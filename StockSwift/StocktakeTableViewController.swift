@@ -256,9 +256,18 @@ class StocktakeTableViewController: UITableViewController{
             stockItem = stockItems[indexPath.row]
         }
         
+        //self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2;
+        //self.profileImageView.clipsToBounds = YES;
+
         
         // Configure the cell...
         cell.stockPhotoImageView.image = stockItem.photo
+        cell.stockPhotoImageView.layer.cornerRadius = cell.stockPhotoImageView.frame.size.width / 2.0
+        
+        cell.stockPhotoImageView.clipsToBounds = true
+        
+        
+        
         cell.stockDescriptionLabel.text = stockItem.description.uppercaseString
         cell.stockFineDetailsLabel.text = "ID: " + String(stockItem.invCode) + " /// $" + String(stockItem.lastCost) + " per " + stockItem.units
 
