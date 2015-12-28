@@ -31,34 +31,72 @@ class StocktakeTableViewController: UITableViewController {
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
         
-        let parsedContent = parseCSV()
-        //print(parsedContent.headers)
-        print(parsedContent.data![0].description)
+        loadStocktakeItems()
+    }
+    
+    func loadStocktakeItems() {
         
-        loadHardcodedStocktakeItems()
+        //first load and parse the csv data file, "stock_data"
+        let stockContent = parseStockDataCSV()
+        
+        //stockContent is (headers, data) structure
+        //print(stockContent.headers)
+        print(stockContent.data![0].description)
+        
+        //instantiate a stock item for each item in stockContent.data
+        for item in stockContent.data! {
+            print(item.description)
+            print(item.inv_code)
+            print(item.last_cost!)
+            let photo = UIImage(named: "stock1")
+            let stockItem = StockItem(
+                photo: photo,
+                description: item.description,
+                invCode: item.inv_code!,
+                lastCost: item.last_cost!,
+                units: item.units,
+                section: item.stock_group_cleaned)
+            
+            stockItems += [stockItem]
+        }
+    
+    }
+    
+    func loadHardcodedStocktakeItems() {
+        
+        let photo1 = UIImage(named: "stock1")
+        let stockItem1 = StockItem(
+            photo: photo1,
+            description: "beef porterhouse",
+            invCode: 101114,
+            lastCost: 23.4,
+            units: "Kilogram",
+            section: "Beef")
+        
+        let photo2 = UIImage(named: "stock2")
+        let stockItem2 = StockItem(
+            photo: photo2,
+            description: "chicken fillet",
+            invCode: 101101,
+            lastCost: 10.2,
+            units: "Kilogram",
+            section: "Poultry")
+        
+        let photo3 = UIImage(named: "stock3")
+        let stockItem3 = StockItem(
+            photo: photo3,
+            description: "atlantic salmon",
+            invCode: 143888,
+            lastCost: 51.1,
+            units: "Kilogram",
+            section: "Seafood")
+        
+        stockItems += [stockItem1, stockItem2, stockItem3]
     }
     
     
-    /*
-    //OLD NOT USED
-    func getContentsOfURL() -> String? {
-        if let path = NSBundle.mainBundle().pathForResource("assets/stock_data", ofType: "csv") {
-            do {
-
-                return try String(contentsOfURL: NSURL(fileURLWithPath: path), encoding: NSUTF8StringEncoding) as String
-                //return try String(contentsOfFile: "stock_data", encoding:NSUTF8StringEncoding) as String
-            } catch {
-                print("caught a nil in getContentsOfURL")
-                return nil
-            }
-        }
-        else {
-            return nil
-        }
-    }
-    */
     
-    func parseCSV () ->  (headers:[String], data:[(stock_group:String, stock_group_cleaned:String, inv_code:Int?, description:String, units:String, last_cost:Float?, barcode:String)]?) {
+    func parseStockDataCSV () ->  (headers:[String], data:[(stock_group:String, stock_group_cleaned:String, inv_code:Int?, description:String, units:String, last_cost:Float?, barcode:String)]?) {
         // Load the CSV file and parse it
         let delimiter = ","
         var items: [(stock_group:String,
@@ -145,37 +183,25 @@ class StocktakeTableViewController: UITableViewController {
     }
 
     
-    func loadHardcodedStocktakeItems() {
-        
-        let photo1 = UIImage(named: "stock1")
-        let stockItem1 = StockItem(
-            photo: photo1,
-            description: "beef porterhouse",
-            invCode: 101114,
-            lastCost: 23.4,
-            units: "Kilogram",
-            section: "Beef")
-        
-        let photo2 = UIImage(named: "stock2")
-        let stockItem2 = StockItem(
-            photo: photo2,
-            description: "chicken fillet",
-            invCode: 101101,
-            lastCost: 10.2,
-            units: "Kilogram",
-            section: "Poultry")
-        
-        let photo3 = UIImage(named: "stock3")
-        let stockItem3 = StockItem(
-            photo: photo3,
-            description: "atlantic salmon",
-            invCode: 143888,
-            lastCost: 51.1,
-            units: "Kilogram",
-            section: "Seafood")
-        
-        stockItems += [stockItem1, stockItem2, stockItem3]
+    
+    /*
+    //OLD NOT USED
+    func getContentsOfURL() -> String? {
+        if let path = NSBundle.mainBundle().pathForResource("assets/stock_data", ofType: "csv") {
+            do {
+
+                return try String(contentsOfURL: NSURL(fileURLWithPath: path), encoding: NSUTF8StringEncoding) as String
+                //return try String(contentsOfFile: "stock_data", encoding:NSUTF8StringEncoding) as String
+            } catch {
+                print("caught a nil in getContentsOfURL")
+                return nil
+            }
+        }
+        else {
+            return nil
+        }
     }
+    */
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

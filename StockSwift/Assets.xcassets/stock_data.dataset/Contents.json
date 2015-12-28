@@ -1,0 +1,13 @@
+{
+  "info" : {
+    "version" : 1,
+    "author" : "xcode"
+  },
+  "data" : [
+    {
+      "idiom" : "universal",
+      "filename" : "stocktakesheetsbarcode_DRE_EDIT_1.csv",
+      "universal-type-identifier" : "public.comma-separated-values-text"
+    }
+  ]
+}
