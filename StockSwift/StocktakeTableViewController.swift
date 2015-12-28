@@ -8,13 +8,31 @@
 
 import UIKit
 
-class StocktakeTableViewController: UITableViewController {
+extension StocktakeTableViewController: UISearchResultsUpdating {
+    func updateSearchResultsForSearchController(searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
+        filterContentForSearchText(searchController.searchBar.text!, scope:scope)
+    }
+}
+
+
+extension StocktakeTableViewController: UISearchBarDelegate {
+    func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
+    }
+}
+
+class StocktakeTableViewController: UITableViewController{
 
     // MARK: Properties
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
     var stockItems = [StockItem]()
+    var filteredStockItems = [StockItem]()
     
+    //putting nil for searchResultsController tells the app that you want to use the same view your searching in to also display the results.
+    let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +50,25 @@ class StocktakeTableViewController: UITableViewController {
         }
         
         loadStocktakeItems()
+        
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
+        tableView.tableHeaderView = searchController.searchBar
+        
+        
+        searchController.searchBar.scopeButtonTitles = ["ALL", "MEAT", "GROCERY", "PRODUCE", "DESSERT", "OTHER"]
+        searchController.searchBar.delegate = self
+    }
+    
+    func filterContentForSearchText(searchText: String, scope: String = "ALL") {
+        //this filters stockItems array based on the searchText string and will put the results into filteredStockItems array.
+        filteredStockItems = stockItems.filter { item in
+            let categoryMatch = (scope == "ALL") || (item.section == scope)
+            return categoryMatch && item.description.lowercaseString.containsString(searchText.lowercaseString)
+        }
+        
+        tableView.reloadData()
     }
     
     func loadStocktakeItems() {
@@ -44,11 +81,28 @@ class StocktakeTableViewController: UITableViewController {
         print(stockContent.data![0].description)
         
         //instantiate a stock item for each item in stockContent.data
-        for item in stockContent.data! {
+        for (index, item) in stockContent.data!.enumerate() {
             print(item.description)
             print(item.inv_code)
             print(item.last_cost!)
-            let photo = UIImage(named: "stock1")
+            
+            let photo:UIImage?
+            
+            
+            //just playing around with different images
+            if index % 3 == 0 {
+                photo = UIImage(named:"stock3")!
+            }
+            else if index % 5 == 0 {
+                photo = UIImage(named:"stock2")!
+            }
+            else if index % 7 == 0 {
+                photo = UIImage(named:"snow")!
+            }
+            else {
+                photo = UIImage(named: "stock1")!
+            }
+            
             let stockItem = StockItem(
                 photo: photo,
                 description: item.description,
@@ -61,39 +115,6 @@ class StocktakeTableViewController: UITableViewController {
         }
     
     }
-    
-    func loadHardcodedStocktakeItems() {
-        
-        let photo1 = UIImage(named: "stock1")
-        let stockItem1 = StockItem(
-            photo: photo1,
-            description: "beef porterhouse",
-            invCode: 101114,
-            lastCost: 23.4,
-            units: "Kilogram",
-            section: "Beef")
-        
-        let photo2 = UIImage(named: "stock2")
-        let stockItem2 = StockItem(
-            photo: photo2,
-            description: "chicken fillet",
-            invCode: 101101,
-            lastCost: 10.2,
-            units: "Kilogram",
-            section: "Poultry")
-        
-        let photo3 = UIImage(named: "stock3")
-        let stockItem3 = StockItem(
-            photo: photo3,
-            description: "atlantic salmon",
-            invCode: 143888,
-            lastCost: 51.1,
-            units: "Kilogram",
-            section: "Seafood")
-        
-        stockItems += [stockItem1, stockItem2, stockItem3]
-    }
-    
     
     
     func parseStockDataCSV () ->  (headers:[String], data:[(stock_group:String, stock_group_cleaned:String, inv_code:Int?, description:String, units:String, last_cost:Float?, barcode:String)]?) {
@@ -216,15 +237,26 @@ class StocktakeTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return stockItems.count
+        
+        if searchController.active && searchController.searchBar.text != "" {
+            return filteredStockItems.count
+        } else {
+            return stockItems.count
+        }
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cellIdentifier = "StockItemTableViewCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! StockItemTableViewCell
-        let stockItem = stockItems[indexPath.row]
-
+        
+        let stockItem: StockItem
+        if searchController.active && searchController.searchBar.text != "" {
+            stockItem = filteredStockItems[indexPath.row]
+        } else {
+            stockItem = stockItems[indexPath.row]
+        }
+        
+        
         // Configure the cell...
         cell.stockPhotoImageView.image = stockItem.photo
         cell.stockDescriptionLabel.text = stockItem.description.uppercaseString
@@ -278,9 +310,19 @@ class StocktakeTableViewController: UITableViewController {
             let stockItemDetailViewController = segue.destinationViewController as! StockItemDetailsViewController
             // get the cell that generated the segue
             if let selectedStockCell = sender as? StockItemTableViewCell {
+                
+                
                 let indexPath = tableView.indexPathForCell(selectedStockCell)!
-                let selectedStockItem = stockItems[indexPath.row]
-                stockItemDetailViewController.stockItem = selectedStockItem
+                let stockItem: StockItem
+                
+                //must factor into the segue whether user selected after searching or no
+                if searchController.active && searchController.searchBar.text != "" {
+                    stockItem = filteredStockItems[indexPath.row]
+                } else {
+                    stockItem = stockItems[indexPath.row]
+                }
+                
+                stockItemDetailViewController.stockItem = stockItem
             }
         
         
@@ -290,3 +332,5 @@ class StocktakeTableViewController: UITableViewController {
     }
 
 }
+
+

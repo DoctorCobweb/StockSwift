@@ -231,7 +231,7 @@
             </objects>
             <point key="canvasLocation" x="3026" y="-769"/>
         </scene>
-        <!--Stock Item Details View Controller-->
+        <!--Stock Item Details-->
         <scene sceneID="tGi-Sf-DEz">
             <objects>
                 <viewController id="KB6-DZ-zKl" customClass="StockItemDetailsViewController" customModule="StockSwift" customModuleProvider="target" sceneMemberID="viewController">
@@ -243,7 +243,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qhp-fB-Zwn">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qhp-fB-Zwn">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="1000"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y5g-8p-7OV">
@@ -311,7 +311,7 @@
                                                     <constraint firstAttribute="height" constant="3" id="dLM-Hj-tS5"/>
                                                 </constraints>
                                             </view>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="stock1" translatesAutoresizingMaskIntoConstraints="NO" id="gr9-GA-KYL">
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="stock2" translatesAutoresizingMaskIntoConstraints="NO" id="gr9-GA-KYL">
                                                 <rect key="frame" x="209" y="42" width="200" height="200"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="gr9-GA-KYL" secondAttribute="height" multiplier="1:1" id="JYt-Kv-biB"/>
@@ -382,19 +382,31 @@
                             <constraint firstAttribute="trailing" secondItem="qhp-fB-Zwn" secondAttribute="trailing" id="LnR-uP-AGn"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Stock Item Details" id="nfs-DC-AAM">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="CFB-LN-eUg">
+                            <connections>
+                                <action selector="cancel:" destination="KB6-DZ-zKl" id="wwQ-yC-EBn"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="Yfv-ZI-UVF">
+                            <connections>
+                                <action selector="save:" destination="KB6-DZ-zKl" id="eEL-5z-M1i"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="1000"/>
                     <connections>
                         <outlet property="stockDescriptionLabel" destination="Ihy-3U-aFT" id="xzE-Vq-F3A"/>
                         <outlet property="stockFineDetailLabel" destination="ECE-NH-UDe" id="rpb-rt-exb"/>
                         <outlet property="stockMoneyAmountLabel" destination="JbU-1L-ZHN" id="8cB-ms-fti"/>
+                        <outlet property="stockPhotoImageView" destination="gr9-GA-KYL" id="Euu-AX-NRr"/>
                         <outlet property="stockPhysicalAmountLabel" destination="v3V-7G-FOg" id="mPl-I0-n7q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zXJ-9S-PZ0" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <navigationItem title="Stock Item Details" id="lbT-Xv-S6m">
-                    <barButtonItem key="rightBarButtonItem" systemItem="save" id="mJ9-h2-oHp"/>
-                </navigationItem>
             </objects>
             <point key="canvasLocation" x="3852" y="-747"/>
         </scene>
@@ -562,7 +574,7 @@
         <image name="menu" width="22" height="22"/>
         <image name="settings" width="1024" height="1024"/>
         <image name="snow" width="1800" height="1350"/>
-        <image name="stock1" width="540" height="540"/>
+        <image name="stock2" width="528" height="540"/>
         <image name="stocktake" width="1024" height="1024"/>
     </resources>
     <inferredMetricsTieBreakers>
