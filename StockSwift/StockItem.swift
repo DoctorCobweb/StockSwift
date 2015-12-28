@@ -16,8 +16,7 @@ class StockItem {
     var invCode: Int
     var lastCost: Float
     var units: String
-    var physicalAmount: Float?
-    var moneyAmount: Float?
+    var section: String
     
     
     
@@ -27,18 +26,13 @@ class StockItem {
         invCode: Int,
         lastCost: Float,
         units: String,
-        physicalAmount: Float?,
-        moneyAmount: Float?) {
+        section: String) {
         
         self.photo = photo
         self.description = description
         self.invCode = invCode
         self.lastCost = lastCost
         self.units = units
-        self.physicalAmount = physicalAmount
-        self.moneyAmount = moneyAmount
-        
-            
-        
+        self.section = section
     }
 }

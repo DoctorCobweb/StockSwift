@@ -31,10 +31,119 @@ class StocktakeTableViewController: UITableViewController {
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
         
+        let parsedContent = parseCSV()
+        //print(parsedContent.headers)
+        print(parsedContent.data![0].description)
         
         loadHardcodedStocktakeItems()
     }
     
+    
+    /*
+    //OLD NOT USED
+    func getContentsOfURL() -> String? {
+        if let path = NSBundle.mainBundle().pathForResource("assets/stock_data", ofType: "csv") {
+            do {
+
+                return try String(contentsOfURL: NSURL(fileURLWithPath: path), encoding: NSUTF8StringEncoding) as String
+                //return try String(contentsOfFile: "stock_data", encoding:NSUTF8StringEncoding) as String
+            } catch {
+                print("caught a nil in getContentsOfURL")
+                return nil
+            }
+        }
+        else {
+            return nil
+        }
+    }
+    */
+    
+    func parseCSV () ->  (headers:[String], data:[(stock_group:String, stock_group_cleaned:String, inv_code:Int?, description:String, units:String, last_cost:Float?, barcode:String)]?) {
+        // Load the CSV file and parse it
+        let delimiter = ","
+        var items: [(stock_group:String,
+                     stock_group_cleaned:String,
+                     inv_code:Int?,
+                     description:String,
+                     units:String,
+                     last_cost:Float?,
+                     barcode:String)]?
+        
+        //get the stock_data from the assests folder
+        let stock_data = NSDataAsset(name:"stock_data")
+        var headers = [String]()
+        
+        //stock_data!.data is raw byte data so we must convert it to String using the following initializer
+        
+        if let content = String(data:stock_data!.data, encoding:NSUTF8StringEncoding) {
+            items = []
+            let lines:[String] = content.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet()) as [String]
+            
+            for (index,line) in lines.enumerate() {
+                //print(index)
+                var values:[String] = []
+                if line != "" {
+                    // For a line with double quotes
+                    // we use NSScanner to perform the parsing
+                    if line.rangeOfString("\"") != nil {
+                        var textToScan:String = line
+                        var value:NSString?
+                        var textScanner:NSScanner = NSScanner(string: textToScan)
+                        while textScanner.string != "" {
+                            
+                            if (textScanner.string as NSString).substringToIndex(1) == "\"" {
+                                textScanner.scanLocation += 1
+                                textScanner.scanUpToString("\"", intoString: &value)
+                                textScanner.scanLocation += 1
+                            } else {
+                                textScanner.scanUpToString(delimiter, intoString: &value)
+                            }
+                            
+                            // Store the value into the values array
+                            values.append(value as! String)
+                            
+                            // Retrieve the unscanned remainder of the string
+                            if textScanner.scanLocation < textScanner.string.characters.count {
+                                textToScan = (textScanner.string as NSString).substringFromIndex(textScanner.scanLocation + 1)
+                            } else {
+                                textToScan = ""
+                            }
+                            textScanner = NSScanner(string: textToScan)
+                        }
+                        
+                        // For a line without double quotes, we can simply separate the string
+                        // by using the delimiter (e.g. comma)
+                    }
+                    else  {
+                        values = line.componentsSeparatedByString(delimiter)
+                    }
+                    
+                    if index == 0 {
+                        //we have the header line
+                        headers = values
+                    }
+                    else {
+                        // Put the values into the tuple and add it to the items array
+                        let item = (stock_group: values[0],
+                                    stock_group_cleaned: values[1],
+                                    inv_code: Int(values[2]),
+                                    description: values[3],
+                                    units: values[4],
+                                    last_cost: Float(values[5]),
+                                    barcode: values[6])
+                        items?.append(item)
+                    
+                    }
+                }
+            }
+        }
+        else {
+            print("ERROR: unable to read stock_data")
+        }
+        
+        return (headers, items)
+    }
+
     
     func loadHardcodedStocktakeItems() {
         
@@ -45,8 +154,7 @@ class StocktakeTableViewController: UITableViewController {
             invCode: 101114,
             lastCost: 23.4,
             units: "Kilogram",
-            physicalAmount: 100.1,
-            moneyAmount: 300.2)
+            section: "Beef")
         
         let photo2 = UIImage(named: "stock2")
         let stockItem2 = StockItem(
@@ -55,8 +163,7 @@ class StocktakeTableViewController: UITableViewController {
             invCode: 101101,
             lastCost: 10.2,
             units: "Kilogram",
-            physicalAmount: 12.1,
-            moneyAmount: 3322.2)
+            section: "Poultry")
         
         let photo3 = UIImage(named: "stock3")
         let stockItem3 = StockItem(
@@ -65,8 +172,7 @@ class StocktakeTableViewController: UITableViewController {
             invCode: 143888,
             lastCost: 51.1,
             units: "Kilogram",
-            physicalAmount: 10.2,
-            moneyAmount: 414.2)
+            section: "Seafood")
         
         stockItems += [stockItem1, stockItem2, stockItem3]
     }
@@ -95,14 +201,9 @@ class StocktakeTableViewController: UITableViewController {
 
         // Configure the cell...
         cell.stockPhotoImageView.image = stockItem.photo
-        cell.stockDescriptionLabel.text = stockItem.description
-        cell.stockInvCodeLabel.text = String(stockItem.invCode)
-        cell.stockLastCostLabel.text = String(stockItem.lastCost)
-        cell.stockUnitsLabel.text = stockItem.units
-        cell.stockPhysicalAmountLabel.text = String(stockItem.physicalAmount)
-        cell.stockMoneyAmountLabel.text = String(stockItem.moneyAmount)
+        cell.stockDescriptionLabel.text = stockItem.description.uppercaseString
+        cell.stockFineDetailsLabel.text = "ID: " + String(stockItem.invCode) + " /// $" + String(stockItem.lastCost) + " per " + stockItem.units
 
-        print(cell.stockMoneyAmountLabel.text!)
         return cell
     }
 

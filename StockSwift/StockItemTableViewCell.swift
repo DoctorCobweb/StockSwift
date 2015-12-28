@@ -13,11 +13,7 @@ class StockItemTableViewCell: UITableViewCell {
     // MARK: Properties
     @IBOutlet weak var stockPhotoImageView: UIImageView!
     @IBOutlet weak var stockDescriptionLabel: UILabel!
-    @IBOutlet weak var stockInvCodeLabel: UILabel!
-    @IBOutlet weak var stockLastCostLabel: UILabel!
-    @IBOutlet weak var stockUnitsLabel: UILabel!
-    @IBOutlet weak var stockPhysicalAmountLabel: UILabel!
-    @IBOutlet weak var stockMoneyAmountLabel: UILabel!
+    @IBOutlet weak var stockFineDetailsLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

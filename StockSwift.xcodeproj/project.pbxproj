@@ -441,6 +441,7 @@
 				6504F4A71C2FA41F0095668B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6504F4A81C2FA41F0095668B /* Build configuration list for PBXNativeTarget "StockSwiftTests" */ = {
 			isa = XCConfigurationList;
@@ -449,6 +450,7 @@
 				6504F4AA1C2FA41F0095668B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
