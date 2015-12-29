@@ -27,6 +27,10 @@ class SettingsViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
+    @IBAction func blahSettings(sender: UIStoryboardSegue) {
+        
+    }
     
 
     /*

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StockItemDetailsViewController: UIViewController {
+class StockItemDetailsViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Properties
     
@@ -17,12 +17,15 @@ class StockItemDetailsViewController: UIViewController {
     @IBOutlet weak var stockPhysicalAmountLabel: UILabel!
     @IBOutlet weak var stockMoneyAmountLabel: UILabel!
     @IBOutlet weak var stockPhotoImageView: UIImageView!
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    @IBOutlet weak var newStockAmountTextField: UITextField!
     
     var stockItem:StockItem?
+    var stockResult = [Int: Float]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(stockItem!.description)
+        //print(stockItem!.description)
         
         navigationItem.title! = "Stock Item Details"
         
@@ -30,7 +33,32 @@ class StockItemDetailsViewController: UIViewController {
           stockDescriptionLabel.text = item.description
           stockFineDetailLabel.text = "ID: " + String(item.invCode) + " /// $" + String(item.lastCost) + " per " + item.units
           stockPhotoImageView.image = item.photo
+        }
         
+        newStockAmountTextField.delegate = self
+        
+    }
+    
+    // MARK: UITextFieldDelegate protocol methods
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        //text field should resign as first responder to hide
+        //the keyboard
+        newStockAmountTextField.resignFirstResponder()
+        return true
+    }
+    
+    //TODO: error/formatting checking
+    func textFieldDidEndEditing(textField: UITextField) {
+        //gives us a chance to read the value in the text field
+        if let entry = textField.text {
+            if entry != "" {
+                let numberEntered = Float(textField.text!)!
+                let calculatedMoney = numberEntered * stockItem!.lastCost
+                stockPhysicalAmountLabel.text = textField.text
+                stockMoneyAmountLabel.text = String(calculatedMoney)
+                stockResult[stockItem!.invCode] = numberEntered * stockItem!.lastCost
+            }
         }
     }
 
@@ -70,19 +98,29 @@ class StockItemDetailsViewController: UIViewController {
         navigationController!.popViewControllerAnimated(true)
     }
     
-    @IBAction func save(sender: UIBarButtonItem) {
-        //
-        //TODO: implement SAVE FUNCTIONALITY.   
-        //for now just dismiss the view aka cancel action
-        print("TODO:SAVE STOCK ITEM DETAILS CHANGES")
-        navigationController!.popViewControllerAnimated(true)
-    }
-    
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        print("prepareForSegue")
+        
+        /*
+        if saveButton === sender {
+            //make a dummy amount for now of 1.234
+            stockResult![stockItem!.invCode] = stockItem!.lastCost * 1.234
+        }
+        */
     }
+    
+    @IBAction func saveStock(sender: UIBarButtonItem) {
+        let sourceViewController = navigationController!.viewControllers[0] as! StocktakeTableViewController
+        
+        sourceViewController.updateStocktakeDetails(stockResult)
+        navigationController!.popViewControllerAnimated(true)
+    }
+    
+    
+    
 
 }

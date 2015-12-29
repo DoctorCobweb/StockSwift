@@ -39,6 +39,8 @@ extension StocktakeTableViewController: UISearchBarDelegate {
     }
 }
 
+
+
 class StocktakeTableViewController: UITableViewController{
 
     // MARK: Properties
@@ -46,6 +48,7 @@ class StocktakeTableViewController: UITableViewController{
     
     var stockItems = [StockItem]()
     var filteredStockItems = [StockItem]()
+    var runningStocktakeDict =  [Int: [Float]]()
     
     //putting nil for searchResultsController tells the app that you want to use the same view your searching in to also display the results.
     let searchController = UISearchController(searchResultsController: nil)
@@ -128,14 +131,14 @@ class StocktakeTableViewController: UITableViewController{
         let stockContent_sorted = stockContent.data!.sort{$0.description < $1.description}
         
         //stockContent is (headers, data) structure
-        print(stockHeaders)
+        //print(stockHeaders)
         
         //instantiate a stock item for each item in stockContent.data
         //for (index, item) in stockContent.data!.enumerate() {
         for (index, item) in stockContent_sorted.enumerate() {
-            print(item.description)
-            print(item.inv_code)
-            print(item.last_cost!)
+            //print(item.description)
+            //print(item.inv_code)
+            //print(item.last_cost!)
             
             let photo:UIImage?
             
@@ -433,26 +436,31 @@ class StocktakeTableViewController: UITableViewController{
         }
         
     }
-
     
-    /*
-    //OLD NOT USED: kept as a reference for how to use paths and strings from url stuff
-    func getContentsOfURL() -> String? {
-        if let path = NSBundle.mainBundle().pathForResource("assets/stock_data", ofType: "csv") {
-            do {
-
-                return try String(contentsOfURL: NSURL(fileURLWithPath: path), encoding: NSUTF8StringEncoding) as String
-                //return try String(contentsOfFile: "stock_data", encoding:NSUTF8StringEncoding) as String
-            } catch {
-                print("caught a nil in getContentsOfURL")
-                return nil
-            }
-        }
-        else {
-            return nil
-        }
+    
+    
+    @IBAction func yadda(sender: UIStoryboardSegue) {
+    
     }
-    */
+    
+    func updateStocktakeDetails(stockResult: [Int:Float]?) {
+        
+        for (invCode, moneyAmount) in stockResult! {
+            
+            if let val = runningStocktakeDict[invCode] {
+                //val is not nil and has been unwrapped 
+                let new_stuff = val + [moneyAmount]
+                runningStocktakeDict[invCode] = new_stuff
+            }
+            else {
+                runningStocktakeDict[invCode] = [moneyAmount]
+            }
+            
+        
+        }
+        
+        print("runningStocktakeDict:")
+        print(runningStocktakeDict)
+    }
+    
 }
-
-

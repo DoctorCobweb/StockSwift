@@ -27,6 +27,10 @@ class Dummy2ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func blahDummy2(sender: UIStoryboardSegue) {
+        
+    }
+    
 
     /*
     // MARK: - Navigation

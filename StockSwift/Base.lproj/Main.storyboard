@@ -312,6 +312,11 @@
                                                     <constraint firstAttribute="height" constant="3" id="dLM-Hj-tS5"/>
                                                 </constraints>
                                             </view>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1ki-Sq-h8T">
+                                                <rect key="frame" x="1" y="520" width="584" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="stock2" translatesAutoresizingMaskIntoConstraints="NO" id="gr9-GA-KYL">
                                                 <rect key="frame" x="209" y="42" width="200" height="200"/>
                                                 <constraints>
@@ -323,9 +328,7 @@
                                         </subviews>
                                         <accessibility key="accessibilityConfiguration" label=""/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="k4d-LP-nJA" secondAttribute="bottom" constant="452" id="062-lo-l2h"/>
                                             <constraint firstItem="UU2-9m-tkw" firstAttribute="leading" secondItem="y5g-8p-7OV" secondAttribute="leading" id="1mR-S2-ehH"/>
-                                            <constraint firstAttribute="bottom" secondItem="k4d-LP-nJA" secondAttribute="bottom" constant="390" id="2Am-Bm-erM"/>
                                             <constraint firstItem="k4d-LP-nJA" firstAttribute="leading" secondItem="y5g-8p-7OV" secondAttribute="leading" id="3j1-FZ-7Sm"/>
                                             <constraint firstItem="gr9-GA-KYL" firstAttribute="centerX" secondItem="y5g-8p-7OV" secondAttribute="centerX" id="4xp-6x-nSg"/>
                                             <constraint firstItem="AR7-rf-SPQ" firstAttribute="leading" secondItem="y5g-8p-7OV" secondAttribute="leading" id="Ax8-YH-sVf"/>
@@ -333,6 +336,7 @@
                                             <constraint firstAttribute="trailing" secondItem="Ihy-3U-aFT" secondAttribute="trailing" id="BFg-dv-6Rr"/>
                                             <constraint firstItem="JbU-1L-ZHN" firstAttribute="top" secondItem="YNV-eH-Q0L" secondAttribute="bottom" constant="8" id="Cpn-rG-f9r"/>
                                             <constraint firstItem="k4d-LP-nJA" firstAttribute="top" secondItem="7rK-ar-crs" secondAttribute="bottom" constant="9" id="DWz-i1-uNX"/>
+                                            <constraint firstItem="1ki-Sq-h8T" firstAttribute="top" secondItem="k4d-LP-nJA" secondAttribute="bottom" constant="13" id="E3p-zB-jvT"/>
                                             <constraint firstItem="RMO-ud-haU" firstAttribute="leading" secondItem="y5g-8p-7OV" secondAttribute="leading" id="EVG-xh-Dr0"/>
                                             <constraint firstItem="v3V-7G-FOg" firstAttribute="top" secondItem="UU2-9m-tkw" secondAttribute="bottom" constant="8" id="G8y-PC-fpZ"/>
                                             <constraint firstItem="gr9-GA-KYL" firstAttribute="centerX" secondItem="y5g-8p-7OV" secondAttribute="centerX" id="Gig-7Z-Mb3"/>
@@ -344,8 +348,10 @@
                                             <constraint firstItem="7rK-ar-crs" firstAttribute="top" secondItem="JbU-1L-ZHN" secondAttribute="bottom" constant="24" id="PW2-sU-Oh7"/>
                                             <constraint firstItem="AR7-rf-SPQ" firstAttribute="top" secondItem="RMO-ud-haU" secondAttribute="bottom" constant="8" id="SJ4-cQ-xf6"/>
                                             <constraint firstAttribute="trailing" secondItem="AR7-rf-SPQ" secondAttribute="trailing" id="SR5-Iw-qsm"/>
+                                            <constraint firstItem="1ki-Sq-h8T" firstAttribute="leading" secondItem="y5g-8p-7OV" secondAttribute="leading" id="SdG-Ya-HLr"/>
                                             <constraint firstItem="k4d-LP-nJA" firstAttribute="leading" secondItem="y5g-8p-7OV" secondAttribute="leading" id="XjH-QK-oyF"/>
                                             <constraint firstItem="UU2-9m-tkw" firstAttribute="top" secondItem="ECE-NH-UDe" secondAttribute="bottom" constant="8" id="Yuq-pD-rYF"/>
+                                            <constraint firstItem="1ki-Sq-h8T" firstAttribute="top" secondItem="k4d-LP-nJA" secondAttribute="bottom" constant="13" id="bFX-Rb-hHn"/>
                                             <constraint firstAttribute="trailing" secondItem="JbU-1L-ZHN" secondAttribute="trailing" id="bMu-0D-AYp"/>
                                             <constraint firstItem="YNV-eH-Q0L" firstAttribute="top" secondItem="v3V-7G-FOg" secondAttribute="bottom" constant="8" id="blR-3g-tOm"/>
                                             <constraint firstAttribute="trailing" secondItem="UU2-9m-tkw" secondAttribute="trailing" id="eAV-1P-F0W"/>
@@ -358,10 +364,12 @@
                                             <constraint firstAttribute="trailing" secondItem="k4d-LP-nJA" secondAttribute="trailing" id="oSA-kG-fQE"/>
                                             <constraint firstItem="v3V-7G-FOg" firstAttribute="leading" secondItem="y5g-8p-7OV" secondAttribute="leading" id="qAP-VU-iCq"/>
                                             <constraint firstItem="JbU-1L-ZHN" firstAttribute="leading" secondItem="y5g-8p-7OV" secondAttribute="leading" id="rSj-HV-nuf"/>
+                                            <constraint firstAttribute="bottom" secondItem="1ki-Sq-h8T" secondAttribute="bottom" constant="434" id="u7D-uq-1od"/>
                                             <constraint firstItem="Ihy-3U-aFT" firstAttribute="leading" secondItem="y5g-8p-7OV" secondAttribute="leading" id="vGx-hz-lEq"/>
                                             <constraint firstAttribute="trailing" secondItem="7rK-ar-crs" secondAttribute="trailing" id="vI7-Dg-lxM"/>
                                             <constraint firstItem="Ihy-3U-aFT" firstAttribute="top" secondItem="y5g-8p-7OV" secondAttribute="top" constant="15" id="xgD-En-0uG"/>
                                             <constraint firstAttribute="trailing" secondItem="YNV-eH-Q0L" secondAttribute="trailing" id="xrW-ii-a8K"/>
+                                            <constraint firstAttribute="trailing" secondItem="1ki-Sq-h8T" secondAttribute="trailing" id="yZ3-iL-2Da"/>
                                             <constraint firstItem="v3V-7G-FOg" firstAttribute="top" secondItem="UU2-9m-tkw" secondAttribute="bottom" constant="8" id="zp6-nO-cFJ"/>
                                         </constraints>
                                     </view>
@@ -390,9 +398,9 @@
                                 <action selector="cancel:" destination="KB6-DZ-zKl" id="wwQ-yC-EBn"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="Yfv-ZI-UVF">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="WGv-g6-wPb">
                             <connections>
-                                <action selector="save:" destination="KB6-DZ-zKl" id="eEL-5z-M1i"/>
+                                <action selector="saveStock:" destination="KB6-DZ-zKl" id="alb-Uw-prX"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -400,6 +408,8 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="1000"/>
                     <connections>
+                        <outlet property="newStockAmountTextField" destination="1ki-Sq-h8T" id="oQS-hg-joK"/>
+                        <outlet property="saveButton" destination="WGv-g6-wPb" id="LEG-KF-A9r"/>
                         <outlet property="stockDescriptionLabel" destination="Ihy-3U-aFT" id="xzE-Vq-F3A"/>
                         <outlet property="stockFineDetailLabel" destination="ECE-NH-UDe" id="rpb-rt-exb"/>
                         <outlet property="stockMoneyAmountLabel" destination="JbU-1L-ZHN" id="8cB-ms-fti"/>
