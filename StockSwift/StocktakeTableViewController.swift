@@ -90,7 +90,7 @@ class StocktakeTableViewController: UITableViewController{
     }
     
     func filterContentForSearchText(searchText: String, scope: String = "ALL") {
-        print("filterContentForSearchText and searchText: " + searchText)
+        //print("filterContentForSearchText and searchText: " + searchText)
         
         //this filters stockItems array based on the searchText string and will put the results into filteredStockItems array.
         //
@@ -112,7 +112,6 @@ class StocktakeTableViewController: UITableViewController{
             }
             else {
                 //print("filterContentForSearchText, searchText != \"\" is true")
-                //let categoryMatch = (scope == "ALL") || (item.section == scope)
                 return (item.section == scope) && item.description.lowercaseString.containsString(searchText.lowercaseString)
             }
         }
@@ -122,20 +121,21 @@ class StocktakeTableViewController: UITableViewController{
     
     func loadStocktakeItems() {
         
-        //first load and parse the csv data file, "stock_data"
+        //first load and parse the csv data file, "stock_data", then sort it alphabettically
+        //using description field
         let stockContent = parseStockDataCSV()
+        let stockHeaders:[String] = stockContent.headers
+        let stockContent_sorted = stockContent.data!.sort{$0.description < $1.description}
         
         //stockContent is (headers, data) structure
-        //print(stockContent.headers)
-        print(stockContent.data![0].description)
+        print(stockHeaders)
         
         //instantiate a stock item for each item in stockContent.data
-        for (index, item) in stockContent.data!.enumerate() {
+        //for (index, item) in stockContent.data!.enumerate() {
+        for (index, item) in stockContent_sorted.enumerate() {
             print(item.description)
             print(item.inv_code)
             print(item.last_cost!)
-            print(item.stock_group_cleaned)
-            print(item.stock_group_cleaned.characters.count)
             
             let photo:UIImage?
             
