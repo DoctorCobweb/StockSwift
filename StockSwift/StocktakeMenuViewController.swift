@@ -24,6 +24,10 @@ class StocktakeMenuViewController: UIViewController {
             menuButton.action = "revealToggle:"
             self.view.addGestureRecognizer(revealViewController().panGestureRecognizer())
         }
+        let blah = UIColor(red: 255.0/255, green: 153/255, blue: 45.0/255, alpha: 0.0)
+        navigationController?.navigationBar.barTintColor = blah
+        //navigationController?.navigationBar.barTintColor = UIColor(red: 255.0, green: 10.0, blue: 100.0, alpha: 1.0)
+        //navigationController?.navigationBar.backgroundColor = UIColor(red: 255.0, green: 255.0, blue: 12.1, alpha: 0.3)
     }
 
     override func didReceiveMemoryWarning() {

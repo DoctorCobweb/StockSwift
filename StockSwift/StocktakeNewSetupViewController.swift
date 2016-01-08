@@ -26,6 +26,8 @@ class StocktakeNewSetupViewController: UIViewController, UITextFieldDelegate {
         //add a bar button programmatically and set
         //its action/target pair
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancelNewStocktake:")
+        navigationItem.title = "Setup Stocktake"
+        
         personName.delegate = self
         
         //set a default time of now.
@@ -33,6 +35,10 @@ class StocktakeNewSetupViewController: UIViewController, UITextFieldDelegate {
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
         let strDate =  dateFormatter.stringFromDate(datePicker.date)
         stocktakeMetadata["date"] = strDate
+        
+        datePicker.setValue(UIColor.whiteColor(), forKey: "textColor")
+        
+        personName.attributedPlaceholder = NSAttributedString(string: "Person Name", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
     }
 
     override func didReceiveMemoryWarning() {
@@ -51,21 +57,27 @@ class StocktakeNewSetupViewController: UIViewController, UITextFieldDelegate {
         }
         let kitchenAction = UIAlertAction(title:"Kitchen", style:.Default) {(action) in print(action)
             self.stocktakeMetadata["department"] = "kitchen"
+            self.department.titleLabel?.text = "Kitchen"
         }
         let bottleshopAction = UIAlertAction(title:"Bottleshop", style:.Default) {(action) in print(action)
             self.stocktakeMetadata["department"] = "bottleshop"
+            self.department.titleLabel?.text = "Bottleshop"
         }
         let gamingAction = UIAlertAction(title:"Gaming", style:.Default) {(action) in print(action)
             self.stocktakeMetadata["department"] = "gaming"
+            self.department.titleLabel?.text = "Gaming"
         }
         let restaurantAction = UIAlertAction(title:"Restaurant", style:.Default) {(action) in print(action)
             self.stocktakeMetadata["department"] = "restaurant"
+            self.department.titleLabel?.text = "Restaurant"
         }
         let barAction = UIAlertAction(title:"Bar", style:.Default) {(action) in print(action)
             self.stocktakeMetadata["department"] = "bar"
+            self.department.titleLabel?.text = "Bar"
         }
         let tabAction = UIAlertAction(title:"Tab", style:.Default) {(action) in print(action)
             self.stocktakeMetadata["department"] = "tab"
+            self.department.titleLabel?.text = "Tab"
         }
         
         alertController.addAction(cancelAction)
@@ -103,6 +115,7 @@ class StocktakeNewSetupViewController: UIViewController, UITextFieldDelegate {
     func textFieldDidBeginEditing(textField: UITextField) {
         // disable save button while editing
         //saveButton.enabled = false
+        personName.placeholder = ""
     }
     
     func checkValidFieldName() {

@@ -373,11 +373,16 @@ class StocktakeTableViewController: UITableViewController{
             cell.stockRunningCostLabel.backgroundColor = UIColor.orangeColor()
         }
         else {
-            cell.stockRunningAmountLabel.text = "0"
+            cell.stockRunningAmountLabel.text = " 0.0"
             cell.stockRunningCostLabel.text = "$0.0"
             cell.stockRunningAmountLabel.backgroundColor = UIColor.grayColor()
             cell.stockRunningCostLabel.backgroundColor = UIColor.grayColor()
         }
+        
+        cell.stockRunningAmountLabel.layer.masksToBounds = true
+        cell.stockRunningAmountLabel.layer.cornerRadius = 8.0
+        cell.stockRunningCostLabel.layer.masksToBounds = true
+        cell.stockRunningCostLabel.layer.cornerRadius = 8.0
         
 
         return cell

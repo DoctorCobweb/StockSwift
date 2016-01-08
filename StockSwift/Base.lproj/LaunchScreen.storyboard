@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -16,25 +17,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Stock Swift" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HAS-eu-wsQ">
-                                <rect key="frame" x="121" y="247" width="359" height="81"/>
-                                <color key="backgroundColor" red="1" green="0.70981942753024685" blue="0.12428326956128133" alpha="1" colorSpace="calibratedRGB"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bird_icon" translatesAutoresizingMaskIntoConstraints="NO" id="est-eJ-lY0">
+                                <rect key="frame" x="172" y="172" width="256" height="256"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="81" id="Kju-Wq-BBb"/>
-                                    <constraint firstAttribute="height" constant="81" id="UIT-u2-klb"/>
-                                    <constraint firstAttribute="width" constant="359" id="YNd-Ma-qTj"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="359" id="be1-BT-Gpg"/>
+                                    <constraint firstAttribute="width" secondItem="est-eJ-lY0" secondAttribute="height" multiplier="1:1" id="Rso-EI-yj5"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="42"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </imageView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" red="0.14790482954545459" green="0.14790482954545459" blue="0.14790482954545459" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="HAS-eu-wsQ" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="HjI-He-Sho"/>
-                            <constraint firstItem="HAS-eu-wsQ" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="oUq-n6-01P"/>
+                            <constraint firstItem="est-eJ-lY0" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="0mk-NS-DXi"/>
+                            <constraint firstItem="est-eJ-lY0" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="xGA-NZ-EQ0"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -43,4 +37,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="bird_icon" width="256" height="256"/>
+    </resources>
 </document>

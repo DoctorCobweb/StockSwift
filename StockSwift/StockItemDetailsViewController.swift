@@ -11,7 +11,6 @@ import UIKit
 class StockItemDetailsViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: Properties
-    
     @IBOutlet weak var stockDescriptionLabel: UILabel!
     @IBOutlet weak var stockFineDetailLabel: UILabel!
     @IBOutlet weak var stockPhysicalAmountLabel: UILabel!
@@ -22,11 +21,10 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate {
     
     var stockItem:StockItem?
     var stockCurrent: [Int: Float]?
-    var newAmount:[Int:Float]?
+    var amountsBuffer:[Float] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //print(stockItem!.description)
         
         navigationItem.title! = "Stock Item Details"
         saveButton.enabled = false
@@ -51,6 +49,7 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate {
         newStockAmountTextField.delegate = self
     }
     
+    
     // MARK: UITextFieldDelegate protocol methods
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -66,17 +65,30 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate {
         
         if !entry.isEmpty {
             if let numberEntered = Float(entry) {
-                stockPhysicalAmountLabel.text = String( numberEntered + Float(stockPhysicalAmountLabel.text!)! )
-                stockMoneyAmountLabel.text = String( ((numberEntered + (stockCurrent?[stockItem!.invCode])!) * stockItem!.lastCost)  )
                 
-                //put the new amount use entered into the newAmount dict
-                newAmount = [stockItem!.invCode: numberEntered]
+                amountsBuffer.append(numberEntered)
+                
+                let bufferSum = amountsBuffer.reduce(0, combine: {(run, elem) in (run+elem)})
+                
+                if let current = stockCurrent {
+                    let netStock = bufferSum + current[stockItem!.invCode]!
+                    stockPhysicalAmountLabel.text = String(netStock)
+                    stockMoneyAmountLabel.text = String(netStock * stockItem!.lastCost)
+                }
                 saveButton.enabled = true
             }
             else {
-                print("numberEntered is nil")
+                let alertController = UIAlertController(title: "Error: Invalid Format", message: "Please use a number", preferredStyle: .Alert)
+                
+                let okAction = UIAlertAction(title:"Okay", style: .Cancel) {
+                    (action) in print(action)
+                }
+                alertController.addAction(okAction)
+                self.presentViewController(alertController, animated: true) {
+                }
             }
         }
+        print("amountsBuffer \(amountsBuffer)")
     }
 
     override func didReceiveMemoryWarning() {
@@ -140,12 +152,9 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate {
     @IBAction func saveStock(sender: UIBarButtonItem) {
         print(navigationController!.viewControllers)
         let sourceViewController = navigationController!.viewControllers[2] as! StocktakeTableViewController
+        let newAmount = [stockItem!.invCode: amountsBuffer.reduce(0, combine: {(run, elem) in (run+elem)})]
         
         sourceViewController.updateStocktakeDetails(newAmount)
         navigationController!.popViewControllerAnimated(true)
     }
-    
-    
-    
-
 }
