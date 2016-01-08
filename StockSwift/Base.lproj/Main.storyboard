@@ -21,7 +21,7 @@
                     </view>
                     <connections>
                         <segue destination="hNi-8E-tEZ" kind="custom" identifier="sw_rear" customClass="SWRevealViewControllerSegueSetController" id="34P-LZ-ONq"/>
-                        <segue destination="K7d-sH-sQy" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="sfP-t0-m7Z"/>
+                        <segue destination="GPb-ju-Q2u" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="Du2-aI-q4n"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -74,7 +74,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="K7d-sH-sQy" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="hqT-rk-Brd"/>
+                                            <segue destination="GPb-ju-Q2u" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="DlY-jL-aeR"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="87f-NH-trn">
@@ -156,7 +156,142 @@
             </objects>
             <point key="canvasLocation" x="1558" y="234"/>
         </scene>
-        <!--Stocktake-->
+        <!--Stocktake Menu-->
+        <scene sceneID="eJF-9h-PY0">
+            <objects>
+                <viewController id="GrG-mI-hj4" customClass="StocktakeMenuViewController" customModule="StockSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1bF-UD-8iF"/>
+                        <viewControllerLayoutGuide type="bottom" id="VJi-Wj-heW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="viQ-rr-KUS">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q5o-fX-UTq">
+                                <rect key="frame" x="20" y="114" width="560" height="80"/>
+                                <color key="backgroundColor" red="1" green="0.59933419210000005" blue="0.17612021589999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="26"/>
+                                <state key="normal" title="New Stocktake">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="newStocktakeAction:" destination="GrG-mI-hj4" eventType="touchUpInside" id="WND-cw-2so"/>
+                                    <segue destination="USe-Jz-krj" kind="show" id="Eax-Cd-zdh"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7rE-9y-UmO">
+                                <rect key="frame" x="20" y="244" width="560" height="80"/>
+                                <color key="backgroundColor" red="1" green="0.59933419210000005" blue="0.17612021589999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="26"/>
+                                <state key="normal" title="Previous Stocktakes">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="previousStocktakeAction:" destination="GrG-mI-hj4" eventType="touchUpInside" id="193-bf-t65"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="7rE-9y-UmO" firstAttribute="top" secondItem="q5o-fX-UTq" secondAttribute="bottom" constant="40" id="0j1-Ga-TPg"/>
+                            <constraint firstItem="7rE-9y-UmO" firstAttribute="trailing" secondItem="viQ-rr-KUS" secondAttribute="trailingMargin" id="XdP-IA-lWt"/>
+                            <constraint firstItem="q5o-fX-UTq" firstAttribute="trailing" secondItem="viQ-rr-KUS" secondAttribute="trailingMargin" id="XmJ-9A-pZd"/>
+                            <constraint firstItem="7rE-9y-UmO" firstAttribute="leading" secondItem="viQ-rr-KUS" secondAttribute="leadingMargin" id="nW3-Nr-ibs"/>
+                            <constraint firstItem="q5o-fX-UTq" firstAttribute="leading" secondItem="viQ-rr-KUS" secondAttribute="leadingMargin" id="oNe-lZ-Hzi"/>
+                            <constraint firstItem="VJi-Wj-heW" firstAttribute="top" relation="greaterThanOrEqual" secondItem="7rE-9y-UmO" secondAttribute="bottom" priority="250" constant="300" id="qJj-si-MQn"/>
+                            <constraint firstItem="q5o-fX-UTq" firstAttribute="top" secondItem="1bF-UD-8iF" secondAttribute="bottom" constant="50" id="r3H-Fe-eHB"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Stocktake Menu" id="yqM-5C-Ww3">
+                        <barButtonItem key="leftBarButtonItem" image="menu" id="08j-UJ-pbx"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="menuButton" destination="08j-UJ-pbx" id="zZB-Lz-jGt"/>
+                        <outlet property="newStocktake" destination="q5o-fX-UTq" id="CxN-wm-LGc"/>
+                        <outlet property="previousStocktakes" destination="7rE-9y-UmO" id="VEl-ZU-f7F"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Tyj-gU-Wfg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3827" y="-1141"/>
+        </scene>
+        <!--Stocktake New Setup View Controller-->
+        <scene sceneID="ipz-7l-wLS">
+            <objects>
+                <viewController id="USe-Jz-krj" customClass="StocktakeNewSetupViewController" customModule="StockSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Dee-Zs-vQr"/>
+                        <viewControllerLayoutGuide type="bottom" id="ajJ-Wj-ghS"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6gi-Ms-nKX">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="320" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="u4N-64-1iJ">
+                                <rect key="frame" x="20" y="84" width="560" height="365"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" placeholderIntrinsicWidth="560" placeholderIntrinsicHeight="30" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Person Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DpS-5g-Arx">
+                                        <rect key="frame" x="0.0" y="0.0" width="560" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gC8-U0-hIG">
+                                        <rect key="frame" x="0.0" y="45" width="560" height="30"/>
+                                        <state key="normal" title="Department"/>
+                                        <connections>
+                                            <action selector="selectDepartment:" destination="USe-Jz-krj" eventType="touchUpInside" id="UQ4-cm-p3Z"/>
+                                        </connections>
+                                    </button>
+                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="G9r-aC-Wmt">
+                                        <rect key="frame" x="0.0" y="90" width="560" height="216"/>
+                                        <date key="date" timeIntervalSinceReferenceDate="473929070.69529098">
+                                            <!--2016-01-08 06:57:50 +0000-->
+                                        </date>
+                                        <connections>
+                                            <action selector="datePickerAction:" destination="USe-Jz-krj" eventType="valueChanged" id="Qv6-hd-lyI"/>
+                                        </connections>
+                                    </datePicker>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SXC-91-iXX">
+                                        <rect key="frame" x="0.0" y="321" width="560" height="44"/>
+                                        <color key="backgroundColor" red="1" green="0.59933419210000005" blue="0.17612021589999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <fontDescription key="fontDescription" type="system" weight="thin" pointSize="26"/>
+                                        <state key="normal" title="Start">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="startStocktake:" destination="USe-Jz-krj" eventType="touchUpInside" id="rbN-Xa-qiq"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="DpS-5g-Arx" secondAttribute="trailing" id="WGO-Jx-dqD"/>
+                                    <constraint firstItem="gC8-U0-hIG" firstAttribute="leading" secondItem="u4N-64-1iJ" secondAttribute="leading" id="kIb-zW-S74"/>
+                                    <constraint firstItem="DpS-5g-Arx" firstAttribute="leading" secondItem="u4N-64-1iJ" secondAttribute="leading" id="szE-nd-GhP"/>
+                                    <constraint firstAttribute="trailing" secondItem="gC8-U0-hIG" secondAttribute="trailing" id="w93-hM-yds"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="u4N-64-1iJ" firstAttribute="leading" secondItem="6gi-Ms-nKX" secondAttribute="leadingMargin" id="Bwg-ki-3oB"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="u4N-64-1iJ" secondAttribute="trailing" id="GFf-l3-74H"/>
+                            <constraint firstItem="u4N-64-1iJ" firstAttribute="top" secondItem="Dee-Zs-vQr" secondAttribute="bottom" constant="20" id="kqv-om-rRg"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="datePicker" destination="G9r-aC-Wmt" id="ISP-SN-s3K"/>
+                        <outlet property="department" destination="gC8-U0-hIG" id="Mzk-EY-clo"/>
+                        <outlet property="personName" destination="DpS-5g-Arx" id="C8p-SW-GF6"/>
+                        <outlet property="startButton" destination="SXC-91-iXX" id="03O-xg-lMW"/>
+                        <segue destination="Vph-MQ-Qqm" kind="show" identifier="startStocktakeSegue" id="7JT-Pm-Vrc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ydX-ab-cVL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4550" y="-1141"/>
+        </scene>
+        <!--Title-->
         <scene sceneID="Wn4-V9-0Qx">
             <objects>
                 <tableViewController id="Vph-MQ-Qqm" customClass="StocktakeTableViewController" customModule="StockSwift" customModuleProvider="target" sceneMemberID="viewController">
@@ -237,16 +372,19 @@
                             <outlet property="delegate" destination="Vph-MQ-Qqm" id="g03-iQ-VRS"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Stocktake" id="Gvq-D5-wWd">
-                        <barButtonItem key="leftBarButtonItem" image="menu" id="Hym-tk-9kw"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Title" id="FWy-XV-R2o">
+                        <barButtonItem key="leftBarButtonItem" systemItem="save" id="qWd-Gg-fjD">
+                            <connections>
+                                <action selector="saveStocktakeFinal:" destination="Vph-MQ-Qqm" id="4an-35-x5g"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <outlet property="menuButton" destination="Hym-tk-9kw" id="nB1-Xk-xJM"/>
-                    </connections>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1J3-83-ySE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3026" y="-769"/>
+            <point key="canvasLocation" x="5269" y="-1141"/>
         </scene>
         <!--Stock Item Details-->
         <scene sceneID="tGi-Sf-DEz">
@@ -435,23 +573,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zXJ-9S-PZ0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3852" y="-747"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="NiN-Fz-tks">
-            <objects>
-                <navigationController id="K7d-sH-sQy" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="9X5-3C-F65">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="Vph-MQ-Qqm" kind="relationship" relationship="rootViewController" id="GHC-0g-ccm"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="u9p-re-ZQ6" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2348" y="-769"/>
+            <point key="canvasLocation" x="5990" y="-1141"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="WXB-95-lKR">
@@ -594,6 +716,24 @@
             </objects>
             <point key="canvasLocation" x="3069" y="2008"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Sy0-P8-uW1">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GPb-ju-Q2u" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1kJ-nq-ZyG">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="GrG-mI-hj4" kind="relationship" relationship="rootViewController" id="WJl-gV-0nF"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="F5v-cl-wWe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3145" y="-1141"/>
+        </scene>
     </scenes>
     <resources>
         <image name="dummy1" width="1024" height="1024"/>
@@ -605,6 +745,6 @@
         <image name="stocktake" width="1024" height="1024"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="hqT-rk-Brd"/>
+        <segue reference="DlY-jL-aeR"/>
     </inferredMetricsTieBreakers>
 </document>

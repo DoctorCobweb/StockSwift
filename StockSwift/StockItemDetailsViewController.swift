@@ -29,6 +29,7 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate {
         //print(stockItem!.description)
         
         navigationItem.title! = "Stock Item Details"
+        saveButton.enabled = false
         
         if let item = stockItem {
             stockDescriptionLabel.text = item.description
@@ -47,9 +48,7 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate {
             }
             
         }
-        
         newStockAmountTextField.delegate = self
-        
     }
     
     // MARK: UITextFieldDelegate protocol methods
@@ -61,19 +60,21 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    //TODO: error/formatting checking
     func textFieldDidEndEditing(textField: UITextField) {
         //gives us a chance to read the value in the text field
-        if let entry = textField.text {
-            if entry != "" {
-                let numberEntered = Float(textField.text!)!
-                //let calculatedMoney = numberEntered * stockItem!.lastCost
-                
+        let entry = textField.text ?? ""
+        
+        if !entry.isEmpty {
+            if let numberEntered = Float(entry) {
                 stockPhysicalAmountLabel.text = String( numberEntered + Float(stockPhysicalAmountLabel.text!)! )
                 stockMoneyAmountLabel.text = String( ((numberEntered + (stockCurrent?[stockItem!.invCode])!) * stockItem!.lastCost)  )
                 
                 //put the new amount use entered into the newAmount dict
                 newAmount = [stockItem!.invCode: numberEntered]
+                saveButton.enabled = true
+            }
+            else {
+                print("numberEntered is nil")
             }
         }
     }
@@ -109,9 +110,14 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate {
         }
         */
         
-        //for now we know that there's only one way to get to this stock details view, and 
+        //for now we know that there's only one way to get to this stock details view, and
         //that' from a navigation controller. just pop it like a pop tart.
         navigationController!.popViewControllerAnimated(true)
+        //
+        //also, we just disregard the newAmount value if it's nonzero.
+        //stockCurrent is the thing we care about and since it's been
+        //passed in from StocktakeTableViewController we also don't
+        //need to do anything.
     }
     
     
@@ -119,7 +125,7 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        print("prepareForSegue")
+        print("in StockItemDetailsViewController, prepareForSegue()")
         
         /*
         if saveButton === sender {
@@ -129,8 +135,11 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate {
         */
     }
     
+    //TODO: don't rely on indexing the controllers array to get
+    //the last controller. use casting and if let procedure
     @IBAction func saveStock(sender: UIBarButtonItem) {
-        let sourceViewController = navigationController!.viewControllers[0] as! StocktakeTableViewController
+        print(navigationController!.viewControllers)
+        let sourceViewController = navigationController!.viewControllers[2] as! StocktakeTableViewController
         
         sourceViewController.updateStocktakeDetails(newAmount)
         navigationController!.popViewControllerAnimated(true)

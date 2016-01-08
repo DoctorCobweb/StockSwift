@@ -44,10 +44,14 @@ extension StocktakeTableViewController: UISearchBarDelegate {
 class StocktakeTableViewController: UITableViewController{
 
     // MARK: Properties
-    @IBOutlet weak var menuButton: UIBarButtonItem!
-    
     var stockItems = [StockItem]()
     var filteredStockItems = [StockItem]()
+    
+    
+    //contains all the stock items added for each invCode value.
+    //every time a user saves an amount in details view, the value gets appended to
+    //the array for that invCode item.
+    //the floats are the amounts, NOT money amounts.
     var runningStocktakeDict =  [Int: [Float]]()
     
     //putting nil for searchResultsController tells the app that you want to use the same view your searching in to also display the results.
@@ -62,12 +66,9 @@ class StocktakeTableViewController: UITableViewController{
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
-        if self.revealViewController() != nil {
-            menuButton.target = self.revealViewController()
-            menuButton.action = "revealToggle:"
-            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-        }
-        
+        navigationItem.title = "New Stocktake"
+        //navigationItem.leftBarButtonItem?.title = "Save Stocktake"
+        //print(navigationItem.leftBarButtonItem)
         
         
         //searchResultsUpdater is a property that conforms to the new protocol, UISearchResultsUpdating.
@@ -274,14 +275,14 @@ class StocktakeTableViewController: UITableViewController{
         return (headers, items)
     }
 
-    
-    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
+    
+    
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -356,21 +357,22 @@ class StocktakeTableViewController: UITableViewController{
         
         
         
+        //work out the current amount and money for the item
         if let costs = runningStocktakeDict[stockItem.invCode] {
             
-            var runningAmt : Float = 0.0
-            var runningCost : Float = 0.0
+            var runningAmt: Float = 0.0
+            var runningCost: Float = 0.0
             
             for val in costs {
                 runningAmt += Float(val)
                 runningCost += Float(val) * stockItem.lastCost
             }
-            
             cell.stockRunningAmountLabel.text = String(runningAmt)
             cell.stockRunningCostLabel.text = "$" + String(runningCost)
             cell.stockRunningAmountLabel.backgroundColor = UIColor.orangeColor()
             cell.stockRunningCostLabel.backgroundColor = UIColor.orangeColor()
-        } else {
+        }
+        else {
             cell.stockRunningAmountLabel.text = "0"
             cell.stockRunningCostLabel.text = "$0.0"
             cell.stockRunningAmountLabel.backgroundColor = UIColor.grayColor()
@@ -424,13 +426,11 @@ class StocktakeTableViewController: UITableViewController{
         // Pass the selected object to the new view controller.
         if segue.identifier == "showStockItemDetails" {
             let stockItemDetailViewController = segue.destinationViewController as! StockItemDetailsViewController
+            
             // get the cell that generated the segue
             if let selectedStockCell = sender as? StockItemTableViewCell {
-                
-                
                 let indexPath = tableView.indexPathForCell(selectedStockCell)!
                 let stockItem: StockItem
-                
                 
                 //must factor into the segue whether user selected after searching or no
                 if searchController.active {
@@ -457,13 +457,10 @@ class StocktakeTableViewController: UITableViewController{
                 
                 stockItemDetailViewController.stockItem = stockItem
                 
-                
-                
                 //pass in the current stock amounts to the details page if it exists.
                 //otherwise, set it to nil explicitly
                 if let amt = runningStocktakeDict[stockItem.invCode] {
                     var runningAmt : Float = 0.0
-                    
                     
                     //current stock is in an array.
                     //pass in the summed amount only.
@@ -474,42 +471,33 @@ class StocktakeTableViewController: UITableViewController{
                     stockItemDetailViewController.stockCurrent = [stockItem.invCode: runningAmt]
                 }
                 else {
-                    
                     //have no stock, so set it to nil
                     stockItemDetailViewController.stockCurrent = nil
                 }
-                
             }
         }
-        
-    }
-    
-    
-    
-    @IBAction func yadda(sender: UIStoryboardSegue) {
-    
     }
     
     func updateStocktakeDetails(stockResult: [Int:Float]?) {
         
         for (invCode, amount) in stockResult! {
-            
             if let val = runningStocktakeDict[invCode] {
                 //val is not nil and has been unwrapped 
-                let new_stuff = val + [amount]
-                runningStocktakeDict[invCode] = new_stuff
+                let updated_amount = val + [amount]
+                runningStocktakeDict[invCode] = updated_amount
             }
             else {
                 runningStocktakeDict[invCode] = [amount]
             }
-            
-        
         }
-        
         tableView.reloadData()
-        
-        print("runningStocktakeDict:")
-        print(runningStocktakeDict)
     }
+    
+    @IBAction func saveStocktakeFinal(sender: UIBarButtonItem) {
+        //print(navigationController?.viewControllers)
+        navigationController?.popToRootViewControllerAnimated(true)
+    }
+    
+    
     
 }
