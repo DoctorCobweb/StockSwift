@@ -14,6 +14,8 @@ class StockItemTableViewCell: UITableViewCell {
     @IBOutlet weak var stockPhotoImageView: UIImageView!
     @IBOutlet weak var stockDescriptionLabel: UILabel!
     @IBOutlet weak var stockFineDetailsLabel: UILabel!
+    @IBOutlet weak var stockRunningAmountLabel: UILabel!
+    @IBOutlet weak var stockRunningCostLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

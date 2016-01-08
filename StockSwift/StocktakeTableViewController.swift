@@ -353,6 +353,30 @@ class StocktakeTableViewController: UITableViewController{
         
         cell.stockDescriptionLabel.text = stockItem.description.uppercaseString
         cell.stockFineDetailsLabel.text = "ID: " + String(stockItem.invCode) + " /// $" + String(stockItem.lastCost) + " per " + stockItem.units
+        
+        
+        
+        if let costs = runningStocktakeDict[stockItem.invCode] {
+            
+            var runningAmt : Float = 0.0
+            var runningCost : Float = 0.0
+            
+            for val in costs {
+                runningAmt += Float(val)
+                runningCost += Float(val) * stockItem.lastCost
+            }
+            
+            cell.stockRunningAmountLabel.text = String(runningAmt)
+            cell.stockRunningCostLabel.text = "$" + String(runningCost)
+            cell.stockRunningAmountLabel.backgroundColor = UIColor.orangeColor()
+            cell.stockRunningCostLabel.backgroundColor = UIColor.orangeColor()
+        } else {
+            cell.stockRunningAmountLabel.text = "0"
+            cell.stockRunningCostLabel.text = "$0.0"
+            cell.stockRunningAmountLabel.backgroundColor = UIColor.grayColor()
+            cell.stockRunningCostLabel.backgroundColor = UIColor.grayColor()
+        }
+        
 
         return cell
     }
@@ -432,6 +456,29 @@ class StocktakeTableViewController: UITableViewController{
                 }
                 
                 stockItemDetailViewController.stockItem = stockItem
+                
+                
+                
+                //pass in the current stock amounts to the details page if it exists.
+                //otherwise, set it to nil explicitly
+                if let amt = runningStocktakeDict[stockItem.invCode] {
+                    var runningAmt : Float = 0.0
+                    
+                    
+                    //current stock is in an array.
+                    //pass in the summed amount only.
+                    for val in amt {
+                        runningAmt += Float(val)
+                    }
+                    
+                    stockItemDetailViewController.stockCurrent = [stockItem.invCode: runningAmt]
+                }
+                else {
+                    
+                    //have no stock, so set it to nil
+                    stockItemDetailViewController.stockCurrent = nil
+                }
+                
             }
         }
         
@@ -445,19 +492,21 @@ class StocktakeTableViewController: UITableViewController{
     
     func updateStocktakeDetails(stockResult: [Int:Float]?) {
         
-        for (invCode, moneyAmount) in stockResult! {
+        for (invCode, amount) in stockResult! {
             
             if let val = runningStocktakeDict[invCode] {
                 //val is not nil and has been unwrapped 
-                let new_stuff = val + [moneyAmount]
+                let new_stuff = val + [amount]
                 runningStocktakeDict[invCode] = new_stuff
             }
             else {
-                runningStocktakeDict[invCode] = [moneyAmount]
+                runningStocktakeDict[invCode] = [amount]
             }
             
         
         }
+        
+        tableView.reloadData()
         
         print("runningStocktakeDict:")
         print(runningStocktakeDict)

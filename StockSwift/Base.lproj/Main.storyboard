@@ -225,6 +225,8 @@
                                     <outlet property="stockDescriptionLabel" destination="URl-7q-IIA" id="SM2-LV-37l"/>
                                     <outlet property="stockFineDetailsLabel" destination="myH-2r-n7Z" id="ZAj-7d-4s4"/>
                                     <outlet property="stockPhotoImageView" destination="KvG-ha-nAc" id="ASX-0G-c1i"/>
+                                    <outlet property="stockRunningAmountLabel" destination="07M-ym-2bK" id="Qvn-7O-osr"/>
+                                    <outlet property="stockRunningCostLabel" destination="whO-mT-Ebd" id="yTn-bp-Lu5"/>
                                     <segue destination="KB6-DZ-zKl" kind="show" identifier="showStockItemDetails" id="9KS-xg-fai"/>
                                 </connections>
                             </tableViewCell>

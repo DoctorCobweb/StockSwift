@@ -21,7 +21,8 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var newStockAmountTextField: UITextField!
     
     var stockItem:StockItem?
-    var stockResult = [Int: Float]()
+    var stockCurrent: [Int: Float]?
+    var newAmount:[Int:Float]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,9 +31,21 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate {
         navigationItem.title! = "Stock Item Details"
         
         if let item = stockItem {
-          stockDescriptionLabel.text = item.description
-          stockFineDetailLabel.text = "ID: " + String(item.invCode) + " /// $" + String(item.lastCost) + " per " + item.units
-          stockPhotoImageView.image = item.photo
+            stockDescriptionLabel.text = item.description
+            stockFineDetailLabel.text = "ID: " + String(item.invCode) + " /// $" + String(item.lastCost) + " per " + item.units
+            stockPhotoImageView.image = item.photo
+            
+            
+            if let res = stockCurrent {
+                stockPhysicalAmountLabel.text = String(res[item.invCode]!)
+                stockMoneyAmountLabel.text = String(res[item.invCode]! * item.lastCost)
+            }
+            else {
+                stockCurrent = [item.invCode: 0.0]
+                stockPhysicalAmountLabel.text = "0.0"
+                stockMoneyAmountLabel.text = "0.0"
+            }
+            
         }
         
         newStockAmountTextField.delegate = self
@@ -54,10 +67,13 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate {
         if let entry = textField.text {
             if entry != "" {
                 let numberEntered = Float(textField.text!)!
-                let calculatedMoney = numberEntered * stockItem!.lastCost
-                stockPhysicalAmountLabel.text = textField.text
-                stockMoneyAmountLabel.text = String(calculatedMoney)
-                stockResult[stockItem!.invCode] = numberEntered * stockItem!.lastCost
+                //let calculatedMoney = numberEntered * stockItem!.lastCost
+                
+                stockPhysicalAmountLabel.text = String( numberEntered + Float(stockPhysicalAmountLabel.text!)! )
+                stockMoneyAmountLabel.text = String( ((numberEntered + (stockCurrent?[stockItem!.invCode])!) * stockItem!.lastCost)  )
+                
+                //put the new amount use entered into the newAmount dict
+                newAmount = [stockItem!.invCode: numberEntered]
             }
         }
     }
@@ -116,7 +132,7 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate {
     @IBAction func saveStock(sender: UIBarButtonItem) {
         let sourceViewController = navigationController!.viewControllers[0] as! StocktakeTableViewController
         
-        sourceViewController.updateStocktakeDetails(stockResult)
+        sourceViewController.updateStocktakeDetails(newAmount)
         navigationController!.popViewControllerAnimated(true)
     }
     
