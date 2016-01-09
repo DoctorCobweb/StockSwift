@@ -384,6 +384,7 @@ class StocktakeTableViewController: UITableViewController{
         cell.stockRunningCostLabel.layer.masksToBounds = true
         cell.stockRunningCostLabel.layer.cornerRadius = 8.0
         
+        cell.backgroundColor = UIColor(red: 38.0/255, green: 38.0/255, blue: 38.0/255, alpha: 1.0)
 
         return cell
     }
