@@ -147,6 +147,20 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
             //height from same (x,y) position.
             amtTableView?.reloadData()
             amtTableView?.frame = CGRect(x: 0.0, y: 670.0, width: 300.0, height: (amtTableView?.rowHeight)! * CGFloat(amountsBuffer.count))
+            
+            //should also update the running amounts and money labels since items have
+            //been deleted
+            let bufferSum = amountsBuffer.reduce(0, combine: {(run, elem) in (run+elem)})
+            
+            if let current = stockCurrent {
+                let netStock = bufferSum + current[stockItem!.invCode]!
+                stockPhysicalAmountLabel.text = String(netStock)
+                stockMoneyAmountLabel.text = String(netStock * stockItem!.lastCost)
+            }
+            else {
+                stockPhysicalAmountLabel.text = String(bufferSum)
+                stockMoneyAmountLabel.text = String(bufferSum * stockItem!.lastCost)
+            }
         }
     }
     
