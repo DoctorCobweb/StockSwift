@@ -19,6 +19,23 @@ class StocktakeNewSetupViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var datePicker: UIDatePicker!
     
+    struct departments {
+        static let kitchenKey = "kitchen"
+        static let bottleshopKey = "bottleshop"
+        static let gamingKey = "gaming"
+        static let restaurantKey = "restaurant"
+        static let barKey = "bar"
+        static let tabKey = "tab"
+    }
+    
+    struct stocktakeMetadataStruct {
+        static let personNameKey = "person_name"
+        static let departmentKey = "department"
+        static let startDateKey = "start_date"
+        static let dateFormatKey = "dd-MM-yyyy HH:mm"
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -26,15 +43,17 @@ class StocktakeNewSetupViewController: UIViewController, UITextFieldDelegate {
         //add a bar button programmatically and set
         //its action/target pair
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancelNewStocktake:")
+        navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor()
+
         navigationItem.title = "Setup Stocktake"
         
         personName.delegate = self
         
         //set a default time of now.
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+        dateFormatter.dateFormat = stocktakeMetadataStruct.dateFormatKey
         let strDate =  dateFormatter.stringFromDate(datePicker.date)
-        stocktakeMetadata["date"] = strDate
+        stocktakeMetadata[stocktakeMetadataStruct.startDateKey] = strDate
         
         datePicker.setValue(UIColor.whiteColor(), forKey: "textColor")
         
@@ -56,27 +75,27 @@ class StocktakeNewSetupViewController: UIViewController, UITextFieldDelegate {
             print(action)
         }
         let kitchenAction = UIAlertAction(title:"Kitchen", style:.Default) {(action) in print(action)
-            self.stocktakeMetadata["department"] = "kitchen"
+            self.stocktakeMetadata["department"] = departments.kitchenKey
             self.department.titleLabel?.text = "Kitchen"
         }
         let bottleshopAction = UIAlertAction(title:"Bottleshop", style:.Default) {(action) in print(action)
-            self.stocktakeMetadata["department"] = "bottleshop"
+            self.stocktakeMetadata["department"] = departments.bottleshopKey
             self.department.titleLabel?.text = "Bottleshop"
         }
         let gamingAction = UIAlertAction(title:"Gaming", style:.Default) {(action) in print(action)
-            self.stocktakeMetadata["department"] = "gaming"
+            self.stocktakeMetadata["department"] = departments.gamingKey
             self.department.titleLabel?.text = "Gaming"
         }
         let restaurantAction = UIAlertAction(title:"Restaurant", style:.Default) {(action) in print(action)
-            self.stocktakeMetadata["department"] = "restaurant"
+            self.stocktakeMetadata["department"] = departments.restaurantKey
             self.department.titleLabel?.text = "Restaurant"
         }
         let barAction = UIAlertAction(title:"Bar", style:.Default) {(action) in print(action)
-            self.stocktakeMetadata["department"] = "bar"
+            self.stocktakeMetadata["department"] = departments.barKey
             self.department.titleLabel?.text = "Bar"
         }
         let tabAction = UIAlertAction(title:"Tab", style:.Default) {(action) in print(action)
-            self.stocktakeMetadata["department"] = "tab"
+            self.stocktakeMetadata["department"] = departments.tabKey
             self.department.titleLabel?.text = "Tab"
         }
         
@@ -107,30 +126,22 @@ class StocktakeNewSetupViewController: UIViewController, UITextFieldDelegate {
     func textFieldDidEndEditing(textField: UITextField) {
         //disable the save button if the text is empty
         let text = personName.text ?? ""
-        stocktakeMetadata["person_name"] = text
+        stocktakeMetadata[stocktakeMetadataStruct.personNameKey] = text
         startButton.enabled = !text.isEmpty
-        //checkValidFieldName()
     }
     
     func textFieldDidBeginEditing(textField: UITextField) {
         // disable save button while editing
-        //saveButton.enabled = false
         personName.placeholder = ""
-    }
-    
-    func checkValidFieldName() {
-        //disable the save button if the text is empty
-        let text = personName.text ?? ""
-        startButton.enabled = !text.isEmpty
     }
     
     @IBAction func datePickerAction(sender: UIDatePicker) {
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+        dateFormatter.dateFormat = stocktakeMetadataStruct.dateFormatKey
         let strDate =  dateFormatter.stringFromDate(sender.date)
         print(" in dataPickerAction and strDate is \(strDate)")
         
-        stocktakeMetadata["date"] = strDate
+        stocktakeMetadata[stocktakeMetadataStruct.startDateKey] = strDate
     }
     
     // MARK: - Navigation
@@ -143,7 +154,7 @@ class StocktakeNewSetupViewController: UIViewController, UITextFieldDelegate {
         print("in startStocktake")
         
         //only perform segue if personName, department and date are set properly
-        if stocktakeMetadata["person_name"] != nil && stocktakeMetadata["department"] != nil {
+        if stocktakeMetadata[stocktakeMetadataStruct.personNameKey] != nil && stocktakeMetadata[stocktakeMetadataStruct.departmentKey] != nil {
             performSegueWithIdentifier("startStocktakeSegue", sender: self)
         }
         else {

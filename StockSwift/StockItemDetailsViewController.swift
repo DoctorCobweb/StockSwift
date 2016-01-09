@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StockItemDetailsViewController: UIViewController, UITextFieldDelegate {
+class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate {
     
     // MARK: Properties
     @IBOutlet weak var stockDescriptionLabel: UILabel!
@@ -18,15 +18,23 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var stockPhotoImageView: UIImageView!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var newStockAmountTextField: UITextField!
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
+    @IBOutlet weak var editTableViewButton: UIButton!
     
     var stockItem:StockItem?
     var stockCurrent: [Int: Float]?
     var amountsBuffer:[Float] = []
+    var amtTableView: UITableView?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.title! = "Stock Item Details"
+        cancelButton.tintColor = UIColor.whiteColor()
+        saveButton.tintColor = UIColor.whiteColor()
+        newStockAmountTextField.attributedPlaceholder = NSAttributedString(string: "Type here", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
+        
+        
         saveButton.enabled = false
         
         if let item = stockItem {
@@ -49,8 +57,17 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate {
         newStockAmountTextField.delegate = self
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
     
     // MARK: UITextFieldDelegate protocol methods
+    
+    func textFieldDidBeginEditing(textField: UITextField) {
+        newStockAmountTextField.placeholder = ""
+    }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         //text field should resign as first responder to hide
@@ -66,7 +83,27 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate {
         if !entry.isEmpty {
             if let numberEntered = Float(entry) {
                 
+                //if first time user entered a new item create the table view dynamically
+                if amountsBuffer.count == 0 {
+                    let tFrame = CGRect(x: 0, y: 670, width: 300, height: 30)
+                    print(tFrame)
+                    amtTableView = UITableView(frame: tFrame)
+                    newStockAmountTextField.superview?.addSubview(amtTableView!)
+                    amtTableView?.delegate = self
+                    amtTableView?.dataSource = self
+                }
+                
                 amountsBuffer.append(numberEntered)
+                
+                //configure the table view
+                amtTableView?.rowHeight = 30
+                
+                //whenever a new item is added to amountsBuffer make sure the frame
+                //of table view is high enough.
+                amtTableView?.frame = CGRect(x: 0.0, y: 670.0, width: 300.0, height: (amtTableView?.rowHeight)! * CGFloat(amountsBuffer.count))
+                amtTableView?.reloadData()
+                
+                saveButton.enabled = true
                 
                 let bufferSum = amountsBuffer.reduce(0, combine: {(run, elem) in (run+elem)})
                 
@@ -75,7 +112,7 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate {
                     stockPhysicalAmountLabel.text = String(netStock)
                     stockMoneyAmountLabel.text = String(netStock * stockItem!.lastCost)
                 }
-                saveButton.enabled = true
+                textField.text = ""
             }
             else {
                 let alertController = UIAlertController(title: "Error: Invalid Format", message: "Please use a number", preferredStyle: .Alert)
@@ -91,10 +128,79 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate {
         print("amountsBuffer \(amountsBuffer)")
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    
+    
+    
+    
+    // MARK: UITableViewDelegate
+
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if editingStyle == .Delete {
+            amountsBuffer.removeAtIndex(indexPath.row)
+            amtTableView?.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            
+            //reload data before changing the frame. empty cells are pushed to the
+            //bottom and new frame calculations make use of this fact by adjusting the
+            //height from same (x,y) position.
+            amtTableView?.reloadData()
+            amtTableView?.frame = CGRect(x: 0.0, y: 670.0, width: 300.0, height: (amtTableView?.rowHeight)! * CGFloat(amountsBuffer.count))
+        }
     }
+    
+    
+    
+    
+    
+    
+    //MARK: UITableViewDataSource
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return amountsBuffer.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        let cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: nil)
+        
+        cell.textLabel?.text = String(amountsBuffer[indexPath.row])
+        return cell
+    }
+    
+    
+    
+    @IBAction func editTableViewAction(sender: UIButton) {
+        print("editTableViewAction")
+        print(amtTableView?.delegate)
+        
+        if amtTableView?.editing == true {
+            sender.titleLabel?.text = "Editblah"
+            amtTableView?.setEditing(false, animated: true)
+        }
+        else {
+            sender.titleLabel?.text = "Done"
+            //only set editing if there's a table view present
+            if let tableView = amtTableView {
+                print(tableView)
+                amtTableView?.setEditing(true, animated: true)
+            
+            }
+        }
+    }
+    
+    
+    /*
+    @IBAction func addNewAmountAction(sender: UIButton) {
+        print("addNewAmountAction")
+        
+        //display keyboard
+        //sender.becomeFirstResponder()
+        amountsBuffer.append(Float(Int(arc4random_uniform(10))))
+        amtTableView?.reloadData()
+    }
+    */
     
 
     // MARK: - Navigation

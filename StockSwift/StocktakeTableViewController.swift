@@ -69,6 +69,7 @@ class StocktakeTableViewController: UITableViewController{
         navigationItem.title = "New Stocktake"
         //navigationItem.leftBarButtonItem?.title = "Save Stocktake"
         //print(navigationItem.leftBarButtonItem)
+        navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor()
         
         
         //searchResultsUpdater is a property that conforms to the new protocol, UISearchResultsUpdating.
@@ -263,7 +264,6 @@ class StocktakeTableViewController: UITableViewController{
                                     last_cost: Float(values[5]),
                                     barcode: barcode_tmp)
                         items?.append(item)
-                    
                     }
                 }
             }
@@ -498,11 +498,23 @@ class StocktakeTableViewController: UITableViewController{
         tableView.reloadData()
     }
     
-    @IBAction func saveStocktakeFinal(sender: UIBarButtonItem) {
+    @IBAction func doneStocktakeFinal(sender: UIBarButtonItem) {
         //print(navigationController?.viewControllers)
-        navigationController?.popToRootViewControllerAnimated(true)
+        let alertController = UIAlertController(title: "Finish Stocktake?", message: "Select Done if you have finished the stocktake. Otherwise, select cancel to continue with current stocktake", preferredStyle: .Alert)
+        let doneAction = UIAlertAction(title: "Done", style: .Default) { (action) in
+            print("doneAction selected")
+            self.navigationController?.popToRootViewControllerAnimated(true)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) in
+            print("cancelAction selected")
+        }
+        
+        alertController.addAction(doneAction)
+        alertController.addAction(cancelAction)
+        
+        self.presentViewController(alertController, animated: true) { (_) in
+        
+        
+        }
     }
-    
-    
-    
 }
