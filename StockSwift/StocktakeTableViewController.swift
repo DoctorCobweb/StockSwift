@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import CoreData
 
 //this is the class extension which makes StocktakeTableViewController conform
 //to UISearchResultsUpdating.
@@ -41,6 +41,9 @@ extension StocktakeTableViewController: UISearchBarDelegate {
 
 
 
+
+
+
 class StocktakeTableViewController: UITableViewController{
 
     // MARK: Properties
@@ -66,6 +69,7 @@ class StocktakeTableViewController: UITableViewController{
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
+        
         navigationItem.title = "New Stocktake"
         //navigationItem.leftBarButtonItem?.title = "Save Stocktake"
         //print(navigationItem.leftBarButtonItem)
@@ -90,15 +94,73 @@ class StocktakeTableViewController: UITableViewController{
         searchController.searchBar.scopeButtonTitles = ["ALL", "MEAT", "GROCERY", "PRODUCE", "OTHER"]
         searchController.searchBar.delegate = self
         
-        //finally load in the stock items
-        loadStocktakeItems()
+        //---HACKETY HACK---
+        //RUN THIS THE FIRST TIME THE APP RUNS
+        //it loads in all the stock item pricing and photos into Core Data
+        //then comment this function call out and use Core Data to fetch stock from db.
+        //bootstrapLoadStocktakeItems()
+        
+        //use this call when the stock items are loaded in db.
+        loadStockItemsFromCoreData()
+        
     }
+    
+    func loadStockItemsFromCoreData() {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let moc = appDelegate.managedObjectContext
+        let itemsFetch = NSFetchRequest(entityName: "CurrentItemPriceEntity")
+        let descriptionSort = NSSortDescriptor(key: "itemDescription", ascending: true)
+        itemsFetch.sortDescriptors = [descriptionSort]
+        
+        do {
+        
+            let fetchedCurrentItems = try moc.executeFetchRequest(itemsFetch) as! [CurrentItemPriceMO]
+            
+            if !fetchedCurrentItems.isEmpty {
+                for item in fetchedCurrentItems {
+                    let aPhoto: UIImage?
+                    aPhoto = getPhotoFromCoreData(moc, invCode: item.invCode)
+                
+                    let stockItem = StockItem(photo: aPhoto, description: item.itemDescription, invCode: item.invCode, lastCost: item.lastCost, units: item.units, section: item.section)
+                    
+                    stockItems += [stockItem]
+                }
+            }
+        }
+        catch let error as NSError {
+            fatalError("FAILURE to save context: \(error)")
+        }
+    }
+    
+    func getPhotoFromCoreData(moc: NSManagedObjectContext, invCode: Int) -> UIImage? {
+        let photoFetch = NSFetchRequest(entityName: "StockImageEntity")
+        photoFetch.predicate = NSPredicate(format: "invCode == %d", invCode)
+        
+        do {
+            let fetchedPhotos = try moc.executeFetchRequest(photoFetch) as! [StockImageMO]
+            
+            if !fetchedPhotos.isEmpty{
+                //there should only be one photo per stock item
+                return UIImage(data: fetchedPhotos[0].photo!)
+            }
+            else {
+                return nil
+            }
+        }
+        catch let error as NSError {
+            fatalError("FAILURE to save context: \(error)")
+        }
+    }
+    
+    
+    
+    
     
     func filterContentForSearchText(searchText: String, scope: String = "ALL") {
         //print("filterContentForSearchText and searchText: " + searchText)
         
-        //this filters stockItems array based on the searchText string and will put the results into filteredStockItems array.
-        //
+        //this filters stockItems array based on the searchText string and 
+        //will put the results into filteredStockItems array.
         //filter() takes a closure of type (item:StockItem) -> Bool
         //then it loops over all elements of the array, calls the closure passing in the current element,
         //if true is returned for that element it is added to filteredStockItems
@@ -124,26 +186,20 @@ class StocktakeTableViewController: UITableViewController{
         tableView.reloadData()
     }
     
-    func loadStocktakeItems() {
+    func bootstrapLoadStocktakeItems() {
         
         //first load and parse the csv data file, "stock_data", then sort it alphabettically
         //using description field
-        let stockContent = parseStockDataCSV()
-        let stockHeaders:[String] = stockContent.headers
-        let stockContent_sorted = stockContent.data!.sort{$0.description < $1.description}
-        
         //stockContent is (headers, data) structure
-        //print(stockHeaders)
+        let stockContent = parseStockDataCSV()
+        let stockHeaders = stockContent.headers
+        let stockContent_sorted = stockContent.data.sort{$0.description < $1.description}
+        
         
         //instantiate a stock item for each item in stockContent.data
-        //for (index, item) in stockContent.data!.enumerate() {
         for (index, item) in stockContent_sorted.enumerate() {
-            //print(item.description)
-            //print(item.inv_code)
-            //print(item.last_cost!)
             
             let photo:UIImage?
-            
             
             //just playing around with different images
             if index % 3 == 0 {
@@ -169,29 +225,71 @@ class StocktakeTableViewController: UITableViewController{
             
             stockItems += [stockItem]
         }
-    
+        
+        //let's try an save every image for a stock item to core data.
+        //
+        //1. get NSManagedObjectContext
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let moc = appDelegate.managedObjectContext
+        
+        //2. insert a StockImageEntity, CurrentItemPriceEntity
+        for item in stockItems {
+            
+            print("adding a StockImageEntity row...")
+            let stockImage = NSEntityDescription.insertNewObjectForEntityForName("StockImageEntity", inManagedObjectContext: moc) as! StockImageMO
+            
+            stockImage.invCode = item.invCode
+            stockImage.photo = UIImagePNGRepresentation(item.photo!)
+            
+            
+            
+            print("adding a CurrentItemPriceEntity row...")
+            let currentItemPrice = NSEntityDescription.insertNewObjectForEntityForName("CurrentItemPriceEntity", inManagedObjectContext: moc) as! CurrentItemPriceMO
+            
+            currentItemPrice.invCode = item.invCode
+            currentItemPrice.itemDescription = item.description
+            currentItemPrice.lastCost = item.lastCost
+            currentItemPrice.section = item.section
+            currentItemPrice.units = item.units
+        }
+        
+        //3. save to persistent store
+        do {
+            try moc.save()
+            print("SUCCESS: saved StockImageEntity, CurrentItemPriceEntity to persistent store")
+        
+        } catch let error as NSError {
+            fatalError("FAILURE to save context:\(error)")
+        }
     }
     
     
-    func parseStockDataCSV () ->  (headers:[String], data:[(stock_group:String, stock_group_cleaned:String, inv_code:Int?, description:String, units:String, last_cost:Float?, barcode:String)]?) {
+    func parseStockDataCSV () ->  (headers:[String]?,
+                                   data:[(stock_group:String,
+                                   stock_group_cleaned:String,
+                                   inv_code:Int?,
+                                   description:String,
+                                   units:String,
+                                   last_cost:Float?,
+                                   barcode:String)]) {
+                                
         // Load the CSV file and parse it
         let delimiter = ","
-        var items: [(stock_group:String,
+        var headers: [String]?
+        var items = [(stock_group:String,
                      stock_group_cleaned:String,
                      inv_code:Int?,
                      description:String,
                      units:String,
                      last_cost:Float?,
-                     barcode:String)]?
+                     barcode:String)]()
         
         //get the stock_data from the assests folder
         let stock_data = NSDataAsset(name:"stock_data")
-        var headers = [String]()
         
         //stock_data!.data is raw byte data so we must convert it to String using the following initializer
-        
         if let content = String(data:stock_data!.data, encoding:NSUTF8StringEncoding) {
-            items = []
+            //items = []
             let lines:[String] = content.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet()) as [String]
             
             for (index,line) in lines.enumerate() {
@@ -223,13 +321,13 @@ class StocktakeTableViewController: UITableViewController{
                             } else {
                                 textToScan = ""
                             }
+                            
                             textScanner = NSScanner(string: textToScan)
                         }
-                        
-                        // For a line without double quotes, we can simply separate the string
-                        // by using the delimiter (e.g. comma)
                     }
                     else  {
+                        // For a line without double quotes, we can simply separate the string
+                        // by using the delimiter (e.g. comma)
                         values = line.componentsSeparatedByString(delimiter)
                     }
                     
@@ -263,7 +361,8 @@ class StocktakeTableViewController: UITableViewController{
                                     units: units_tmp,
                                     last_cost: Float(values[5]),
                                     barcode: barcode_tmp)
-                        items?.append(item)
+                        
+                        items.append(item)
                     }
                 }
             }
@@ -271,7 +370,6 @@ class StocktakeTableViewController: UITableViewController{
         else {
             print("ERROR: unable to read stock_data")
         }
-        
         return (headers, items)
     }
 
@@ -348,14 +446,13 @@ class StocktakeTableViewController: UITableViewController{
         
         
         // Configure the cell...
+        
         cell.stockPhotoImageView.image = stockItem.photo
         cell.stockPhotoImageView.layer.cornerRadius = cell.stockPhotoImageView.frame.size.width / 2.0
         cell.stockPhotoImageView.clipsToBounds = true
-        
         cell.stockDescriptionLabel.text = stockItem.description.uppercaseString
         cell.stockFineDetailsLabel.text = "ID: " + String(stockItem.invCode) + " /// $" + String(stockItem.lastCost) + " per " + stockItem.units
-        
-        
+
         
         //work out the current amount and money for the item
         if let costs = runningStocktakeDict[stockItem.invCode] {
