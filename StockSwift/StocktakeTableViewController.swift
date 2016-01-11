@@ -51,6 +51,10 @@ class StocktakeTableViewController: UITableViewController{
     var filteredStockItems = [StockItem]()
     
     
+    //playing around
+    var stocktake: Stocktake?
+    var stocktakeMetaData = [String:String]()
+    
     //contains all the stock items added for each invCode value.
     //every time a user saves an amount in details view, the value gets appended to
     //the array for that invCode item.
@@ -93,6 +97,12 @@ class StocktakeTableViewController: UITableViewController{
         
         searchController.searchBar.scopeButtonTitles = ["ALL", "MEAT", "GROCERY", "PRODUCE", "OTHER"]
         searchController.searchBar.delegate = self
+        
+        
+        
+        stocktake = Stocktake(metaData: stocktakeMetaData)
+        print("stocktake?.stocktakeMetaData is: \(stocktake?.stocktakeMetaData)")
+        
         
         //---HACKETY HACK---
         //RUN THIS THE FIRST TIME THE APP RUNS
@@ -258,7 +268,8 @@ class StocktakeTableViewController: UITableViewController{
             try moc.save()
             print("SUCCESS: saved StockImageEntity, CurrentItemPriceEntity to persistent store")
         
-        } catch let error as NSError {
+        }
+        catch let error as NSError {
             fatalError("FAILURE to save context:\(error)")
         }
     }
@@ -455,7 +466,8 @@ class StocktakeTableViewController: UITableViewController{
 
         
         //work out the current amount and money for the item
-        if let costs = runningStocktakeDict[stockItem.invCode] {
+        //if let costs = runningStocktakeDict[stockItem.invCode] {
+        if let costs = stocktake?.stocktake[stockItem.invCode] {
             
             var runningAmt: Float = 0.0
             var runningCost: Float = 0.0
@@ -562,7 +574,8 @@ class StocktakeTableViewController: UITableViewController{
                 
                 //pass in the current stock amounts to the details page if it exists.
                 //otherwise, set it to nil explicitly
-                if let amt = runningStocktakeDict[stockItem.invCode] {
+                //if let amt = runningStocktakeDict[stockItem.invCode] {
+                if let amt = stocktake?.stocktake[stockItem.invCode] {
                     var runningAmt : Float = 0.0
                     
                     //current stock is in an array.
@@ -584,13 +597,16 @@ class StocktakeTableViewController: UITableViewController{
     func updateStocktakeDetails(stockResult: [Int:Float]?) {
         
         for (invCode, amount) in stockResult! {
-            if let val = runningStocktakeDict[invCode] {
+            //if let val = runningStocktakeDict[invCode] {
+            if let val = stocktake?.stocktake[invCode] {
                 //val is not nil and has been unwrapped 
                 let updated_amount = val + [amount]
-                runningStocktakeDict[invCode] = updated_amount
+                //runningStocktakeDict[invCode] = updated_amount
+                stocktake?.stocktake[invCode] = updated_amount
             }
             else {
-                runningStocktakeDict[invCode] = [amount]
+                //runningStocktakeDict[invCode] = [amount]
+                stocktake?.stocktake[invCode] = [amount]
             }
         }
         tableView.reloadData()
@@ -601,6 +617,7 @@ class StocktakeTableViewController: UITableViewController{
         let alertController = UIAlertController(title: "Finish Stocktake?", message: "Select Done if you have finished the stocktake. Otherwise, select cancel to continue with current stocktake", preferredStyle: .Alert)
         let doneAction = UIAlertAction(title: "Done", style: .Default) { (action) in
             print("doneAction selected")
+            self.stocktake?.createFinalStocktake()
             self.navigationController?.popToRootViewControllerAnimated(true)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) in

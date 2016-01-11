@@ -174,7 +174,13 @@ class StocktakeNewSetupViewController: UIViewController, UITextFieldDelegate {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        print("in prepareForSegue")
-        print(stocktakeMetadata)
+        
+        if segue.identifier == "startStocktakeSegue" {
+        
+            let stocktakeTableViewController = segue.destinationViewController as! StocktakeTableViewController
+            
+            //print(stocktakeMetadata)
+            stocktakeTableViewController.stocktakeMetaData = stocktakeMetadata
+        }
     }
 }

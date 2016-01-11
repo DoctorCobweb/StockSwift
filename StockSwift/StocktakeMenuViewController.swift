@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import CoreData
+
 
 class StocktakeMenuViewController: UIViewController {
     
@@ -27,6 +29,8 @@ class StocktakeMenuViewController: UIViewController {
         let orange = UIColor(red: 255.0/255, green: 153.0/255, blue: 45.0/255, alpha: 1.0)
         navigationController?.navigationBar.barTintColor = orange
         menuButton.tintColor = UIColor.whiteColor()
+        
+        playAroundWithPreviousStocktakes()
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,6 +46,29 @@ class StocktakeMenuViewController: UIViewController {
         print("previousStocktakeAction function")
     }
     
+    func playAroundWithPreviousStocktakes() {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let moc = appDelegate.managedObjectContext
+        
+        let allStocktakeMetaDataFetch = NSFetchRequest(entityName: "StocktakeMetaDataEntity")
+        
+        do {
+        
+            let fetchedMetas = try moc.executeFetchRequest(allStocktakeMetaDataFetch) as! [StocktakeMetaDataMO]
+            if !fetchedMetas.isEmpty {
+                for meta in fetchedMetas {
+                    print("-------")
+                    print(meta.personName)
+                    print(meta.department)
+                    print(meta.startDate)
+                    print("-------")
+                }
+            }
+        }
+        catch let error as NSError {
+            fatalError("FAILUR to save context: \(error)")
+        }
+    }
     
     /*
     // MARK: - Navigation

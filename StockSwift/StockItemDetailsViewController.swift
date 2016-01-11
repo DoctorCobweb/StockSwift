@@ -190,31 +190,24 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
         print(amtTableView?.delegate)
         
         if amtTableView?.editing == true {
+            
+            //TODO: this does NOT work, title stays that same
             sender.titleLabel?.text = "Editblah"
+            
             amtTableView?.setEditing(false, animated: true)
         }
         else {
+            //TODO: this does NOT work, title stays that same
             sender.titleLabel?.text = "Done"
+            
             //only set editing if there's a table view present
             if let tableView = amtTableView {
                 print(tableView)
                 amtTableView?.setEditing(true, animated: true)
-            
             }
         }
     }
     
-    
-    /*
-    @IBAction func addNewAmountAction(sender: UIButton) {
-        print("addNewAmountAction")
-        
-        //display keyboard
-        //sender.becomeFirstResponder()
-        amountsBuffer.append(Float(Int(arc4random_uniform(10))))
-        amtTableView?.reloadData()
-    }
-    */
     
 
     // MARK: - Navigation
