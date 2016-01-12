@@ -175,6 +175,7 @@ class StocktakeNewSetupViewController: UIViewController, UITextFieldDelegate {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         
+        print("hello from prepareForSegue!!!!")
         if segue.identifier == "startStocktakeSegue" {
         
             let stocktakeTableViewController = segue.destinationViewController as! StocktakeTableViewController

@@ -11,14 +11,25 @@
         <attribute name="invCode" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="photo" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
     </entity>
+    <entity name="StocktakeItemEntity" representedClassName=".StocktakeItemMO" syncable="YES">
+        <attribute name="invCode" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="itemDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastCost" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="physicalAmount" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="section" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="units" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="singularStocktake" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="StocktakeMetaDataEntity" inverseName="stocktakeItems" inverseEntity="StocktakeMetaDataEntity" syncable="YES"/>
+    </entity>
     <entity name="StocktakeMetaDataEntity" representedClassName=".StocktakeMetaDataMO" syncable="YES">
         <attribute name="department" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="personName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="startDate" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="stocktakeItems" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="StocktakeItemEntity" inverseName="singularStocktake" inverseEntity="StocktakeItemEntity" syncable="YES"/>
     </entity>
     <elements>
         <element name="StockImageEntity" positionX="1447" positionY="699" width="128" height="73"/>
         <element name="CurrentItemPriceEntity" positionX="1582" positionY="540" width="128" height="118"/>
-        <element name="StocktakeMetaDataEntity" positionX="1359" positionY="549" width="128" height="88"/>
+        <element name="StocktakeMetaDataEntity" positionX="1359" positionY="549" width="128" height="103"/>
+        <element name="StocktakeItemEntity" positionX="1503" positionY="666" width="128" height="150"/>
     </elements>
 </model>

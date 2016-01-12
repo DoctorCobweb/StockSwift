@@ -38,7 +38,7 @@ class Stocktake: NSObject {
         let moc = appDelegate.managedObjectContext
         
         
-        //we only want to return the invCode field
+        //we only want the invCode field returned from db
         let itemsFetch = NSFetchRequest(entityName: "CurrentItemPriceEntity")
         itemsFetch.propertiesToFetch = ["invCode"]
         
@@ -77,6 +77,53 @@ class Stocktake: NSObject {
         metaData.personName = stocktakeMetaData["person_name"]!
         metaData.department = stocktakeMetaData["department"]!
         metaData.startDate = stocktakeMetaData["start_date"]!
+        
+        
+        
+        //need to:
+        //1. create a StockTakeItemMO instance for all items
+        //2. add to metaData managed object property (as a set)
+        //for the to-many relationship
+        
+        //lets create a dummy StocktakeItemMO object and
+        //add it the the stocktakeItems set.
+        let dummyStockItem = NSEntityDescription.insertNewObjectForEntityForName("StocktakeItemEntity", inManagedObjectContext: moc) as! StocktakeItemMO
+        dummyStockItem.invCode = 123456
+        dummyStockItem.itemDescription = "blah blah blah"
+        dummyStockItem.lastCost = 12.3
+        dummyStockItem.section = "BEEF"
+        dummyStockItem.units = "Kilogram"
+        dummyStockItem.physicalAmount = 1.2
+        
+        dummyStockItem.singularStocktake = metaData
+        
+        
+        let dummyStockItem1 = NSEntityDescription.insertNewObjectForEntityForName("StocktakeItemEntity", inManagedObjectContext: moc) as! StocktakeItemMO
+        dummyStockItem1.invCode = 123456
+        dummyStockItem1.itemDescription = "blah blah blah"
+        dummyStockItem1.lastCost = 12.3
+        dummyStockItem1.section = "BEEF"
+        dummyStockItem1.units = "Kilogram"
+        dummyStockItem1.physicalAmount = 1.2
+        
+        dummyStockItem1.singularStocktake = metaData
+        
+        
+        
+        let aSet: Set = [dummyStockItem, dummyStockItem1]
+        metaData.stocktakeItems = aSet
+        
+        
+        
+        //
+        //3. add metaData to each StockTakeItemMO instance
+        //for the to-one relationship
+        //
+        //may have to rethink how the "stocktake" data stucture is. mayber it shouldn't 
+        //just be [invCode: physicalAmount], but richer with all the typical features 
+        //that an item has: description, units, etc etc.
+        //because if we don't then we have to query for every invCode inorder to get
+        //these extra features needed for a StockTakeItemMO instance.
         
         do {
             try moc.save()

@@ -100,6 +100,7 @@ class StocktakeTableViewController: UITableViewController{
         
         
         
+        //initialize the stocktake
         stocktake = Stocktake(metaData: stocktakeMetaData)
         print("stocktake?.stocktakeMetaData is: \(stocktake?.stocktakeMetaData)")
         
@@ -617,6 +618,9 @@ class StocktakeTableViewController: UITableViewController{
         let alertController = UIAlertController(title: "Finish Stocktake?", message: "Select Done if you have finished the stocktake. Otherwise, select cancel to continue with current stocktake", preferredStyle: .Alert)
         let doneAction = UIAlertAction(title: "Done", style: .Default) { (action) in
             print("doneAction selected")
+            
+            
+            
             self.stocktake?.createFinalStocktake()
             self.navigationController?.popToRootViewControllerAnimated(true)
         }

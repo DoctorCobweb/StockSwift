@@ -61,6 +61,7 @@ class StocktakeMenuViewController: UIViewController {
                     print(meta.personName)
                     print(meta.department)
                     print(meta.startDate)
+                    print(meta.stocktakeItems)
                     print("-------")
                 }
             }

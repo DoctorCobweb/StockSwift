@@ -26,6 +26,7 @@
 		658B99C41C43639400CED19A /* CurrentItemPriceMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658B99C31C43639400CED19A /* CurrentItemPriceMO.swift */; settings = {ASSET_TAGS = (); }; };
 		658B99C61C438C8A00CED19A /* StockTake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658B99C51C438C8A00CED19A /* StockTake.swift */; settings = {ASSET_TAGS = (); }; };
 		658B99C81C43A47B00CED19A /* StocktakeMetaDataMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658B99C71C43A47B00CED19A /* StocktakeMetaDataMO.swift */; settings = {ASSET_TAGS = (); }; };
+		658B99CA1C43D5E500CED19A /* StocktakeItemMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658B99C91C43D5E500CED19A /* StocktakeItemMO.swift */; settings = {ASSET_TAGS = (); }; };
 		65917B4D1C31045F00D20561 /* StockItemDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65917B4C1C31045F00D20561 /* StockItemDetailsViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		65F027501C3F8638004DB5D8 /* StocktakeMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F0274F1C3F8638004DB5D8 /* StocktakeMenuViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		65F027521C3F8FCA004DB5D8 /* StocktakeNewSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F027511C3F8FCA004DB5D8 /* StocktakeNewSetupViewController.swift */; settings = {ASSET_TAGS = (); }; };
@@ -66,6 +67,7 @@
 		658B99C31C43639400CED19A /* CurrentItemPriceMO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentItemPriceMO.swift; sourceTree = "<group>"; };
 		658B99C51C438C8A00CED19A /* StockTake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockTake.swift; sourceTree = "<group>"; };
 		658B99C71C43A47B00CED19A /* StocktakeMetaDataMO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StocktakeMetaDataMO.swift; sourceTree = "<group>"; };
+		658B99C91C43D5E500CED19A /* StocktakeItemMO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StocktakeItemMO.swift; sourceTree = "<group>"; };
 		65917B4C1C31045F00D20561 /* StockItemDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockItemDetailsViewController.swift; sourceTree = "<group>"; };
 		65F0274F1C3F8638004DB5D8 /* StocktakeMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StocktakeMenuViewController.swift; sourceTree = "<group>"; };
 		65F027511C3F8FCA004DB5D8 /* StocktakeNewSetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StocktakeNewSetupViewController.swift; sourceTree = "<group>"; };
@@ -114,11 +116,11 @@
 				6504F4881C2FA41F0095668B /* AppDelegate.swift */,
 				6504F48C1C2FA41F0095668B /* Main.storyboard */,
 				6504F4921C2FA41F0095668B /* Assets.xcassets */,
+				6504F48F1C2FA41F0095668B /* StockSwift.xcdatamodeld */,
 				6504F4B61C2FB7120095668B /* Dummy1ViewController.swift */,
 				6504F4B81C2FBB3F0095668B /* Dummy2ViewController.swift */,
 				6504F4941C2FA41F0095668B /* LaunchScreen.storyboard */,
 				6504F4971C2FA41F0095668B /* Info.plist */,
-				6504F48F1C2FA41F0095668B /* StockSwift.xcdatamodeld */,
 				6504F4B41C2FB0330095668B /* MenuTableViewController.swift */,
 				6504F4BA1C2FBC8F0095668B /* SettingsViewController.swift */,
 				65F0274F1C3F8638004DB5D8 /* StocktakeMenuViewController.swift */,
@@ -126,11 +128,12 @@
 				6504F4B01C2FAB680095668B /* StocktakeTableViewController.swift */,
 				6504F4BC1C2FEA080095668B /* StockItemTableViewCell.swift */,
 				65917B4C1C31045F00D20561 /* StockItemDetailsViewController.swift */,
-				658B99C11C4344FC00CED19A /* StockImageMO.swift */,
-				658B99C31C43639400CED19A /* CurrentItemPriceMO.swift */,
 				6504F4C21C2FEFD40095668B /* StockItem.swift */,
 				658B99C51C438C8A00CED19A /* StockTake.swift */,
+				658B99C11C4344FC00CED19A /* StockImageMO.swift */,
+				658B99C31C43639400CED19A /* CurrentItemPriceMO.swift */,
 				658B99C71C43A47B00CED19A /* StocktakeMetaDataMO.swift */,
+				658B99C91C43D5E500CED19A /* StocktakeItemMO.swift */,
 			);
 			path = StockSwift;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 				6504F4B51C2FB0330095668B /* MenuTableViewController.swift in Sources */,
 				65F027501C3F8638004DB5D8 /* StocktakeMenuViewController.swift in Sources */,
 				6504F4C31C2FEFD40095668B /* StockItem.swift in Sources */,
+				658B99CA1C43D5E500CED19A /* StocktakeItemMO.swift in Sources */,
 				6504F4911C2FA41F0095668B /* StockSwift.xcdatamodeld in Sources */,
 				6504F4B11C2FAB680095668B /* StocktakeTableViewController.swift in Sources */,
 				658B99C41C43639400CED19A /* CurrentItemPriceMO.swift in Sources */,
