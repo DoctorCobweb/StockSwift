@@ -25,6 +25,7 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
     var stockCurrent: [Int: Float]?
     var amountsBuffer:[Float] = []
     var amtTableView: UITableView?
+    var stockTake: Stocktake?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,6 +56,10 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
             
         }
         newStockAmountTextField.delegate = self
+        
+        
+        //PLAYING AROUND AREA: STOCKTAKE OBJET
+        print("PLAYING AROUND: \(self.stockTake)")
     }
     
     override func didReceiveMemoryWarning() {

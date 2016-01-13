@@ -17,8 +17,58 @@ class Stocktake: NSObject {
     
     init(metaData:[String:String]) {
     
-        self.stocktake = [:]
-        self.stocktakeMetaData = metaData
+        //in swift, all properties of the subclass must be 
+        //initialized before calling super.
+        stocktake = [:]
+        stocktakeMetaData = metaData
+        
+        //let's initialize the stocktake dict with all the stock items with invCodes
+        super.init()
+        
+        //this has to go below the call to super.init() because
+        //super initializes self
+        //
+        //PLAYING AROUND:
+        setupStocktakeDict()
+    }
+    
+    func setupStocktakeDict() {
+        //1. fetch all CurrentItemPriceMO items, only caring
+        //for invCodes.
+        //2. populate the self.stocktake array 
+        let moc = getMocForThisStocktake()
+        let itemsFetch = NSFetchRequest(entityName: "CurrentItemPriceEntity")
+        itemsFetch.propertiesToFetch = ["invCode"]
+        
+        
+        do {
+            let fetchedCurrentItemsInvCode = try moc.executeFetchRequest(itemsFetch) as! [CurrentItemPriceMO]
+            
+            if !fetchedCurrentItemsInvCode.isEmpty {
+                let allInvCodesList = fetchedCurrentItemsInvCode.reduce([], combine: {(run, item) in
+                    run + [item.invCode]
+                })
+                
+                for invCode in allInvCodesList {
+                    //add the invCode and make an empty array
+                    stocktake[invCode] = []
+                }
+                
+                print(stocktake)
+            }
+        }
+        catch let error as NSError {
+            fatalError("FAILURE to save context: \(error)")
+        }
+        
+        
+        
+    
+    }
+    
+    func getMocForThisStocktake() -> NSManagedObjectContext {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        return appDelegate.managedObjectContext
     }
     
     
@@ -34,8 +84,7 @@ class Stocktake: NSObject {
         //and a previous stocktake has some of those deleted stocks => when reloading
         //previous stocktake there's no information on those items. bummer.
         
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let moc = appDelegate.managedObjectContext
+        let moc = self.getMocForThisStocktake()
         
         
         //we only want the invCode field returned from db
@@ -112,7 +161,6 @@ class Stocktake: NSObject {
         
         let aSet: Set = [dummyStockItem, dummyStockItem1]
         metaData.stocktakeItems = aSet
-        
         
         
         //

@@ -59,7 +59,7 @@ class StocktakeTableViewController: UITableViewController{
     //every time a user saves an amount in details view, the value gets appended to
     //the array for that invCode item.
     //the floats are the amounts, NOT money amounts.
-    var runningStocktakeDict =  [Int: [Float]]()
+    //var runningStocktakeDict =  [Int: [Float]]()
     
     //putting nil for searchResultsController tells the app that you want to use the same view your searching in to also display the results.
     let searchController = UISearchController(searchResultsController: nil)
@@ -466,9 +466,11 @@ class StocktakeTableViewController: UITableViewController{
         cell.stockFineDetailsLabel.text = "ID: " + String(stockItem.invCode) + " /// $" + String(stockItem.lastCost) + " per " + stockItem.units
 
         
+        //TODO: fix this to work with having every invCode being initially empty array []
         //work out the current amount and money for the item
         //if let costs = runningStocktakeDict[stockItem.invCode] {
         if let costs = stocktake?.stocktake[stockItem.invCode] {
+            //let costs = stocktake?.stocktake[stockItem.invCode]
             
             var runningAmt: Float = 0.0
             var runningCost: Float = 0.0
@@ -577,7 +579,7 @@ class StocktakeTableViewController: UITableViewController{
                 //otherwise, set it to nil explicitly
                 //if let amt = runningStocktakeDict[stockItem.invCode] {
                 if let amt = stocktake?.stocktake[stockItem.invCode] {
-                    var runningAmt : Float = 0.0
+                    var runningAmt: Float = 0.0
                     
                     //current stock is in an array.
                     //pass in the summed amount only.
@@ -591,11 +593,18 @@ class StocktakeTableViewController: UITableViewController{
                     //have no stock, so set it to nil
                     stockItemDetailViewController.stockCurrent = nil
                 }
+                
+                
+                //PLAYING AROUND PLACE: PASSING THE STOCKTAKE OBJECT TO DETAILS VC
+                stockItemDetailViewController.stockTake = stocktake
             }
         }
     }
     
     func updateStocktakeDetails(stockResult: [Int:Float]?) {
+        //StocktakeDetailsViewController calls this method
+        //when the user selects 'Save' button in the details
+        //view controller.
         
         for (invCode, amount) in stockResult! {
             //if let val = runningStocktakeDict[invCode] {
@@ -632,8 +641,6 @@ class StocktakeTableViewController: UITableViewController{
         alertController.addAction(cancelAction)
         
         self.presentViewController(alertController, animated: true) { (_) in
-        
-        
         }
     }
 }
