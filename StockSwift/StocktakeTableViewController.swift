@@ -468,34 +468,35 @@ class StocktakeTableViewController: UITableViewController{
         
         //TODO: fix this to work with having every invCode being initially empty array []
         //work out the current amount and money for the item
-        //if let costs = runningStocktakeDict[stockItem.invCode] {
         if let costs = stocktake?.stocktake[stockItem.invCode] {
-            //let costs = stocktake?.stocktake[stockItem.invCode]
-            
-            var runningAmt: Float = 0.0
-            var runningCost: Float = 0.0
-            
-            for val in costs {
-                runningAmt += Float(val)
-                runningCost += Float(val) * stockItem.lastCost
+            if !costs.isEmpty {
+                var runningAmt: Float = 0.0
+                var runningCost: Float = 0.0
+                
+                for val in costs {
+                    runningAmt += Float(val)
+                    runningCost += Float(val) * stockItem.lastCost
+                }
+                cell.stockRunningAmountLabel.text = String(runningAmt)
+                cell.stockRunningCostLabel.text = "$" + String(runningCost)
+                cell.stockRunningAmountLabel.backgroundColor = UIColor.orangeColor()
+                cell.stockRunningCostLabel.backgroundColor = UIColor.orangeColor()
             }
-            cell.stockRunningAmountLabel.text = String(runningAmt)
-            cell.stockRunningCostLabel.text = "$" + String(runningCost)
-            cell.stockRunningAmountLabel.backgroundColor = UIColor.orangeColor()
-            cell.stockRunningCostLabel.backgroundColor = UIColor.orangeColor()
+            else {
+                cell.stockRunningAmountLabel.text = " 0.0"
+                cell.stockRunningCostLabel.text = "$0.0"
+                cell.stockRunningAmountLabel.backgroundColor = UIColor.grayColor()
+                cell.stockRunningCostLabel.backgroundColor = UIColor.grayColor()
+            }
         }
         else {
-            cell.stockRunningAmountLabel.text = " 0.0"
-            cell.stockRunningCostLabel.text = "$0.0"
-            cell.stockRunningAmountLabel.backgroundColor = UIColor.grayColor()
-            cell.stockRunningCostLabel.backgroundColor = UIColor.grayColor()
+            print("ERROR: stocktake?.stocktake[stockItem.invCode] is nil. it shoudn't be")
         }
         
         cell.stockRunningAmountLabel.layer.masksToBounds = true
         cell.stockRunningAmountLabel.layer.cornerRadius = 8.0
         cell.stockRunningCostLabel.layer.masksToBounds = true
         cell.stockRunningCostLabel.layer.cornerRadius = 8.0
-        
         cell.backgroundColor = UIColor(red: 38.0/255, green: 38.0/255, blue: 38.0/255, alpha: 1.0)
 
         return cell

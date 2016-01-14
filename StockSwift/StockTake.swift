@@ -12,14 +12,13 @@ import CoreData
 class Stocktake: NSObject {
     
     // MARK: Properties
-    var stocktake: [Int: [Float]]
+    var stocktake: [Int: [Float]] = [:]
     var stocktakeMetaData: [String:String]
     
     init(metaData:[String:String]) {
     
         //in swift, all properties of the subclass must be 
         //initialized before calling super.
-        stocktake = [:]
         stocktakeMetaData = metaData
         
         //let's initialize the stocktake dict with all the stock items with invCodes
