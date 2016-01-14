@@ -608,8 +608,10 @@ class StocktakeTableViewController: UITableViewController{
                     stockItem = stockItems[indexPath.row]
                 }
                 
-                stockItemDetailViewController.stockItem = stockItem
                 
+                
+                /*
+                stockItemDetailViewController.stockItem = stockItem
                 
                 //pass in the current stock amounts to the details page if it exists.
                 //otherwise, set it to nil explicitly
@@ -629,6 +631,7 @@ class StocktakeTableViewController: UITableViewController{
                     //have no stock, so set it to nil
                     stockItemDetailViewController.stockCurrent = nil
                 }
+                */
                 
                 
                 //PLAYING AROUND PLACE: PASSING THE STOCKTAKE OBJECT TO DETAILS VC
@@ -647,11 +650,13 @@ class StocktakeTableViewController: UITableViewController{
         }
     }
     
-    func updateStocktakeDetails(stockResult: [Int:Float]?) {
+    func updateStocktakeDetails() {
+    //func updateStocktakeDetails(stockResult: [Int:Float]?) {
         //StocktakeDetailsViewController calls this method
         //when the user selects 'Save' button in the details
         //view controller.
         
+        /*
         for (invCode, amount) in stockResult! {
             //if let val = runningStocktakeDict[invCode] {
             if let val = stocktake?.stocktake[invCode] {
@@ -665,6 +670,7 @@ class StocktakeTableViewController: UITableViewController{
                 stocktake?.stocktake[invCode] = [amount]
             }
         }
+        */
         tableView.reloadData()
     }
     

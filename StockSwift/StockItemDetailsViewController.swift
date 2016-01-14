@@ -21,9 +21,9 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var editTableViewButton: UIButton!
     
-    var stockItem:StockItem?
+    //var stockItem:StockItem?
     var stockItemMO: StocktakeItemMO?
-    var stockCurrent: [Int: Float]?
+    //var stockCurrent: [Int: Float]?
     var amountsBuffer:[Float] = []
     var amtTableView: UITableView?
     var stockTake: Stocktake?
@@ -43,8 +43,11 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
             stockDescriptionLabel.text = item.itemDescription
             stockFineDetailLabel.text = "ID: " + String(item.invCode) + " /// $" + String(item.lastCost) + " per " + item.units
             stockPhotoImageView.image = stockTake?.getStockItemPhoto(item.invCode)
+            stockPhysicalAmountLabel.text = String(item.physicalAmount)
+            stockMoneyAmountLabel.text = String(item.physicalAmount * item.lastCost)
             
             
+            /*
             if let res = stockCurrent {
                 stockPhysicalAmountLabel.text = String(res[item.invCode]!)
                 stockMoneyAmountLabel.text = String(res[item.invCode]! * item.lastCost)
@@ -54,6 +57,7 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
                 stockPhysicalAmountLabel.text = "0.0"
                 stockMoneyAmountLabel.text = "0.0"
             }
+            */
             
         }
         newStockAmountTextField.delegate = self
@@ -110,11 +114,19 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
                 
                 let bufferSum = amountsBuffer.reduce(0, combine: {(run, elem) in (run+elem)})
                 
+                
+                let netStock = (stockItemMO?.physicalAmount)! + bufferSum
+                stockPhysicalAmountLabel.text = String(netStock)
+                stockMoneyAmountLabel.text = String(netStock * (stockItemMO?.lastCost)!)
+                
+                /*
                 if let current = stockCurrent {
-                    let netStock = bufferSum + current[stockItem!.invCode]!
+                    let netStock = bufferSum + current[stockItemMO!.invCode]!
                     stockPhysicalAmountLabel.text = String(netStock)
-                    stockMoneyAmountLabel.text = String(netStock * stockItem!.lastCost)
+                    stockMoneyAmountLabel.text = String(netStock * stockItemMO!.lastCost)
                 }
+                */
+                
                 textField.text = ""
             }
             else {
@@ -151,8 +163,10 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
             amtTableView?.reloadData()
             amtTableView?.frame = CGRect(x: 0.0, y: 670.0, width: 300.0, height: (amtTableView?.rowHeight)! * CGFloat(amountsBuffer.count))
             
+            
             //should also update the running amounts and money labels since items have
             //been deleted
+            /*
             let bufferSum = amountsBuffer.reduce(0, combine: {(run, elem) in (run+elem)})
             
             if let current = stockCurrent {
@@ -164,6 +178,19 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
                 stockPhysicalAmountLabel.text = String(bufferSum)
                 stockMoneyAmountLabel.text = String(bufferSum * stockItem!.lastCost)
             }
+            */
+            
+            
+            let bufferSum = amountsBuffer.reduce(0, combine: {(run, elem) in (run+elem)})
+            
+            
+            let netStock = (stockItemMO?.physicalAmount)! + bufferSum
+            stockPhysicalAmountLabel.text = String(netStock)
+            stockMoneyAmountLabel.text = String(netStock * (stockItemMO?.lastCost)!)
+            
+            
+            
+            
         }
     }
     
@@ -272,9 +299,9 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
         let sourceViewController = navigationController!.viewControllers[2] as! StocktakeTableViewController
         
         let _newAmount = amountsBuffer.reduce(0, combine: {(run, elem) in (run+elem)})
-        let newAmount = [stockItem!.invCode: _newAmount]
+        //let newAmount = [stockItem!.invCode: _newAmount]
         
-        sourceViewController.updateStocktakeDetails(newAmount)
+        sourceViewController.updateStocktakeDetails()
         
         navigationController!.popViewControllerAnimated(true)
         
