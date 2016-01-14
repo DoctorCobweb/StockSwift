@@ -31,7 +31,17 @@ class Stocktake: NSObject {
         //this has to go below the call to super.init() because
         //super initializes self
         //
+        setupImages()
+        //
         setupStocktakeDict()
+    }
+    
+    
+    func setupImages() {
+    
+    
+    
+    
     }
     
     
@@ -104,22 +114,31 @@ class Stocktake: NSObject {
     
     
     func getSingularStockItem(invCode: Int) -> StocktakeItemMO? {
+        print("getSingularStockItem func")
+        print(stocktakeMetaData["person_name"])
+        print(stocktakeMetaData["department"])
+        print(stocktakeMetaData["start_date"])
         
         let itemFetch = NSFetchRequest(entityName: "StocktakeItemEntity")
         
         //item has to be for this stocktake!!! so we match on singularStocktake prop
         let formatString = "invCode == %d AND singularStocktake.personName == %@ AND singularStocktake.department == %@ AND singularStocktake.startDate == %@"
+        //let formatString = "invCode == %d"
         
-        itemFetch.predicate = NSPredicate(format:formatString,
-            invCode ,stocktakeMetaData["person_name"]!, stocktakeMetaData["department"]!, stocktakeMetaData["start_date"]!)
+        itemFetch.predicate = NSPredicate(format:formatString, invCode,stocktakeMetaData["person_name"]!, stocktakeMetaData["department"]!, stocktakeMetaData["start_date"]!)
+        //itemFetch.predicate = NSPredicate(format:formatString, invCode)
     
         do {
             let fetchedItems = try self.moc.executeFetchRequest(itemFetch)
             
+            print("fetchedItems.count: \(fetchedItems.count)")
+            
             if !fetchedItems.isEmpty && fetchedItems.count == 1 {
+                print("TOTOTO")
                 return fetchedItems[0] as? StocktakeItemMO
             }
             else {
+                print("BADBADBABD")
                 return nil
             }
         }

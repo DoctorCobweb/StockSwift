@@ -58,6 +58,14 @@ class StocktakeTableViewController: UITableViewController{
     //putting nil for searchResultsController tells the app that you want to use the same view your searching in to also display the results.
     let searchController = UISearchController(searchResultsController: nil)
     
+    
+    override func viewWillAppear(animated: Bool) {
+        //setup metadate here before tableview attempts to load cells using core data
+        //initialize the stocktake
+        //stocktake = Stocktake(metaData: stocktakeMetaData)
+        //print("stocktake?.stocktakeMetaData is: \(stocktake?.stocktakeMetaData)")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -94,20 +102,30 @@ class StocktakeTableViewController: UITableViewController{
         
         
         
-        //initialize the stocktake
-        stocktake = Stocktake(metaData: stocktakeMetaData)
-        print("stocktake?.stocktakeMetaData is: \(stocktake?.stocktakeMetaData)")
         
         
         //---HACKETY HACK---
         //RUN THIS THE FIRST TIME THE APP RUNS
         //it loads in all the stock item pricing and photos into Core Data
+        
         //then comment this function call out and use Core Data to fetch stock from db.
+        //
         //bootstrapLoadStocktakeItems()
+        
+        //THIS MUST BE BELOW BOOTSTRAP call becuase bootstrap
+        //creates all the CurrentItemPriceMO enitities first,
+        //which stock init()=>setupStocktake() needs to 
+        //create StockItemMO.
+        //
+        //NEED TO REFACTOR part in bootstrap code into Stocktake
+        //class
+        //initialize the stocktake
+        //
+        stocktake = Stocktake(metaData: stocktakeMetaData)
+        print("stocktake?.stocktakeMetaData is: \(stocktake?.stocktakeMetaData)")
         
         //use this call when the stock items are loaded in db.
         loadStockItemsFromCoreData()
-        
     }
     
     func loadStockItemsFromCoreData() {
@@ -428,7 +446,12 @@ class StocktakeTableViewController: UITableViewController{
             stockItem = stockItems[indexPath.row]
         }
         
+        
+        print("stockItem is: \(stockItem)")
+        print("stockItem.invCode is: \(stockItem.invCode)")
         //TODO: do away with stockItems
+        
+        print("stocktake is: \(stocktake)")
         
         let _item = stocktake?.getSingularStockItem(stockItem.invCode)
         let _itemPhoto = stocktake?.getStockItemPhoto(stockItem.invCode)
@@ -439,7 +462,9 @@ class StocktakeTableViewController: UITableViewController{
         cell.stockPhotoImageView.layer.cornerRadius = cell.stockPhotoImageView.frame.size.width / 2.0
         cell.stockPhotoImageView.clipsToBounds = true
         cell.stockDescriptionLabel.text = _item?.itemDescription.uppercaseString
-        
+            
+        print("_item is: \(_item)")
+        print(_item?.itemDescription)
         let sub1 = "ID: "
         let sub2 = String((_item?.invCode)!)
         let sub3 = " /// $"
