@@ -34,6 +34,7 @@ class Stocktake: NSObject {
         setupStocktakeDict()
     }
     
+    
     func setupStocktakeDict() {
         
         //save the stocktake meta details first
@@ -101,6 +102,7 @@ class Stocktake: NSObject {
         }
     }
     
+    
     func getSingularStockItem(invCode: Int) -> StocktakeItemMO? {
         
         let itemFetch = NSFetchRequest(entityName: "StocktakeItemEntity")
@@ -156,6 +158,7 @@ class Stocktake: NSObject {
     
     
     
+    //TODO: properly flesh this stuff out...think about use cases of finishing a stocktake
     func createFinalStocktake() {
     
         //here you want to add all zero amout items to stocktake dict because we want

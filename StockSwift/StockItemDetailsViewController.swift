@@ -21,9 +21,7 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var editTableViewButton: UIButton!
     
-    //var stockItem:StockItem?
     var stockItemMO: StocktakeItemMO?
-    //var stockCurrent: [Int: Float]?
     var amountsBuffer:[Float] = []
     var amtTableView: UITableView?
     var stockTake: Stocktake?
@@ -45,20 +43,6 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
             stockPhotoImageView.image = stockTake?.getStockItemPhoto(item.invCode)
             stockPhysicalAmountLabel.text = String(item.physicalAmount)
             stockMoneyAmountLabel.text = String(item.physicalAmount * item.lastCost)
-            
-            
-            /*
-            if let res = stockCurrent {
-                stockPhysicalAmountLabel.text = String(res[item.invCode]!)
-                stockMoneyAmountLabel.text = String(res[item.invCode]! * item.lastCost)
-            }
-            else {
-                stockCurrent = [item.invCode: 0.0]
-                stockPhysicalAmountLabel.text = "0.0"
-                stockMoneyAmountLabel.text = "0.0"
-            }
-            */
-            
         }
         newStockAmountTextField.delegate = self
     }
@@ -119,14 +103,6 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
                 stockPhysicalAmountLabel.text = String(netStock)
                 stockMoneyAmountLabel.text = String(netStock * (stockItemMO?.lastCost)!)
                 
-                /*
-                if let current = stockCurrent {
-                    let netStock = bufferSum + current[stockItemMO!.invCode]!
-                    stockPhysicalAmountLabel.text = String(netStock)
-                    stockMoneyAmountLabel.text = String(netStock * stockItemMO!.lastCost)
-                }
-                */
-                
                 textField.text = ""
             }
             else {
@@ -166,31 +142,12 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
             
             //should also update the running amounts and money labels since items have
             //been deleted
-            /*
-            let bufferSum = amountsBuffer.reduce(0, combine: {(run, elem) in (run+elem)})
-            
-            if let current = stockCurrent {
-                let netStock = bufferSum + current[stockItem!.invCode]!
-                stockPhysicalAmountLabel.text = String(netStock)
-                stockMoneyAmountLabel.text = String(netStock * stockItem!.lastCost)
-            }
-            else {
-                stockPhysicalAmountLabel.text = String(bufferSum)
-                stockMoneyAmountLabel.text = String(bufferSum * stockItem!.lastCost)
-            }
-            */
-            
             
             let bufferSum = amountsBuffer.reduce(0, combine: {(run, elem) in (run+elem)})
-            
             
             let netStock = (stockItemMO?.physicalAmount)! + bufferSum
             stockPhysicalAmountLabel.text = String(netStock)
             stockMoneyAmountLabel.text = String(netStock * (stockItemMO?.lastCost)!)
-            
-            
-            
-            
         }
     }
     
@@ -299,7 +256,6 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
         let sourceViewController = navigationController!.viewControllers[2] as! StocktakeTableViewController
         
         let _newAmount = amountsBuffer.reduce(0, combine: {(run, elem) in (run+elem)})
-        //let newAmount = [stockItem!.invCode: _newAmount]
         
         sourceViewController.updateStocktakeDetails()
         
@@ -307,8 +263,7 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
         
         
         
-        //PLAYING AROUND
-        //let's try to update the stock amount in Core Data
+        //update the stock amount in Core Data
         stockTake?.updateStockItem((stockItemMO?.invCode)!, amount: _newAmount)
     }
 }

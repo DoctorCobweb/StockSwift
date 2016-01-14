@@ -55,12 +55,6 @@ class StocktakeTableViewController: UITableViewController{
     var stocktake: Stocktake?
     var stocktakeMetaData = [String:String]()
     
-    //contains all the stock items added for each invCode value.
-    //every time a user saves an amount in details view, the value gets appended to
-    //the array for that invCode item.
-    //the floats are the amounts, NOT money amounts.
-    //var runningStocktakeDict =  [Int: [Float]]()
-    
     //putting nil for searchResultsController tells the app that you want to use the same view your searching in to also display the results.
     let searchController = UISearchController(searchResultsController: nil)
     
@@ -130,7 +124,7 @@ class StocktakeTableViewController: UITableViewController{
             if !fetchedCurrentItems.isEmpty {
                 for item in fetchedCurrentItems {
                     let aPhoto: UIImage?
-                    //aPhoto = getPhotoFromCoreData(moc, invCode: item.invCode)
+                    
                     aPhoto = stocktake?.getStockItemPhoto(item.invCode)
                 
                     let stockItem = StockItem(photo: aPhoto, description: item.itemDescription, invCode: item.invCode, lastCost: item.lastCost, units: item.units, section: item.section)
@@ -143,31 +137,6 @@ class StocktakeTableViewController: UITableViewController{
             fatalError("FAILURE to save context: \(error)")
         }
     }
-    
-    /*
-    func getPhotoFromCoreData(moc: NSManagedObjectContext, invCode: Int) -> UIImage? {
-        let photoFetch = NSFetchRequest(entityName: "StockImageEntity")
-        photoFetch.predicate = NSPredicate(format: "invCode == %d", invCode)
-        
-        do {
-            let fetchedPhotos = try moc.executeFetchRequest(photoFetch) as! [StockImageMO]
-            
-            if !fetchedPhotos.isEmpty{
-                //there should only be one photo per stock item
-                return UIImage(data: fetchedPhotos[0].photo!)
-            }
-            else {
-                return nil
-            }
-        }
-        catch let error as NSError {
-            fatalError("FAILURE to save context: \(error)")
-        }
-    }
-    */
-    
-    
-    
     
     
     func filterContentForSearchText(searchText: String, scope: String = "ALL") {
@@ -493,40 +462,6 @@ class StocktakeTableViewController: UITableViewController{
             cell.stockRunningCostLabel.backgroundColor = UIColor.grayColor()
         }
         
-        /*
-        cell.stockPhotoImageView.image = stockItem.photo
-        cell.stockPhotoImageView.layer.cornerRadius = cell.stockPhotoImageView.frame.size.width / 2.0
-        cell.stockPhotoImageView.clipsToBounds = true
-        cell.stockDescriptionLabel.text = stockItem.description.uppercaseString
-        cell.stockFineDetailsLabel.text = "ID: " + String(stockItem.invCode) + " /// $" + String(stockItem.lastCost) + " per " + stockItem.units
-
-        
-        if let costs = stocktake?.stocktake[stockItem.invCode] {
-            if !costs.isEmpty {
-                var runningAmt: Float = 0.0
-                var runningCost: Float = 0.0
-                
-                for val in costs {
-                    runningAmt += Float(val)
-                    runningCost += Float(val) * stockItem.lastCost
-                }
-                cell.stockRunningAmountLabel.text = String(runningAmt)
-                cell.stockRunningCostLabel.text = "$" + String(runningCost)
-                cell.stockRunningAmountLabel.backgroundColor = UIColor.orangeColor()
-                cell.stockRunningCostLabel.backgroundColor = UIColor.orangeColor()
-            }
-            else {
-                cell.stockRunningAmountLabel.text = " 0.0"
-                cell.stockRunningCostLabel.text = "$0.0"
-                cell.stockRunningAmountLabel.backgroundColor = UIColor.grayColor()
-                cell.stockRunningCostLabel.backgroundColor = UIColor.grayColor()
-            }
-        }
-        else {
-            print("ERROR: stocktake?.stocktake[stockItem.invCode] is nil. it shoudn't be")
-        }
-        */
-        
         cell.stockRunningAmountLabel.layer.masksToBounds = true
         cell.stockRunningAmountLabel.layer.cornerRadius = 8.0
         cell.stockRunningCostLabel.layer.masksToBounds = true
@@ -610,31 +545,7 @@ class StocktakeTableViewController: UITableViewController{
                 
                 
                 
-                /*
-                stockItemDetailViewController.stockItem = stockItem
-                
-                //pass in the current stock amounts to the details page if it exists.
-                //otherwise, set it to nil explicitly
-                //if let amt = runningStocktakeDict[stockItem.invCode] {
-                if let amt = stocktake?.stocktake[stockItem.invCode] {
-                    var runningAmt: Float = 0.0
-                    
-                    //current stock is in an array.
-                    //pass in the summed amount only.
-                    for val in amt {
-                        runningAmt += Float(val)
-                    }
-                    
-                    stockItemDetailViewController.stockCurrent = [stockItem.invCode: runningAmt]
-                }
-                else {
-                    //have no stock, so set it to nil
-                    stockItemDetailViewController.stockCurrent = nil
-                }
-                */
-                
-                
-                //PLAYING AROUND PLACE: PASSING THE STOCKTAKE OBJECT TO DETAILS VC
+                // PASSING THE STOCKTAKE OBJECT TO DETAILS VC
                 stockItemDetailViewController.stockTake = stocktake
                 
                 
@@ -651,31 +562,14 @@ class StocktakeTableViewController: UITableViewController{
     }
     
     func updateStocktakeDetails() {
-    //func updateStocktakeDetails(stockResult: [Int:Float]?) {
         //StocktakeDetailsViewController calls this method
         //when the user selects 'Save' button in the details
         //view controller.
         
-        /*
-        for (invCode, amount) in stockResult! {
-            //if let val = runningStocktakeDict[invCode] {
-            if let val = stocktake?.stocktake[invCode] {
-                //val is not nil and has been unwrapped 
-                let updated_amount = val + [amount]
-                //runningStocktakeDict[invCode] = updated_amount
-                stocktake?.stocktake[invCode] = updated_amount
-            }
-            else {
-                //runningStocktakeDict[invCode] = [amount]
-                stocktake?.stocktake[invCode] = [amount]
-            }
-        }
-        */
         tableView.reloadData()
     }
     
     @IBAction func doneStocktakeFinal(sender: UIBarButtonItem) {
-        //print(navigationController?.viewControllers)
         let alertController = UIAlertController(title: "Finish Stocktake?", message: "Select Done if you have finished the stocktake. Otherwise, select cancel to continue with current stocktake", preferredStyle: .Alert)
         let doneAction = UIAlertAction(title: "Done", style: .Default) { (action) in
             print("doneAction selected")
