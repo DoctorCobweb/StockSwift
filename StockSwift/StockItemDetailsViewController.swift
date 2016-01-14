@@ -22,6 +22,7 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
     @IBOutlet weak var editTableViewButton: UIButton!
     
     var stockItem:StockItem?
+    var stockItemMO: StocktakeItemMO?
     var stockCurrent: [Int: Float]?
     var amountsBuffer:[Float] = []
     var amtTableView: UITableView?
@@ -38,10 +39,10 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
         
         saveButton.enabled = false
         
-        if let item = stockItem {
-            stockDescriptionLabel.text = item.description
+        if let item = stockItemMO {
+            stockDescriptionLabel.text = item.itemDescription
             stockFineDetailLabel.text = "ID: " + String(item.invCode) + " /// $" + String(item.lastCost) + " per " + item.units
-            stockPhotoImageView.image = item.photo
+            stockPhotoImageView.image = stockTake?.getStockItemPhoto(item.invCode)
             
             
             if let res = stockCurrent {
@@ -56,11 +57,8 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
             
         }
         newStockAmountTextField.delegate = self
-        
-        
-        //PLAYING AROUND AREA: STOCKTAKE OBJET
-        print("PLAYING AROUND: \(self.stockTake)")
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -268,11 +266,22 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
     //TODO: don't rely on indexing the controllers array to get
     //the last controller. use casting and if let procedure
     @IBAction func saveStock(sender: UIBarButtonItem) {
+        
         print(navigationController!.viewControllers)
+        
         let sourceViewController = navigationController!.viewControllers[2] as! StocktakeTableViewController
-        let newAmount = [stockItem!.invCode: amountsBuffer.reduce(0, combine: {(run, elem) in (run+elem)})]
+        
+        let _newAmount = amountsBuffer.reduce(0, combine: {(run, elem) in (run+elem)})
+        let newAmount = [stockItem!.invCode: _newAmount]
         
         sourceViewController.updateStocktakeDetails(newAmount)
+        
         navigationController!.popViewControllerAnimated(true)
+        
+        
+        
+        //PLAYING AROUND
+        //let's try to update the stock amount in Core Data
+        stockTake?.updateStockItem((stockItemMO?.invCode)!, amount: _newAmount)
     }
 }

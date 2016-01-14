@@ -14,61 +14,146 @@ class Stocktake: NSObject {
     // MARK: Properties
     var stocktake: [Int: [Float]] = [:]
     var stocktakeMetaData: [String:String]
+    let moc: NSManagedObjectContext
     
     init(metaData:[String:String]) {
     
         //in swift, all properties of the subclass must be 
         //initialized before calling super.
         stocktakeMetaData = metaData
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        moc = appDelegate.managedObjectContext
         
         //let's initialize the stocktake dict with all the stock items with invCodes
         super.init()
         
+        
         //this has to go below the call to super.init() because
         //super initializes self
         //
-        //PLAYING AROUND:
         setupStocktakeDict()
     }
     
     func setupStocktakeDict() {
-        //1. fetch all CurrentItemPriceMO items, only caring
-        //for invCodes.
-        //2. populate the self.stocktake array 
-        let moc = getMocForThisStocktake()
-        let itemsFetch = NSFetchRequest(entityName: "CurrentItemPriceEntity")
-        itemsFetch.propertiesToFetch = ["invCode"]
         
+        //save the stocktake meta details first
+        let metaData = NSEntityDescription.insertNewObjectForEntityForName("StocktakeMetaDataEntity", inManagedObjectContext: self.moc) as! StocktakeMetaDataMO
+        metaData.personName = stocktakeMetaData["person_name"]!
+        metaData.department = stocktakeMetaData["department"]!
+        metaData.startDate = stocktakeMetaData["start_date"]!
+        
+        //fetch all CurrentItemPriceMO items
+        let itemsFetch = NSFetchRequest(entityName: "CurrentItemPriceEntity")
         
         do {
-            let fetchedCurrentItemsInvCode = try moc.executeFetchRequest(itemsFetch) as! [CurrentItemPriceMO]
+            let fetchedItems = try self.moc.executeFetchRequest(itemsFetch) as! [CurrentItemPriceMO]
             
-            if !fetchedCurrentItemsInvCode.isEmpty {
-                let allInvCodesList = fetchedCurrentItemsInvCode.reduce([], combine: {(run, item) in
-                    run + [item.invCode]
-                })
+            if !fetchedItems.isEmpty {
                 
-                for invCode in allInvCodesList {
-                    //add the invCode and make an empty array
-                    stocktake[invCode] = []
-                }
+                addItemsToCoreData(fetchedItems, metaData: metaData)
                 
-                print(stocktake)
+                //now persist the new stocktake = meta data + all items with zero amounts
+                persistData("make new stocktake = metaData + all items with zero amount")
             }
         }
         catch let error as NSError {
             fatalError("FAILURE to save context: \(error)")
         }
-        
-        
-        
-    
     }
     
-    func getMocForThisStocktake() -> NSManagedObjectContext {
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        return appDelegate.managedObjectContext
+    
+    func addItemsToCoreData(cItems: [CurrentItemPriceMO], metaData: StocktakeMetaDataMO) {
+        
+        var _items: Set<StocktakeItemMO> = []
+        
+        for cItem in cItems {
+            let _item = NSEntityDescription.insertNewObjectForEntityForName("StocktakeItemEntity", inManagedObjectContext: self.moc) as! StocktakeItemMO
+            
+            _item.invCode = cItem.invCode
+            _item.itemDescription = cItem.itemDescription
+            _item.lastCost = cItem.lastCost
+            _item.section = cItem.section
+            _item.units = cItem.units
+            _item.physicalAmount = 0
+            
+            //set the to-one relationship for a stock item to have a meta data entitiy
+            _item.singularStocktake = metaData
+            
+            _items.insert(_item)
+            
+        
+            //also setup the in memory stocktake dict for this item
+            stocktake[cItem.invCode] = []
+        }
+        
+        //set the to-many relationship for meta data to have many stock take items
+        metaData.stocktakeItems = _items
     }
+    
+    
+    func persistData(action: String) {
+        do {
+            try self.moc.save()
+            print("SUCCESS: save to persistent store, action: \(action)")
+        }
+        catch let error as NSError {
+            fatalError("FAILURE to save context: \(error)")
+        }
+    }
+    
+    func getSingularStockItem(invCode: Int) -> StocktakeItemMO? {
+        
+        let itemFetch = NSFetchRequest(entityName: "StocktakeItemEntity")
+        
+        //item has to be for this stocktake!!! so we match on singularStocktake prop
+        let formatString = "invCode == %d AND singularStocktake.personName == %@ AND singularStocktake.department == %@ AND singularStocktake.startDate == %@"
+        
+        itemFetch.predicate = NSPredicate(format:formatString,
+            invCode ,stocktakeMetaData["person_name"]!, stocktakeMetaData["department"]!, stocktakeMetaData["start_date"]!)
+    
+        do {
+            let fetchedItems = try self.moc.executeFetchRequest(itemFetch)
+            
+            if !fetchedItems.isEmpty && fetchedItems.count == 1 {
+                return fetchedItems[0] as? StocktakeItemMO
+            }
+            else {
+                return nil
+            }
+        }
+        catch let error as NSError {
+            fatalError("FAILURE to save context: \(error)")
+        }
+    }
+    
+    
+    func getStockItemPhoto(invCode: Int) -> UIImage? {
+        let photoFetch = NSFetchRequest(entityName: "StockImageEntity")
+        photoFetch.predicate = NSPredicate(format: "invCode == %d", invCode)
+        
+        do {
+            let fetchedPhotos = try moc.executeFetchRequest(photoFetch) as! [StockImageMO]
+            
+            if !fetchedPhotos.isEmpty && fetchedPhotos.count == 1 {
+                return UIImage(data: fetchedPhotos[0].photo!)
+            }
+            else {
+                return nil
+            }
+        }
+        catch let error as NSError {
+            fatalError("FAILURE to save context: \(error)")
+        }
+    }
+    
+    
+    func updateStockItem(invCode: Int, amount: Float) {
+    
+        let item = getSingularStockItem(invCode)
+        item?.physicalAmount += amount
+        persistData("updateStockItem")
+    }
+    
     
     
     func createFinalStocktake() {
@@ -83,15 +168,13 @@ class Stocktake: NSObject {
         //and a previous stocktake has some of those deleted stocks => when reloading
         //previous stocktake there's no information on those items. bummer.
         
-        let moc = self.getMocForThisStocktake()
-        
         
         //we only want the invCode field returned from db
         let itemsFetch = NSFetchRequest(entityName: "CurrentItemPriceEntity")
         itemsFetch.propertiesToFetch = ["invCode"]
         
         do {
-            let fetchedCurrentItemsInvCode = try moc.executeFetchRequest(itemsFetch) as! [CurrentItemPriceMO]
+            let fetchedCurrentItemsInvCode = try self.moc.executeFetchRequest(itemsFetch) as! [CurrentItemPriceMO]
             
             if !fetchedCurrentItemsInvCode.isEmpty {
                 let allInvCodesList = fetchedCurrentItemsInvCode.reduce([], combine: {(run, item) in
@@ -121,7 +204,7 @@ class Stocktake: NSObject {
         
         
         //save the stocktake meta details first
-        let metaData = NSEntityDescription.insertNewObjectForEntityForName("StocktakeMetaDataEntity", inManagedObjectContext: moc) as! StocktakeMetaDataMO
+        let metaData = NSEntityDescription.insertNewObjectForEntityForName("StocktakeMetaDataEntity", inManagedObjectContext: self.moc) as! StocktakeMetaDataMO
         metaData.personName = stocktakeMetaData["person_name"]!
         metaData.department = stocktakeMetaData["department"]!
         metaData.startDate = stocktakeMetaData["start_date"]!
@@ -135,7 +218,7 @@ class Stocktake: NSObject {
         
         //lets create a dummy StocktakeItemMO object and
         //add it the the stocktakeItems set.
-        let dummyStockItem = NSEntityDescription.insertNewObjectForEntityForName("StocktakeItemEntity", inManagedObjectContext: moc) as! StocktakeItemMO
+        let dummyStockItem = NSEntityDescription.insertNewObjectForEntityForName("StocktakeItemEntity", inManagedObjectContext: self.moc) as! StocktakeItemMO
         dummyStockItem.invCode = 123456
         dummyStockItem.itemDescription = "blah blah blah"
         dummyStockItem.lastCost = 12.3
@@ -146,7 +229,7 @@ class Stocktake: NSObject {
         dummyStockItem.singularStocktake = metaData
         
         
-        let dummyStockItem1 = NSEntityDescription.insertNewObjectForEntityForName("StocktakeItemEntity", inManagedObjectContext: moc) as! StocktakeItemMO
+        let dummyStockItem1 = NSEntityDescription.insertNewObjectForEntityForName("StocktakeItemEntity", inManagedObjectContext: self.moc) as! StocktakeItemMO
         dummyStockItem1.invCode = 123456
         dummyStockItem1.itemDescription = "blah blah blah"
         dummyStockItem1.lastCost = 12.3
@@ -173,7 +256,7 @@ class Stocktake: NSObject {
         //these extra features needed for a StockTakeItemMO instance.
         
         do {
-            try moc.save()
+            try self.moc.save()
             print("SUCCESS: save stocktakeMetaData to persistent store")
         }
         catch let error as NSError {

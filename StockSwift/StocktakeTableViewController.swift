@@ -130,7 +130,8 @@ class StocktakeTableViewController: UITableViewController{
             if !fetchedCurrentItems.isEmpty {
                 for item in fetchedCurrentItems {
                     let aPhoto: UIImage?
-                    aPhoto = getPhotoFromCoreData(moc, invCode: item.invCode)
+                    //aPhoto = getPhotoFromCoreData(moc, invCode: item.invCode)
+                    aPhoto = stocktake?.getStockItemPhoto(item.invCode)
                 
                     let stockItem = StockItem(photo: aPhoto, description: item.itemDescription, invCode: item.invCode, lastCost: item.lastCost, units: item.units, section: item.section)
                     
@@ -143,6 +144,7 @@ class StocktakeTableViewController: UITableViewController{
         }
     }
     
+    /*
     func getPhotoFromCoreData(moc: NSManagedObjectContext, invCode: Int) -> UIImage? {
         let photoFetch = NSFetchRequest(entityName: "StockImageEntity")
         photoFetch.predicate = NSPredicate(format: "invCode == %d", invCode)
@@ -162,6 +164,7 @@ class StocktakeTableViewController: UITableViewController{
             fatalError("FAILURE to save context: \(error)")
         }
     }
+    */
     
     
     
@@ -456,9 +459,41 @@ class StocktakeTableViewController: UITableViewController{
             stockItem = stockItems[indexPath.row]
         }
         
+        //TODO: do away with stockItems
+        
+        let _item = stocktake?.getSingularStockItem(stockItem.invCode)
+        let _itemPhoto = stocktake?.getStockItemPhoto(stockItem.invCode)
         
         // Configure the cell...
         
+        cell.stockPhotoImageView.image = _itemPhoto
+        cell.stockPhotoImageView.layer.cornerRadius = cell.stockPhotoImageView.frame.size.width / 2.0
+        cell.stockPhotoImageView.clipsToBounds = true
+        cell.stockDescriptionLabel.text = _item?.itemDescription.uppercaseString
+        
+        let sub1 = "ID: "
+        let sub2 = String((_item?.invCode)!)
+        let sub3 = " /// $"
+        let sub4 = String((_item?.lastCost)!)
+        let sub5 = " per "
+        let sub6 = (_item?.units)!
+        cell.stockFineDetailsLabel.text = sub1 + sub2 + sub3 + sub4 + sub5 + sub6
+        
+        
+        if _item?.physicalAmount != 0 {
+            cell.stockRunningAmountLabel.text = String((_item?.physicalAmount)!)
+            cell.stockRunningCostLabel.text = "$" + String((_item?.physicalAmount)! * (_item?.lastCost)!)
+            cell.stockRunningAmountLabel.backgroundColor = UIColor.orangeColor()
+            cell.stockRunningCostLabel.backgroundColor = UIColor.orangeColor()
+        }
+        else {
+            cell.stockRunningAmountLabel.text = "0.0"
+            cell.stockRunningCostLabel.text = "$0.0"
+            cell.stockRunningAmountLabel.backgroundColor = UIColor.grayColor()
+            cell.stockRunningCostLabel.backgroundColor = UIColor.grayColor()
+        }
+        
+        /*
         cell.stockPhotoImageView.image = stockItem.photo
         cell.stockPhotoImageView.layer.cornerRadius = cell.stockPhotoImageView.frame.size.width / 2.0
         cell.stockPhotoImageView.clipsToBounds = true
@@ -466,8 +501,6 @@ class StocktakeTableViewController: UITableViewController{
         cell.stockFineDetailsLabel.text = "ID: " + String(stockItem.invCode) + " /// $" + String(stockItem.lastCost) + " per " + stockItem.units
 
         
-        //TODO: fix this to work with having every invCode being initially empty array []
-        //work out the current amount and money for the item
         if let costs = stocktake?.stocktake[stockItem.invCode] {
             if !costs.isEmpty {
                 var runningAmt: Float = 0.0
@@ -492,6 +525,7 @@ class StocktakeTableViewController: UITableViewController{
         else {
             print("ERROR: stocktake?.stocktake[stockItem.invCode] is nil. it shoudn't be")
         }
+        */
         
         cell.stockRunningAmountLabel.layer.masksToBounds = true
         cell.stockRunningAmountLabel.layer.cornerRadius = 8.0
@@ -576,6 +610,7 @@ class StocktakeTableViewController: UITableViewController{
                 
                 stockItemDetailViewController.stockItem = stockItem
                 
+                
                 //pass in the current stock amounts to the details page if it exists.
                 //otherwise, set it to nil explicitly
                 //if let amt = runningStocktakeDict[stockItem.invCode] {
@@ -598,6 +633,16 @@ class StocktakeTableViewController: UITableViewController{
                 
                 //PLAYING AROUND PLACE: PASSING THE STOCKTAKE OBJECT TO DETAILS VC
                 stockItemDetailViewController.stockTake = stocktake
+                
+                
+                //get the stocktakeItemMO for the particular invCode from core data
+                //then pass it along to destination VC
+                
+                let stockItemMO: StocktakeItemMO? = stocktake?.getSingularStockItem(stockItem.invCode)
+                
+                print("YOYOYOY: stockItemMO is: \(stockItemMO)")
+                
+                stockItemDetailViewController.stockItemMO = stockItemMO
             }
         }
     }
