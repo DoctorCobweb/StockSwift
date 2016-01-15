@@ -13,6 +13,9 @@ class StocktakeNewSetupViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: Properties
     var stocktakeMetadata = [String:String]()
+    var stocktake: Stocktake?
+    var stockItems: [StockItem]?
+    
     
     @IBOutlet weak var department: UIButton!
     @IBOutlet weak var personName: UITextField!
@@ -155,6 +158,10 @@ class StocktakeNewSetupViewController: UIViewController, UITextFieldDelegate {
         
         //only perform segue if personName, department and date are set properly
         if stocktakeMetadata[stocktakeMetadataStruct.personNameKey] != nil && stocktakeMetadata[stocktakeMetadataStruct.departmentKey] != nil {
+            
+            stocktake = Stocktake(metaData: stocktakeMetadata)
+            stockItems = stocktake?.loadStockItemsFromCoreData()
+            
             performSegueWithIdentifier("startStocktakeSegue", sender: self)
         }
         else {
@@ -180,6 +187,8 @@ class StocktakeNewSetupViewController: UIViewController, UITextFieldDelegate {
             let stocktakeTableViewController = segue.destinationViewController as! StocktakeTableViewController
             
             stocktakeTableViewController.stocktakeMetaData = stocktakeMetadata
+            stocktakeTableViewController.stocktake = stocktake
+            stocktakeTableViewController.stockItems = stockItems
         }
     }
 }

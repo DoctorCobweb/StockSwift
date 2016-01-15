@@ -47,7 +47,8 @@ extension StocktakeTableViewController: UISearchBarDelegate {
 class StocktakeTableViewController: UITableViewController{
 
     // MARK: Properties
-    var stockItems = [StockItem]()
+    //var stockItems = [StockItem]()
+    var stockItems: [StockItem]?
     var filteredStockItems = [StockItem]()
     
     
@@ -121,13 +122,20 @@ class StocktakeTableViewController: UITableViewController{
         //class
         //initialize the stocktake
         //
+        
+        
+        
+        /*
         stocktake = Stocktake(metaData: stocktakeMetaData)
         print("stocktake?.stocktakeMetaData is: \(stocktake?.stocktakeMetaData)")
         
         //use this call when the stock items are loaded in db.
-        loadStockItemsFromCoreData()
+        //loadStockItemsFromCoreData()
+        stockItems = stocktake?.loadStockItemsFromCoreData()
+        */
     }
     
+    /*
     func loadStockItemsFromCoreData() {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let moc = appDelegate.managedObjectContext
@@ -155,6 +163,7 @@ class StocktakeTableViewController: UITableViewController{
             fatalError("FAILURE to save context: \(error)")
         }
     }
+    */
     
     
     func filterContentForSearchText(searchText: String, scope: String = "ALL") {
@@ -165,7 +174,7 @@ class StocktakeTableViewController: UITableViewController{
         //filter() takes a closure of type (item:StockItem) -> Bool
         //then it loops over all elements of the array, calls the closure passing in the current element,
         //if true is returned for that element it is added to filteredStockItems
-        filteredStockItems = stockItems.filter { item in
+        filteredStockItems = stockItems!.filter { item in
             
             if searchText == "" && scope != "ALL" {
                 //print("filterContentForSearchText, searchText == \"\" && scope != ALL is true")
@@ -187,6 +196,7 @@ class StocktakeTableViewController: UITableViewController{
         tableView.reloadData()
     }
     
+    /*
     func bootstrapLoadStocktakeItems() {
         
         //first load and parse the csv data file, "stock_data", then sort it alphabettically
@@ -264,8 +274,10 @@ class StocktakeTableViewController: UITableViewController{
             fatalError("FAILURE to save context:\(error)")
         }
     }
+    */
     
     
+    /*
     func parseStockDataCSV () ->  (headers:[String]?,
                                    data:[(stock_group:String,
                                    stock_group_cleaned:String,
@@ -374,6 +386,7 @@ class StocktakeTableViewController: UITableViewController{
         }
         return (headers, items)
     }
+    */
 
 
     override func didReceiveMemoryWarning() {
@@ -402,7 +415,7 @@ class StocktakeTableViewController: UITableViewController{
                 return filteredStockItems.count
             }
             else if searchBar.text == "" && scope == "ALL" {
-                return stockItems.count
+                return stockItems!.count
             }
             else if searchBar.text != "" && scope == "ALL" {
                 return filteredStockItems.count
@@ -413,7 +426,7 @@ class StocktakeTableViewController: UITableViewController{
             }
         }
         else {
-            return stockItems.count
+            return stockItems!.count
         }
     }
 
@@ -432,7 +445,7 @@ class StocktakeTableViewController: UITableViewController{
                 stockItem = filteredStockItems[indexPath.row]
             }
             else if searchBar.text == "" && scope == "ALL" {
-                stockItem = stockItems[indexPath.row]
+                stockItem = stockItems![indexPath.row]
             }
             else if searchBar.text != "" && scope == "ALL" {
                 stockItem = filteredStockItems[indexPath.row]
@@ -443,7 +456,7 @@ class StocktakeTableViewController: UITableViewController{
             }
         }
         else {
-            stockItem = stockItems[indexPath.row]
+            stockItem = stockItems![indexPath.row]
         }
         
         
@@ -554,7 +567,7 @@ class StocktakeTableViewController: UITableViewController{
                         stockItem = filteredStockItems[indexPath.row]
                     }
                     else if searchBar.text == "" && scope == "ALL" {
-                        stockItem = stockItems[indexPath.row]
+                        stockItem = stockItems![indexPath.row]
                     }
                     else if searchBar.text != "" && scope == "ALL" {
                         stockItem = filteredStockItems[indexPath.row]
@@ -565,7 +578,7 @@ class StocktakeTableViewController: UITableViewController{
                     }
                 }
                 else {
-                    stockItem = stockItems[indexPath.row]
+                    stockItem = stockItems![indexPath.row]
                 }
                 
                 

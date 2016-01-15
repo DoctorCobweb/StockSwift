@@ -31,27 +31,22 @@ class Stocktake: NSObject {
         //this has to go below the call to super.init() because
         //super initializes self
         //
-        setupImages()
         //
-        setupStocktakeDict()
+        setupStocktake()
     }
     
     
-    func setupImages() {
-    
-    
-    
-    
-    }
-    
-    
-    func setupStocktakeDict() {
+    func setupStocktake() {
         
-        //save the stocktake meta details first
+        //1. save the stocktake meta details first
         let metaData = NSEntityDescription.insertNewObjectForEntityForName("StocktakeMetaDataEntity", inManagedObjectContext: self.moc) as! StocktakeMetaDataMO
         metaData.personName = stocktakeMetaData["person_name"]!
         metaData.department = stocktakeMetaData["department"]!
         metaData.startDate = stocktakeMetaData["start_date"]!
+        
+        
+        //2.
+        bootstrapCoreData()
         
         //fetch all CurrentItemPriceMO items
         let itemsFetch = NSFetchRequest(entityName: "CurrentItemPriceEntity")
@@ -70,6 +65,129 @@ class Stocktake: NSObject {
         catch let error as NSError {
             fatalError("FAILURE to save context: \(error)")
         }
+    }
+    
+    
+    func bootstrapCoreData() {
+        var stockItems = [StockItem]()
+        
+        //first load and parse the csv data file, "stock_data", then sort it alphabettically
+        //using description field
+        //stockContent is (headers, data) structure
+        let stockContent = parseStockDataCSV()
+        let stockHeaders = stockContent.headers
+        let stockContent_sorted = stockContent.data.sort{$0.description < $1.description}
+        
+        
+        //instantiate a stock item for each item in stockContent.data
+        for (index, item) in stockContent_sorted.enumerate() {
+            
+            let photo:UIImage?
+            
+            //just playing around with different images
+            if index % 3 == 0 {
+                photo = UIImage(named:"stock3")!
+            }
+            else if index % 5 == 0 {
+                photo = UIImage(named:"stock2")!
+            }
+            else if index % 7 == 0 {
+                photo = UIImage(named:"snow")!
+            }
+            else {
+                photo = UIImage(named: "stock1")!
+            }
+            
+            let stockItem = StockItem(
+                photo: photo,
+                description: item.description,
+                invCode: item.inv_code!,
+                lastCost: item.last_cost!,
+                units: item.units,
+                section: item.stock_group_cleaned)
+            
+            stockItems += [stockItem]
+        }
+        
+        setupImageEntities(stockItems)
+        setupCurrentItemPriceEntities(stockItems)
+    }
+    
+    
+    func setupImageEntities(stockItems: [StockItem]) {
+        
+        //for now, delete all the old images (THIS IS BAD) and put in new ones.
+        //eventually when we will be able to use the camera to take photos of each item
+        //and when that is we should NOT delete any old pics.
+        let imageFetch = NSFetchRequest(entityName: "StockImageEntity")
+        
+        do {
+        
+            let allImages = try self.moc.executeFetchRequest(imageFetch) as! [StockImageMO]
+            
+            if !allImages.isEmpty {
+                for item in allImages {
+                    self.moc.deleteObject(item)
+                }
+                persistData("deleted all OLD StockImageEntity items")
+            }
+        }
+        catch let error as NSError {
+            fatalError("FAILURE to save context: \(error)")
+        }
+        
+        
+        //now add in NEW ones
+        for item in stockItems {
+            print("adding a StockImageEntity row...")
+            let stockImage = NSEntityDescription.insertNewObjectForEntityForName("StockImageEntity", inManagedObjectContext: self.moc) as! StockImageMO
+            
+            stockImage.invCode = item.invCode
+            stockImage.photo = UIImagePNGRepresentation(item.photo!)
+        }
+        
+        persistData("save all NEW StockImageEntity items")
+    }
+    
+    
+    func setupCurrentItemPriceEntities(stockItems: [StockItem]) {
+        
+        //delete all OLD current item prices as we will consider the 'stock_data' as being
+        //the most up to date stuff.
+        let currentFetch = NSFetchRequest(entityName: "CurrentItemPriceEntity")
+        
+        do {
+        
+            let allCurrentItems = try self.moc.executeFetchRequest(currentFetch) as! [CurrentItemPriceMO]
+            
+            if !allCurrentItems.isEmpty {
+                for item in allCurrentItems {
+                    self.moc.deleteObject(item)
+                }
+                persistData("deleted all OLD CurrentItemPriceEntitiy items")
+            }
+        }
+        catch let error as NSError {
+            fatalError("FAILURE to save context: \(error)")
+        }
+        
+        
+        //if there are current item entities already in core data then consider them
+        //old. delete them all and remake them using the newest data, which has come
+        //from the 'stock_data' asset csv file from management.
+        
+        for item in stockItems {
+            print("adding a CurrentItemPriceEntity row...")
+            let currentItemPrice = NSEntityDescription.insertNewObjectForEntityForName("CurrentItemPriceEntity", inManagedObjectContext: moc) as! CurrentItemPriceMO
+            
+            currentItemPrice.invCode = item.invCode
+            currentItemPrice.itemDescription = item.description
+            currentItemPrice.lastCost = item.lastCost
+            currentItemPrice.section = item.section
+            currentItemPrice.units = item.units
+        }
+        
+        persistData("save all CurrentItemPriceEntity items")
     }
     
     
@@ -99,6 +217,41 @@ class Stocktake: NSObject {
         
         //set the to-many relationship for meta data to have many stock take items
         metaData.stocktakeItems = _items
+    }
+    
+    func loadStockItemsFromCoreData() -> [StockItem]? {
+        let itemsFetch = NSFetchRequest(entityName: "CurrentItemPriceEntity")
+        let descriptionSort = NSSortDescriptor(key: "itemDescription", ascending: true)
+        itemsFetch.sortDescriptors = [descriptionSort]
+        
+        var stockItems = [StockItem]()
+        
+        do {
+        
+            let fetchedCurrentItems = try moc.executeFetchRequest(itemsFetch) as! [CurrentItemPriceMO]
+            
+            if !fetchedCurrentItems.isEmpty {
+                for item in fetchedCurrentItems {
+                    let aPhoto: UIImage?
+                    
+                    aPhoto = self.getStockItemPhoto(item.invCode)
+                
+                    let stockItem = StockItem(photo: aPhoto, description: item.itemDescription, invCode: item.invCode, lastCost: item.lastCost, units: item.units, section: item.section)
+                    
+                    stockItems += [stockItem]
+                }
+                return stockItems
+            }
+            else {
+                return nil
+            }
+        }
+        catch let error as NSError {
+            fatalError("FAILURE to save context: \(error)")
+        }
+    
+    
+    
     }
     
     
@@ -285,4 +438,118 @@ class Stocktake: NSObject {
             fatalError("FAILURE to save context: \(error)")
         }
     }
+    
+    
+    
+    func parseStockDataCSV () ->  (headers:[String]?,
+                                   data:[(stock_group:String,
+                                   stock_group_cleaned:String,
+                                   inv_code:Int?,
+                                   description:String,
+                                   units:String,
+                                   last_cost:Float?,
+                                   barcode:String)]) {
+                                
+        // Load the CSV file and parse it
+        let delimiter = ","
+        var headers: [String]?
+        var items = [(stock_group:String,
+                     stock_group_cleaned:String,
+                     inv_code:Int?,
+                     description:String,
+                     units:String,
+                     last_cost:Float?,
+                     barcode:String)]()
+        
+        //get the stock_data from the assests folder
+        let stock_data = NSDataAsset(name:"stock_data")
+        
+        //stock_data!.data is raw byte data so we must convert it to String using the following initializer
+        if let content = String(data:stock_data!.data, encoding:NSUTF8StringEncoding) {
+            //items = []
+            let lines:[String] = content.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet()) as [String]
+            
+            for (index,line) in lines.enumerate() {
+                //print(index)
+                var values:[String] = []
+                if line != "" {
+                    // For a line with double quotes
+                    // we use NSScanner to perform the parsing
+                    if line.rangeOfString("\"") != nil {
+                        var textToScan:String = line
+                        var value:NSString?
+                        var textScanner:NSScanner = NSScanner(string: textToScan)
+                        while textScanner.string != "" {
+                            
+                            if (textScanner.string as NSString).substringToIndex(1) == "\"" {
+                                textScanner.scanLocation += 1
+                                textScanner.scanUpToString("\"", intoString: &value)
+                                textScanner.scanLocation += 1
+                            } else {
+                                textScanner.scanUpToString(delimiter, intoString: &value)
+                            }
+                            
+                            // Store the value into the values array
+                            values.append(value as! String)
+                            
+                            // Retrieve the unscanned remainder of the string
+                            if textScanner.scanLocation < textScanner.string.characters.count {
+                                textToScan = (textScanner.string as NSString).substringFromIndex(textScanner.scanLocation + 1)
+                            } else {
+                                textToScan = ""
+                            }
+                            
+                            textScanner = NSScanner(string: textToScan)
+                        }
+                    }
+                    else  {
+                        // For a line without double quotes, we can simply separate the string
+                        // by using the delimiter (e.g. comma)
+                        values = line.componentsSeparatedByString(delimiter)
+                    }
+                    
+                    if index == 0 {
+                        //we have the header line
+                        headers = values
+                    }
+                    else {
+                        
+                        //trim whitespace and newlines from strings
+                        let stock_group_tmp = values[0].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+                        var stock_group_cleaned_tmp = values[1].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+                        let description_tmp = values[3].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+                        let units_tmp = values[4].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+                        let barcode_tmp = values[6].stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+                        
+                        
+                        //change stock group categories to make a smaller number of categories.
+                        //need to do this so the search bar scope terms are not too many and hence display bad/small
+                        let meat_set: Set = ["POULTRY", "BEEF", "PORK", "LAMB", "SEAFODD"]
+                        let other_set: Set = ["DESSERT", "BEVERAGE"]
+                        stock_group_cleaned_tmp = meat_set.contains(stock_group_cleaned_tmp) ? "MEAT" : stock_group_cleaned_tmp
+                        stock_group_cleaned_tmp = other_set.contains(stock_group_cleaned_tmp) ? "OTHER" : stock_group_cleaned_tmp
+                        
+                        
+                        // Put the values into the tuple and add it to the items array
+                        let item = (stock_group: stock_group_tmp ,
+                                    stock_group_cleaned: stock_group_cleaned_tmp,
+                                    inv_code: Int(values[2]),
+                                    description: description_tmp,
+                                    units: units_tmp,
+                                    last_cost: Float(values[5]),
+                                    barcode: barcode_tmp)
+                        
+                        items.append(item)
+                    }
+                }
+            }
+        }
+        else {
+            print("ERROR: unable to read stock_data")
+        }
+        return (headers, items)
+    }
+    
+    
+    
 }
