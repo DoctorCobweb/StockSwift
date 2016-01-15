@@ -223,13 +223,8 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
         */
         
         //for now we know that there's only one way to get to this stock details view, and
-        //that' from a navigation controller. just pop it like a pop tart.
+        //that's from a navigation controller. pop it like a pop tart.
         navigationController!.popViewControllerAnimated(true)
-        //
-        //also, we just disregard the newAmount value if it's nonzero.
-        //stockCurrent is the thing we care about and since it's been
-        //passed in from StocktakeTableViewController we also don't
-        //need to do anything.
     }
     
     
@@ -238,32 +233,23 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         print("in StockItemDetailsViewController, prepareForSegue()")
-        
-        /*
-        if saveButton === sender {
-            //make a dummy amount for now of 1.234
-            stockResult![stockItem!.invCode] = stockItem!.lastCost * 1.234
-        }
-        */
     }
     
-    //TODO: don't rely on indexing the controllers array to get
-    //the last controller. use casting and if let procedure
     @IBAction func saveStock(sender: UIBarButtonItem) {
         
-        print(navigationController!.viewControllers)
+        //print(navigationController!.viewControllers)
+        //print(navigationController?.topViewController)
         
-        let sourceViewController = navigationController!.viewControllers[2] as! StocktakeTableViewController
+        //get the StocktakeTableViewController using force casting
+        let sourceViewController = navigationController!.viewControllers[navigationController!.viewControllers.count - 2] as! StocktakeTableViewController
         
         let _newAmount = amountsBuffer.reduce(0, combine: {(run, elem) in (run+elem)})
         
-        sourceViewController.updateStocktakeDetails()
-        
-        navigationController!.popViewControllerAnimated(true)
-        
-        
-        
         //update the stock amount in Core Data
         stockTake?.updateStockItem((stockItemMO?.invCode)!, amount: _newAmount)
+        
+        sourceViewController.updateStocktakeDetails() //reloads the table view
+        
+        navigationController!.popViewControllerAnimated(true)
     }
 }

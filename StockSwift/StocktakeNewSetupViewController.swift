@@ -159,6 +159,9 @@ class StocktakeNewSetupViewController: UIViewController, UITextFieldDelegate {
         //only perform segue if personName, department and date are set properly
         if stocktakeMetadata[stocktakeMetadataStruct.personNameKey] != nil && stocktakeMetadata[stocktakeMetadataStruct.departmentKey] != nil {
             
+            //we setup the stocktake now before the table view is loaded, then
+            //pass in the values needed to make table view cells etc. in 
+            //prepareForSegue call
             stocktake = Stocktake(metaData: stocktakeMetadata)
             stockItems = stocktake?.loadStockItemsFromCoreData()
             
@@ -186,7 +189,8 @@ class StocktakeNewSetupViewController: UIViewController, UITextFieldDelegate {
         
             let stocktakeTableViewController = segue.destinationViewController as! StocktakeTableViewController
             
-            stocktakeTableViewController.stocktakeMetaData = stocktakeMetadata
+            //
+            //stocktakeTableViewController.stocktakeMetaData = stocktakeMetadata
             stocktakeTableViewController.stocktake = stocktake
             stocktakeTableViewController.stockItems = stockItems
         }
