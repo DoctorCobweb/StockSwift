@@ -188,12 +188,13 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addButton" destination="XHH-6m-LVb" id="b1y-Xe-BZN"/>
                         <outlet property="menuButton" destination="PJp-dA-kSM" id="6a7-Tq-LaO"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ieG-br-X86" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3807" y="-1108"/>
+            <point key="canvasLocation" x="3807" y="-1115"/>
         </scene>
         <!--Stocktake Menu-->
         <scene sceneID="eJF-9h-PY0">
@@ -332,8 +333,15 @@
                             <constraint firstItem="u4N-64-1iJ" firstAttribute="top" secondItem="Dee-Zs-vQr" secondAttribute="bottom" constant="20" id="kqv-om-rRg"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="1ss-N4-oQp"/>
+                    <navigationItem key="navigationItem" id="1ss-N4-oQp">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="lGo-Dn-OIH">
+                            <connections>
+                                <segue destination="0DZ-AW-x8s" kind="unwind" unwindAction="yaddaYaddaYadda:" id="rPZ-Vm-rNY"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="cancelButton" destination="lGo-Dn-OIH" id="Ono-uG-Mgp"/>
                         <outlet property="datePicker" destination="G9r-aC-Wmt" id="ISP-SN-s3K"/>
                         <outlet property="department" destination="gC8-U0-hIG" id="Mzk-EY-clo"/>
                         <outlet property="personName" destination="DpS-5g-Arx" id="C8p-SW-GF6"/>
@@ -342,8 +350,9 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ydX-ab-cVL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="0DZ-AW-x8s" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="5348" y="-1141"/>
+            <point key="canvasLocation" x="5314" y="-1115"/>
         </scene>
         <!--Title-->
         <scene sceneID="Wn4-V9-0Qx">
@@ -440,7 +449,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1J3-83-ySE" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="bw4-J1-1Ry" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="6081" y="-1141"/>
+            <point key="canvasLocation" x="6061" y="-1115"/>
         </scene>
         <!--Stock Item Details-->
         <scene sceneID="tGi-Sf-DEz">
@@ -608,7 +617,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zXJ-9S-PZ0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6870" y="-1141"/>
+            <point key="canvasLocation" x="6872" y="-1115"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="WXB-95-lKR">
@@ -785,7 +794,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="awW-xo-eE1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3119" y="-1092"/>
+            <point key="canvasLocation" x="3119" y="-1115"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="lbE-R4-P0o">

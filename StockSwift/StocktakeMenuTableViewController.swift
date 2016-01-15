@@ -12,7 +12,7 @@ class StocktakeMenuTableViewController: UITableViewController {
     
     
     @IBOutlet weak var menuButton: UIBarButtonItem!
-    
+    @IBOutlet weak var addButton: UIBarButtonItem!
     
 
     override func viewDidLoad() {
@@ -33,6 +33,7 @@ class StocktakeMenuTableViewController: UITableViewController {
         let orange = UIColor(red: 255.0/255, green: 153.0/255, blue: 45.0/255, alpha: 1.0)
         navigationController?.navigationBar.barTintColor = orange
         menuButton.tintColor = UIColor.whiteColor()
+        addButton.tintColor = UIColor.whiteColor()
     }
 
     override func didReceiveMemoryWarning() {
@@ -113,6 +114,9 @@ class StocktakeMenuTableViewController: UITableViewController {
         if sender.identifier == "yaddaYaddaYaddaIdentifier" {
             let sourceVC = sender.sourceViewController as! StocktakeTableViewController
             print(sourceVC.stockItems?.count)
+            
+            //TODO
+            //send off email using a popover or something like a big alert view
         }
         
     }
