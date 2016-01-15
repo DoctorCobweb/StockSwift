@@ -341,6 +341,21 @@ class StocktakeTableViewController: UITableViewController{
         tableView.reloadData()
     }
     
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+        
+        print(identifier)
+        
+        if identifier == "yaddaYaddaYaddaIdentifier" {
+            print("YADDAYADDAYADDA")
+            return true
+        }
+        else {
+            print("BOOOO")
+            return false
+        }
+    }
+    
+    //not used since we have an unwind segue to previous stocktaes VC
     @IBAction func doneStocktakeFinal(sender: UIBarButtonItem) {
         
         let alertController = UIAlertController(title: "Finish Stocktake?", message: "Select Done if you have finished the stocktake. Otherwise, select cancel to continue with current stocktake", preferredStyle: .Alert)
@@ -349,6 +364,8 @@ class StocktakeTableViewController: UITableViewController{
             print("doneAction selected")
             self.stocktake?.createFinalStocktake()
             
+            print(self.navigationController?.viewControllers)
+            print(self.navigationController?.parentViewController)
             
             //we are navigating back to the stock take menu VC
             let menuVC = self.navigationController?.viewControllers[0] as! StocktakeMenuViewController

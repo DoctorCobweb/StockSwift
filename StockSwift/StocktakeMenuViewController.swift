@@ -14,7 +14,6 @@ class StocktakeMenuViewController: UIViewController {
     
     //MARK: Properties
     @IBOutlet weak var newStocktake: UIButton!
-    @IBOutlet weak var previousStocktakes: UIButton!
     @IBOutlet weak var menuButton: UIBarButtonItem!
     
     override func viewDidLoad() {
