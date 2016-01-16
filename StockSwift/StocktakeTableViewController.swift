@@ -359,6 +359,7 @@ class StocktakeTableViewController: UITableViewController{
     }
     
     
+    /*
     //not used since we have an unwind segue to previous stocktaes VC
     @IBAction func doneStocktakeFinal(sender: UIBarButtonItem) {
         
@@ -387,4 +388,5 @@ class StocktakeTableViewController: UITableViewController{
         self.presentViewController(alertController, animated: true) { (_) in
         }
     }
+    */
 }

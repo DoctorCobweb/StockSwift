@@ -165,11 +165,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="EVs-8S-7bJ">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="metaDataCell" id="EVs-8S-7bJ">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EVs-8S-7bJ" id="agv-1X-V8y">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -195,68 +195,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ieG-br-X86" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3807" y="-1115"/>
-        </scene>
-        <!--Stocktake Menu-->
-        <scene sceneID="eJF-9h-PY0">
-            <objects>
-                <viewController id="GrG-mI-hj4" customClass="StocktakeMenuViewController" customModule="StockSwift" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="1bF-UD-8iF"/>
-                        <viewControllerLayoutGuide type="bottom" id="VJi-Wj-heW"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="viQ-rr-KUS">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q5o-fX-UTq">
-                                <rect key="frame" x="20" y="114" width="560" height="80"/>
-                                <color key="backgroundColor" red="1" green="0.59933419210000005" blue="0.17612021589999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                <state key="normal" title="New Stocktake">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="newStocktakeAction:" destination="GrG-mI-hj4" eventType="touchUpInside" id="WND-cw-2so"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Previous Stocktakes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ogk-oo-reJ">
-                                <rect key="frame" x="20" y="252" width="560" height="29"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JZF-hc-4hf">
-                                <rect key="frame" x="20" y="281" width="560" height="3"/>
-                                <color key="backgroundColor" red="1" green="0.59933419210000005" blue="0.17612021589999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="3" id="byb-xZ-dnJ"/>
-                                </constraints>
-                            </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DpF-8Y-Zm9">
-                                <rect key="frame" x="20" y="304" width="560" height="255"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" red="0.1479048295" green="0.1479048295" blue="0.1479048295" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="q5o-fX-UTq" firstAttribute="trailing" secondItem="viQ-rr-KUS" secondAttribute="trailingMargin" id="XmJ-9A-pZd"/>
-                            <constraint firstItem="q5o-fX-UTq" firstAttribute="leading" secondItem="viQ-rr-KUS" secondAttribute="leadingMargin" id="oNe-lZ-Hzi"/>
-                            <constraint firstItem="q5o-fX-UTq" firstAttribute="top" secondItem="1bF-UD-8iF" secondAttribute="bottom" constant="50" id="r3H-Fe-eHB"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Stocktake Menu" id="yqM-5C-Ww3">
-                        <barButtonItem key="leftBarButtonItem" image="menu" id="08j-UJ-pbx"/>
-                    </navigationItem>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="600" height="600"/>
-                    <connections>
-                        <outlet property="menuButton" destination="08j-UJ-pbx" id="zZB-Lz-jGt"/>
-                        <outlet property="newStocktake" destination="q5o-fX-UTq" id="CxN-wm-LGc"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Tyj-gU-Wfg" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3243" y="-2193"/>
         </scene>
         <!--Stocktake New Setup View Controller-->
         <scene sceneID="ipz-7l-wLS">
@@ -759,24 +697,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GRV-KK-CRC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3069" y="2008"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="Sy0-P8-uW1">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="GPb-ju-Q2u" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="1kJ-nq-ZyG">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="GrG-mI-hj4" kind="relationship" relationship="rootViewController" id="WJl-gV-0nF"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="F5v-cl-wWe" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2561" y="-2193"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="dqZ-c8-Tb4">

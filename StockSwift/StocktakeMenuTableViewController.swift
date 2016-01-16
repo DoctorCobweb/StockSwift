@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import CoreData
 
-class StocktakeMenuTableViewController: UITableViewController {
+class StocktakeMenuTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
     
     @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet weak var addButton: UIBarButtonItem!
+    
+    var fetchedResultsController: NSFetchedResultsController!
     
 
     override func viewDidLoad() {
@@ -34,34 +37,77 @@ class StocktakeMenuTableViewController: UITableViewController {
         navigationController?.navigationBar.barTintColor = orange
         menuButton.tintColor = UIColor.whiteColor()
         addButton.tintColor = UIColor.whiteColor()
+        
+        initializeFetchedResultsController()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
+    func initializeFetchedResultsController() {
+        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+        let moc = appDelegate.managedObjectContext
+        
+        let request = NSFetchRequest(entityName: "StocktakeMetaDataEntity")
+        let departmentSort = NSSortDescriptor(key: "department", ascending: true)
+        let personSort = NSSortDescriptor(key: "personName", ascending: true)
+        request.sortDescriptors = [departmentSort, personSort]
+        
+        self.fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: moc, sectionNameKeyPath:"department", cacheName: nil)
+        
+        //the delegate will notify the table VC of any changes to the underlying 
+        //data in core data.
+        self.fetchedResultsController.delegate = self
+        
+        do {
+            //performFetch gets the initial data needed for display and also begins
+            //monitoring the managed object context for any changes.
+            try self.fetchedResultsController.performFetch()
+        }
+        catch {
+            fatalError("failed to initialize FetchedResultsController. \(error)")
+        }
+    }
+    
 
     // MARK: - Table view data source
-
+    
+    
+    func configureCell(cell: UITableViewCell, indexPath: NSIndexPath) {
+        let stocktakeMetaData = self.fetchedResultsController.objectAtIndexPath(indexPath) as! StocktakeMetaDataMO
+        let separator = " /// "
+        let sub1 = stocktakeMetaData.personName
+        let sub2 = stocktakeMetaData.startDate
+        
+        cell.textLabel?.text = sub1 + separator + sub2
+    }
+    
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return self.fetchedResultsController.sections!.count
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        let sections = self.fetchedResultsController.sections as [NSFetchedResultsSectionInfo]?
+        let sectionInfo = sections![section]
+        return sectionInfo.numberOfObjects
     }
 
-    /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCellWithIdentifier("metaDataCell", forIndexPath: indexPath)
+        
+        //setup the cell
+        self.configureCell(cell, indexPath: indexPath)
+        
         return cell
     }
-    */
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return self.fetchedResultsController.sections![section].name.uppercaseString
+    }
 
     /*
     // Override to support conditional editing of the table view.
@@ -97,7 +143,46 @@ class StocktakeMenuTableViewController: UITableViewController {
         return true
     }
     */
-
+    
+    
+    
+    // MARK: NSFetchedResultsControllerDelegate protocol methods
+    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+        self.tableView.beginUpdates()
+    }
+    
+    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
+        switch type {
+        case .Insert:
+            self.tableView.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
+        case .Delete:
+            self.tableView.deleteSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
+        case .Move:
+            break
+        case .Update:
+            break
+        }
+    }
+    
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+        
+        switch type {
+        case .Insert:
+            self.tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+        case .Delete:
+            self.tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+        case .Update:
+            self.configureCell(self.tableView.cellForRowAtIndexPath(indexPath!)!, indexPath: indexPath!)
+        case .Move:
+            self.tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+            self.tableView.insertRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+        }
+    }
+    
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        self.tableView.endUpdates()
+    }
+    
     /*
     // MARK: - Navigation
 
