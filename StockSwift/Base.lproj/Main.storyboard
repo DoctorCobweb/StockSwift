@@ -336,7 +336,7 @@
                     <navigationItem key="navigationItem" id="1ss-N4-oQp">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="lGo-Dn-OIH">
                             <connections>
-                                <segue destination="0DZ-AW-x8s" kind="unwind" unwindAction="yaddaYaddaYadda:" id="rPZ-Vm-rNY"/>
+                                <segue destination="0DZ-AW-x8s" kind="unwind" identifier="unwindSetupToMenuVC" unwindAction="unwindToMenuTableVC:" id="CPu-Zu-Vyq"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -440,7 +440,7 @@
                     <navigationItem key="navigationItem" title="Title" id="FWy-XV-R2o">
                         <barButtonItem key="leftBarButtonItem" systemItem="done" id="qWd-Gg-fjD">
                             <connections>
-                                <segue destination="bw4-J1-1Ry" kind="unwind" identifier="yaddaYaddaYaddaIdentifier" unwindAction="yaddaYaddaYadda:" id="Jhd-MM-ha8"/>
+                                <segue destination="bw4-J1-1Ry" kind="unwind" identifier="unwindStocktakeToMenuVC" unwindAction="unwindToMenuTableVC:" id="Jhd-MM-ha8"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

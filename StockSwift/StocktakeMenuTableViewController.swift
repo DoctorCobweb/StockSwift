@@ -109,9 +109,9 @@ class StocktakeMenuTableViewController: UITableViewController {
     */
     
     
-    @IBAction func yaddaYaddaYadda(sender: UIStoryboardSegue) {
-        print("yaddaYaddaYadda func called")
-        if sender.identifier == "yaddaYaddaYaddaIdentifier" {
+    @IBAction func unwindToMenuTableVC(sender: UIStoryboardSegue) {
+        print("unwindToMenuTableVC func called")
+        if sender.identifier == "unwindToMenuVC" {
             let sourceVC = sender.sourceViewController as! StocktakeTableViewController
             print(sourceVC.stockItems?.count)
             

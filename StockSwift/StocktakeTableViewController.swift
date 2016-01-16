@@ -328,7 +328,7 @@ class StocktakeTableViewController: UITableViewController{
                 //then pass it along to destination VC
                 let stockItemMO: StocktakeItemMO? = stocktake?.getSingularStockItem(stockItem.invCode)
                 
-                print("YOYOYOY: stockItemMO is: \(stockItemMO)")
+                //print("YOYOYOY: stockItemMO is: \(stockItemMO)")
                 
                 stockItemDetailViewController.stockItemMO = stockItemMO
             }
@@ -343,17 +343,21 @@ class StocktakeTableViewController: UITableViewController{
     
     override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
         
-        print(identifier)
+        print("identifier is: \(identifier)")
         
-        if identifier == "yaddaYaddaYaddaIdentifier" {
-            print("YADDAYADDAYADDA")
+        if identifier == "unwindStocktakeToMenuVC" {
+            print("unwindToMenuVC")
+            return true
+        }
+        else if identifier == "showStockItemDetails"{
+            print("showStockItemDetails")
             return true
         }
         else {
-            print("BOOOO")
             return false
         }
     }
+    
     
     //not used since we have an unwind segue to previous stocktaes VC
     @IBAction func doneStocktakeFinal(sender: UIBarButtonItem) {
