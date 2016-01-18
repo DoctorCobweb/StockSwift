@@ -292,6 +292,38 @@
             </objects>
             <point key="canvasLocation" x="5314" y="-1115"/>
         </scene>
+        <!--Stocktake Summary-->
+        <scene sceneID="wYe-lI-eQ6">
+            <objects>
+                <viewController id="S1R-LO-YfR" customClass="StocktakeSummaryViewController" customModule="StockSwift" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="UTZ-zf-Ap9"/>
+                        <viewControllerLayoutGuide type="bottom" id="iu2-Bw-zC7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="p3o-wc-TDZ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5fG-5G-eU9">
+                                <rect key="frame" x="20" y="329" width="560" height="65"/>
+                                <color key="backgroundColor" red="1" green="0.59933419210000005" blue="0.17612021589999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
+                                <state key="normal" title="Email Stocktake">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Stocktake Summary" id="1Jh-0V-QOY">
+                        <barButtonItem key="leftBarButtonItem" title="Back to Stocktake" id="dUr-Pn-4gw"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="df1-8K-dqe"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pxT-Zx-Pnn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7834" y="-1882"/>
+        </scene>
         <!--Title-->
         <scene sceneID="Wn4-V9-0Qx">
             <objects>
@@ -376,16 +408,15 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Title" id="FWy-XV-R2o">
-                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="qWd-Gg-fjD">
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="qWd-Gg-fjD">
                             <connections>
-                                <segue destination="bw4-J1-1Ry" kind="unwind" identifier="unwindStocktakeToMenuVC" unwindAction="unwindToMenuTableVC:" id="Jhd-MM-ha8"/>
+                                <segue destination="8Vd-VR-g4z" kind="presentation" identifier="showStocktakeSummary" id="5Mb-uK-WW5"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1J3-83-ySE" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="bw4-J1-1Ry" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="6061" y="-1115"/>
         </scene>
@@ -555,7 +586,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zXJ-9S-PZ0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6872" y="-1115"/>
+            <point key="canvasLocation" x="7074" y="-641"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="WXB-95-lKR">
@@ -733,6 +764,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CQy-dH-Kia" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4538" y="-1115"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="vtq-DK-NfR">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8Vd-VR-g4z" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="tLA-fF-uzV">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="S1R-LO-YfR" kind="relationship" relationship="rootViewController" id="eHq-J1-srI"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="luE-Eb-wPk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7074" y="-1882"/>
         </scene>
     </scenes>
     <resources>

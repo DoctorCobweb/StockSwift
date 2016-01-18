@@ -139,7 +139,7 @@ class Stocktake: NSObject {
         
         //now add in NEW ones
         for item in stockItems {
-            print("adding a StockImageEntity row...")
+            //print("adding a StockImageEntity row...")
             let stockImage = NSEntityDescription.insertNewObjectForEntityForName("StockImageEntity", inManagedObjectContext: self.moc) as! StockImageMO
             
             stockImage.invCode = item.invCode
@@ -177,7 +177,7 @@ class Stocktake: NSObject {
         //from the 'stock_data' asset csv file from management.
         
         for item in stockItems {
-            print("adding a CurrentItemPriceEntity row...")
+            //print("adding a CurrentItemPriceEntity row...")
             let currentItemPrice = NSEntityDescription.insertNewObjectForEntityForName("CurrentItemPriceEntity", inManagedObjectContext: moc) as! CurrentItemPriceMO
             
             currentItemPrice.invCode = item.invCode

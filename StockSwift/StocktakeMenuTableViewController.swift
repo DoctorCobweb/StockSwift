@@ -11,10 +11,8 @@ import CoreData
 
 class StocktakeMenuTableViewController: UITableViewController, NSFetchedResultsControllerDelegate {
     
-    
     @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet weak var addButton: UIBarButtonItem!
-    
     var fetchedResultsController: NSFetchedResultsController!
     
 
@@ -194,16 +192,17 @@ class StocktakeMenuTableViewController: UITableViewController, NSFetchedResultsC
     */
     
     
+    /*
     @IBAction func unwindToMenuTableVC(sender: UIStoryboardSegue) {
         print("unwindToMenuTableVC func called")
-        if sender.identifier == "unwindToMenuVC" {
+        if sender.identifier == "unwindStocktakeToMenuVC" {
             let sourceVC = sender.sourceViewController as! StocktakeTableViewController
             print(sourceVC.stockItems?.count)
             
             //TODO
             //send off email using a popover or something like a big alert view
         }
-        
     }
+    */
 
 }

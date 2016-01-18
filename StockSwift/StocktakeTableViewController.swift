@@ -207,6 +207,10 @@ class StocktakeTableViewController: UITableViewController{
         
         let _item = stocktake?.getSingularStockItem(stockItem.invCode)
         let _itemPhoto = stocktake?.getStockItemPhoto(stockItem.invCode)
+        //print("DEBUGGING")
+        //print(stocktake)
+        //print(_item)
+        //print("END DEBUGGING")
         
         // Configure the cell...
         
@@ -282,7 +286,35 @@ class StocktakeTableViewController: UITableViewController{
     */
 
     // MARK: - Navigation
+    
+    func updateStocktakeDetails() {
+        //StocktakeDetailsViewController calls this method
+        //when the user selects 'Save' button in the details VC
+        tableView.reloadData()
+    }
+    
+    
 
+    /*
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+        
+        print("identifier is: \(identifier)")
+        
+        if identifier == "unwindToStocktakeSummary" {
+            print("unwindToStocktakeSummary")
+            return true
+        }
+        else if identifier == "showStockItemDetails"{
+            print("showStockItemDetails")
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    */
+    
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using segue.destinationViewController.
@@ -318,11 +350,8 @@ class StocktakeTableViewController: UITableViewController{
                     stockItem = stockItems![indexPath.row]
                 }
                 
-                
-                
                 //ASSING THE STOCKTAKE OBJECT TO DETAILS VC
                 stockItemDetailViewController.stockTake = stocktake
-                
                 
                 //get the stocktakeItemMO for the particular invCode from core data
                 //then pass it along to destination VC
@@ -333,60 +362,14 @@ class StocktakeTableViewController: UITableViewController{
                 stockItemDetailViewController.stockItemMO = stockItemMO
             }
         }
-    }
-    
-    func updateStocktakeDetails() {
-        //StocktakeDetailsViewController calls this method
-        //when the user selects 'Save' button in the details VC
-        tableView.reloadData()
-    }
-    
-    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
-        
-        print("identifier is: \(identifier)")
-        
-        if identifier == "unwindStocktakeToMenuVC" {
-            print("unwindToMenuVC")
-            return true
-        }
-        else if identifier == "showStockItemDetails"{
-            print("showStockItemDetails")
-            return true
-        }
-        else {
-            return false
-        }
-    }
-    
-    
-    /*
-    //not used since we have an unwind segue to previous stocktaes VC
-    @IBAction func doneStocktakeFinal(sender: UIBarButtonItem) {
-        
-        let alertController = UIAlertController(title: "Finish Stocktake?", message: "Select Done if you have finished the stocktake. Otherwise, select cancel to continue with current stocktake", preferredStyle: .Alert)
-        
-        let doneAction = UIAlertAction(title: "Done", style: .Default) { (action) in
-            print("doneAction selected")
-            self.stocktake?.createFinalStocktake()
+        else if segue.identifier == "showStocktakeSummary" {
+            let navVC = segue.destinationViewController as! UINavigationController
+            print("navVC.viewControllers are \(navVC.viewControllers)")
             
-            print(self.navigationController?.viewControllers)
-            print(self.navigationController?.parentViewController)
-            
-            //we are navigating back to the stock take menu VC
-            let menuVC = self.navigationController?.viewControllers[0] as! StocktakeMenuViewController
-            
-            self.navigationController?.popToViewController(menuVC , animated: true)
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (action) in
-            print("cancelAction selected")
-        }
-        
-        alertController.addAction(doneAction)
-        alertController.addAction(cancelAction)
-        
-        self.presentViewController(alertController, animated: true) { (_) in
+            let summaryVC = navVC.viewControllers.first as! StocktakeSummaryViewController
+            summaryVC.stocktake = stocktake
         }
     }
-    */
+    
+    
 }

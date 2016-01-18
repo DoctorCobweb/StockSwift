@@ -29,6 +29,7 @@
 		658B99CA1C43D5E500CED19A /* StocktakeItemMO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658B99C91C43D5E500CED19A /* StocktakeItemMO.swift */; settings = {ASSET_TAGS = (); }; };
 		658B99CC1C48FB0F00CED19A /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658B99CB1C48FB0F00CED19A /* Parser.swift */; settings = {ASSET_TAGS = (); }; };
 		658B99CE1C490CB600CED19A /* StocktakeMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658B99CD1C490CB600CED19A /* StocktakeMenuTableViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		658B99D01C4C77CB00CED19A /* StocktakeSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 658B99CF1C4C77CB00CED19A /* StocktakeSummaryViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		65917B4D1C31045F00D20561 /* StockItemDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65917B4C1C31045F00D20561 /* StockItemDetailsViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		65F027521C3F8FCA004DB5D8 /* StocktakeNewSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F027511C3F8FCA004DB5D8 /* StocktakeNewSetupViewController.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
@@ -71,6 +72,7 @@
 		658B99C91C43D5E500CED19A /* StocktakeItemMO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StocktakeItemMO.swift; sourceTree = "<group>"; };
 		658B99CB1C48FB0F00CED19A /* Parser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
 		658B99CD1C490CB600CED19A /* StocktakeMenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StocktakeMenuTableViewController.swift; sourceTree = "<group>"; };
+		658B99CF1C4C77CB00CED19A /* StocktakeSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StocktakeSummaryViewController.swift; sourceTree = "<group>"; };
 		65917B4C1C31045F00D20561 /* StockItemDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockItemDetailsViewController.swift; sourceTree = "<group>"; };
 		65F027511C3F8FCA004DB5D8 /* StocktakeNewSetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StocktakeNewSetupViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -130,6 +132,7 @@
 				6504F4B01C2FAB680095668B /* StocktakeTableViewController.swift */,
 				6504F4BC1C2FEA080095668B /* StockItemTableViewCell.swift */,
 				65917B4C1C31045F00D20561 /* StockItemDetailsViewController.swift */,
+				658B99CF1C4C77CB00CED19A /* StocktakeSummaryViewController.swift */,
 				6504F4C21C2FEFD40095668B /* StockItem.swift */,
 				658B99C51C438C8A00CED19A /* StockTake.swift */,
 				658B99C11C4344FC00CED19A /* StockImageMO.swift */,
@@ -272,6 +275,7 @@
 				6504F4C31C2FEFD40095668B /* StockItem.swift in Sources */,
 				658B99CA1C43D5E500CED19A /* StocktakeItemMO.swift in Sources */,
 				6504F4911C2FA41F0095668B /* StockSwift.xcdatamodeld in Sources */,
+				658B99D01C4C77CB00CED19A /* StocktakeSummaryViewController.swift in Sources */,
 				658B99CE1C490CB600CED19A /* StocktakeMenuTableViewController.swift in Sources */,
 				6504F4B11C2FAB680095668B /* StocktakeTableViewController.swift in Sources */,
 				658B99C41C43639400CED19A /* CurrentItemPriceMO.swift in Sources */,
