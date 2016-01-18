@@ -213,7 +213,7 @@
 				TargetAttributes = {
 					6504F4841C2FA41F0095668B = {
 						CreatedOnToolsVersion = 7.0.1;
-						DevelopmentTeam = 2S55BPX8GX;
+						DevelopmentTeam = D99CQ5H6Q7;
 					};
 					6504F49B1C2FA41F0095668B = {
 						CreatedOnToolsVersion = 7.0.1;
@@ -416,6 +416,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = StockSwift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = au.com.andretrosky.StockSwift;
@@ -430,6 +431,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = StockSwift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = au.com.andretrosky.StockSwift;

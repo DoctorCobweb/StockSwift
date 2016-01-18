@@ -120,16 +120,22 @@ class Stocktake: NSObject {
         //eventually when we will be able to use the camera to take photos of each item
         //and when that is we should NOT delete any old pics.
         let imageFetch = NSFetchRequest(entityName: "StockImageEntity")
+        imageFetch.propertiesToFetch = ["invCode"]
         
         do {
-        
+            
+            print("feching all images in core data")
             let allImages = try self.moc.executeFetchRequest(imageFetch) as! [StockImageMO]
             
             if !allImages.isEmpty {
                 for item in allImages {
+                    print("deleting an image")
                     self.moc.deleteObject(item)
+                    persistData("single DELETE of image")
                 }
-                persistData("deleted all OLD StockImageEntity items")
+                //persisting it in one big batch causes ios to terminate app on an 
+                //actual device.
+                //persistData("deleted all OLD StockImageEntity items")
             }
         }
         catch let error as NSError {
@@ -139,7 +145,7 @@ class Stocktake: NSObject {
         
         //now add in NEW ones
         for item in stockItems {
-            //print("adding a StockImageEntity row...")
+            print("adding a StockImageEntity row...")
             let stockImage = NSEntityDescription.insertNewObjectForEntityForName("StockImageEntity", inManagedObjectContext: self.moc) as! StockImageMO
             
             stockImage.invCode = item.invCode
@@ -255,12 +261,15 @@ class Stocktake: NSObject {
     
     
     func persistData(action: String) {
+        print("in persist data")
         
         do {
+            print("going to try and save...")
             try self.moc.save()
             print("SUCCESS: save to persistent store, action: \(action)")
         }
         catch let error as NSError {
+            print("FAILIRE: to persist data")
             fatalError("FAILURE to save context: \(error)")
         }
     }

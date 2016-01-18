@@ -39,6 +39,17 @@ class StocktakeSummaryViewController: UIViewController, MFMailComposeViewControl
             let mail = MFMailComposeViewController()
             mail.mailComposeDelegate = self
             mail.setToRecipients(["andretrosky@gmail.com"])
+            
+            
+            
+            let sep = " // "
+            let sub0 = "StockSwift: "
+            let sub1 = (stocktake?.stocktakeMetaData[StocktakeNewSetupViewController.stocktakeMetadataStruct.departmentKey])!.uppercaseString
+            let sub2 = (stocktake?.stocktakeMetaData[StocktakeNewSetupViewController.stocktakeMetadataStruct.personNameKey])!
+            let sub3 = (stocktake?.stocktakeMetaData[StocktakeNewSetupViewController.stocktakeMetadataStruct.startDateKey])!
+            let subject = sub0 + sub1 + sep + sub2 + sep + sub3
+            
+            mail.setSubject(subject)
             mail.setMessageBody("yadda yadda yadda.", isHTML: false)
             //mail.addAttachmentData(<#T##attachment: NSData##NSData#>, mimeType: <#T##String#>, fileName: <#T##String#>)
             
