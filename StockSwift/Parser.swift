@@ -99,7 +99,7 @@ class Parser {
                         
                         //change stock group categories to make a smaller number of categories.
                         //need to do this so the search bar scope terms are not too many and hence display bad/small
-                        let meat_set: Set = ["POULTRY", "BEEF", "PORK", "LAMB", "SEAFODD"]
+                        let meat_set: Set = ["POULTRY", "BEEF", "PORK", "LAMB", "SEAFOOD"]
                         let other_set: Set = ["DESSERT", "BEVERAGE"]
                         stock_group_cleaned_tmp = meat_set.contains(stock_group_cleaned_tmp) ? "MEAT" : stock_group_cleaned_tmp
                         stock_group_cleaned_tmp = other_set.contains(stock_group_cleaned_tmp) ? "OTHER" : stock_group_cleaned_tmp
