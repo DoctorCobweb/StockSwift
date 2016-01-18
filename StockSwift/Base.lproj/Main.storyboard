@@ -311,6 +311,9 @@
                                 <state key="normal" title="Email Stocktake">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="emailStocktake:" destination="S1R-LO-YfR" eventType="touchUpInside" id="o78-Ii-Lbn"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -319,6 +322,9 @@
                         <barButtonItem key="leftBarButtonItem" title="Back to Stocktake" id="dUr-Pn-4gw"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="df1-8K-dqe"/>
                     </navigationItem>
+                    <connections>
+                        <outlet property="emailButton" destination="5fG-5G-eU9" id="iVk-SQ-uYU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pxT-Zx-Pnn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
