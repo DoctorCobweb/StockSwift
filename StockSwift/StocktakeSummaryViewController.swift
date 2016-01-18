@@ -8,6 +8,7 @@
 
 import UIKit
 import MessageUI
+import CoreData
 
 class StocktakeSummaryViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
@@ -40,8 +41,6 @@ class StocktakeSummaryViewController: UIViewController, MFMailComposeViewControl
             mail.mailComposeDelegate = self
             mail.setToRecipients(["andretrosky@gmail.com"])
             
-            
-            
             let sep = " // "
             let sub0 = "StockSwift: "
             let sub1 = (stocktake?.stocktakeMetaData[StocktakeNewSetupViewController.stocktakeMetadataStruct.departmentKey])!.uppercaseString
@@ -51,7 +50,31 @@ class StocktakeSummaryViewController: UIViewController, MFMailComposeViewControl
             
             mail.setSubject(subject)
             mail.setMessageBody("yadda yadda yadda.", isHTML: false)
-            //mail.addAttachmentData(<#T##attachment: NSData##NSData#>, mimeType: <#T##String#>, fileName: <#T##String#>)
+            
+            
+            let actualStocktakeData = stocktakeData()
+            
+            var output:String = ""
+            
+            for item in actualStocktakeData! {
+                let sep = ","
+                let _item = item as! StocktakeItemMO
+                let _invCode = String(_item.invCode)
+                let _itemDescription = _item.itemDescription
+                let _lastCost = String(_item.lastCost)
+                let _section = _item.section
+                let _units = _item.units
+                let _physicalAmount = String(_item.physicalAmount)
+                
+                let line = _invCode + sep + _itemDescription + sep + _lastCost + sep + _section + sep + _units + sep + _physicalAmount + "\n"
+                
+                output += line
+            }
+            
+            print(output)
+            let theData = output.dataUsingEncoding(NSUTF8StringEncoding)
+            
+            mail.addAttachmentData(theData!, mimeType: "text/csv", fileName: "yadda.csv")
             
             presentViewController(mail, animated: true, completion: nil)
         }
@@ -62,6 +85,44 @@ class StocktakeSummaryViewController: UIViewController, MFMailComposeViewControl
     
     func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
         controller.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func stocktakeData() -> NSSet? {
+        print("stocktakeData func")
+        
+        let theStock: NSSet?
+        
+        let sFetch = NSFetchRequest(entityName: "StocktakeMetaDataEntity")
+        let formatString = "personName == %@ AND department == %@ AND startDate == %@"
+        
+        let personKey = StocktakeNewSetupViewController.stocktakeMetadataStruct.personNameKey
+        let depKey = StocktakeNewSetupViewController.stocktakeMetadataStruct.departmentKey
+        let startKey = StocktakeNewSetupViewController.stocktakeMetadataStruct.startDateKey
+        
+        let personName = (stocktake?.stocktakeMetaData[personKey])!
+        let department = (stocktake?.stocktakeMetaData[depKey])!
+        let start = (stocktake?.stocktakeMetaData[startKey])!
+        
+        sFetch.predicate = NSPredicate(format: formatString, personName, department, start)
+        
+        do {
+            let fetchedItems = try self.stocktake?.moc.executeFetchRequest(sFetch) as! [StocktakeMetaDataMO]
+            
+            if !fetchedItems.isEmpty && fetchedItems.count == 1 {
+                print("fetchItems is not empty and count is ==1")
+                let fStocktake = fetchedItems[0]
+                
+                theStock = fStocktake.stocktakeItems
+            }
+            else {
+                return nil
+            }
+        }
+        catch let error as NSError {
+            fatalError("ERROR: \(error)")
+        }
+        
+        return theStock
     }
 
     // MARK: - Navigation
