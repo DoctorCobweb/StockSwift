@@ -12,12 +12,13 @@ import Foundation
 
 class StocktakeItemMO: NSManagedObject {
     
-    @NSManaged var invCode:Int
-    @NSManaged var itemDescription:String
-    @NSManaged var lastCost:Float
-    @NSManaged var section:String
-    @NSManaged var units:String
-    @NSManaged var physicalAmount:Float
+    @NSManaged var invCode: Int
+    @NSManaged var itemDescription: String
+    @NSManaged var lastCost: Float
+    @NSManaged var section: String
+    @NSManaged var sectionOriginal: String
+    @NSManaged var units: String
+    @NSManaged var physicalAmount: Float
     
     //for the to-one relationship of a particular stock item to a
     //specific stocktake

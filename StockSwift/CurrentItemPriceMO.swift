@@ -16,5 +16,6 @@ class CurrentItemPriceMO: NSManagedObject {
     @NSManaged var itemDescription: String
     @NSManaged var lastCost: Float
     @NSManaged var section: String
+    @NSManaged var sectionOriginal: String
     @NSManaged var units: String
 }
