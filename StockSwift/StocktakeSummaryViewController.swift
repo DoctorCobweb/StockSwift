@@ -18,6 +18,11 @@ class StocktakeSummaryViewController: UIViewController, MFMailComposeViewControl
     @IBOutlet weak var doneButton: UIBarButtonItem!
     @IBOutlet weak var emailButton: UIButton!
     
+    @IBOutlet weak var personNameLabel: UILabel!
+    @IBOutlet weak var departmentLabel: UILabel!
+    @IBOutlet weak var startDateLabel: UILabel!
+    @IBOutlet weak var finishDateLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -27,6 +32,14 @@ class StocktakeSummaryViewController: UIViewController, MFMailComposeViewControl
         print(stocktake?.stocktakeMetaData)
         
         navigationItem.title = "Stocktake Summary"
+        
+        if let stocktake = stocktake {
+            personNameLabel.text = stocktake.stocktakeMetaData["person_name"]
+            departmentLabel.text = stocktake.stocktakeMetaData["department"]
+            startDateLabel.text = stocktake.stocktakeMetaData["start_date"]
+            finishDateLabel.text = stocktake.stocktakeMetaData["finish_date"]
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,7 +56,6 @@ class StocktakeSummaryViewController: UIViewController, MFMailComposeViewControl
             mail.mailComposeDelegate = self
             mail.setToRecipients(["andretrosky@gmail.com"])
             
-            //let sep = " /// "
             let sub0 = "StockSwift: "
             let sub1 = (stocktake?.stocktakeMetaData[StocktakeNewSetupViewController.stocktakeMetadataStruct.departmentKey])!.uppercaseString
             let personName = (stocktake?.stocktakeMetaData[StocktakeNewSetupViewController.stocktakeMetadataStruct.personNameKey])!
@@ -55,8 +67,10 @@ class StocktakeSummaryViewController: UIViewController, MFMailComposeViewControl
                 fixedPersonName += name
             }
             
-            let dateString = (stocktake?.stocktakeMetaData[StocktakeNewSetupViewController.stocktakeMetadataStruct.startDateKey])!
-            let dateArray = dateString.characters.split {$0 == " "}.map{String($0)} //no spaces
+            let startDateString = (stocktake?.stocktakeMetaData[StocktakeNewSetupViewController.stocktakeMetadataStruct.startDateKey])!
+            let finishDateString = (stocktake?.stocktakeMetaData[StocktakeNewSetupViewController.stocktakeMetadataStruct.finishDateKey])!
+            
+            let dateArray = startDateString.characters.split {$0 == " "}.map{String($0)} //no spaces
             let fixedDate = dateArray[0] + "-" + dateArray[1]
             let sub3 = ".csv"
             
@@ -68,9 +82,12 @@ class StocktakeSummaryViewController: UIViewController, MFMailComposeViewControl
             mail.setSubject(subject)
             let body1 = "Hi,\n\n"
             let body2 = "Please find attached the stocktake file called:\n\n\"\(stocktakeFileName)\".\n\n"
-            let body3 = "Regards,\n"
-            let body4 = "StockSwift"
-            let body = body1 + body2 + body3 + body4
+            let body3 = "Start time: \(startDateString)\n"
+            let body4 = "Finish time: \(finishDateString)\n\n"
+            let body5 = "Regards,\n"
+            let body6 = "StockSwift"
+            
+            let body = body1 + body2 + body3 + body4 + body5 + body6
             
             mail.setMessageBody(body, isHTML: false)
             
@@ -149,6 +166,15 @@ class StocktakeSummaryViewController: UIViewController, MFMailComposeViewControl
 
     // MARK: - Navigation
 
+    @IBAction func backToStocktake(sender: UIBarButtonItem) {
+        print("backToStocktake")
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    
+    
+    
+    
     /*
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

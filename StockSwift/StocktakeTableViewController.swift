@@ -293,7 +293,6 @@ class StocktakeTableViewController: UITableViewController{
         tableView.reloadData()
     }
     
-    
 
     /*
     override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
@@ -366,6 +365,14 @@ class StocktakeTableViewController: UITableViewController{
             let navVC = segue.destinationViewController as! UINavigationController
             print("navVC.viewControllers are \(navVC.viewControllers)")
             
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = StocktakeNewSetupViewController.stocktakeMetadataStruct.dateFormatKey
+            let strFinishDate = dateFormatter.stringFromDate(NSDate())
+            
+            //set the finish time in stocktake meta data when user hits done button
+            stocktake?.updateStocktakeMetaData(forKey: StocktakeNewSetupViewController.stocktakeMetadataStruct.finishDateKey, forValue: strFinishDate)
+            
+            stocktake?.stocktakeMetaData["finish_date"] = strFinishDate
             let summaryVC = navVC.viewControllers.first as! StocktakeSummaryViewController
             summaryVC.stocktake = stocktake
         }

@@ -14,6 +14,7 @@ class StocktakeMetaDataMO: NSManagedObject {
     @NSManaged var personName: String
     @NSManaged var department: String
     @NSManaged var startDate: String
+    @NSManaged var finishDate: String
     
     //for the to-many relationship of a stocktake (represented by the
     //metaData) to the many stock items

@@ -37,6 +37,7 @@ class StocktakeNewSetupViewController: UIViewController, UITextFieldDelegate {
         static let personNameKey = "person_name"
         static let departmentKey = "department"
         static let startDateKey = "start_date"
+        static let finishDateKey = "finish_date"
         static let dateFormatKey = "dd-MM-yyyy HH:mm"
     }
     

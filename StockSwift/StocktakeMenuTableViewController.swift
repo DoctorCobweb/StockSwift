@@ -205,5 +205,32 @@ class StocktakeMenuTableViewController: UITableViewController, NSFetchedResultsC
         }
         */
     }
+    
+    @IBAction func unwindFinishStocktake(sender: UIStoryboardSegue) {
+        print("unwindFinishStocktake")
+        
+        if sender.identifier == "unwindFinishStocktake" {
+            let sourceVC = sender.sourceViewController as! StocktakeSummaryViewController
+            var metaInfo = ""
+            
+            if let meta = sourceVC.stocktake?.stocktakeMetaData {
+                metaInfo = meta["department"]! + " /// " + meta["person_name"]! + " /// " + meta["start_date"]!
+            }
+            
+            let alertController = UIAlertController(title: "STOCKTAKE DONE", message: "You have completed the stocktake for \n\n\(metaInfo)", preferredStyle: .Alert)
+            
+            let okayAction = UIAlertAction(title: "Cheers", style: .Default) { (action) in print(action)
+            }
+            
+            alertController.addAction(okayAction)
+            
+            //delay the execution until the next run loop because the table view is not
+            //yet available. a work around from:
+            //http://stackoverflow.com/questions/24854802/presenting-a-view-controller-modally-from-an-action-sheets-delegate-in-ios8-ios
+            dispatch_async(dispatch_get_main_queue()) { _ in
+                self.presentViewController(alertController, animated: true, completion: nil)
+            }
+        }
+    }
 
 }

@@ -65,6 +65,36 @@ class Stocktake: NSObject {
         }
     }
     
+    func updateStocktakeMetaData(forKey key: String, forValue value:String) {
+        
+        //create fetch request with predicate
+        //update finishDate value with value
+        //IMPORTANT:
+        //item has to be for this stocktake!!! so we match on singularStocktake prop
+        let metaFetch = NSFetchRequest(entityName: "StocktakeMetaDataEntity")
+        let formatString = "personName == %@ AND department == %@ AND startDate == %@"
+        
+        metaFetch.predicate = NSPredicate(format:formatString, stocktakeMetaData[StocktakeNewSetupViewController.stocktakeMetadataStruct.personNameKey]!, stocktakeMetaData[StocktakeNewSetupViewController.stocktakeMetadataStruct.departmentKey]!, stocktakeMetaData[StocktakeNewSetupViewController.stocktakeMetadataStruct.startDateKey]!)
+    
+        do {
+            let fetchedItems = try self.moc.executeFetchRequest(metaFetch)
+            
+            if !fetchedItems.isEmpty && fetchedItems.count == 1 {
+                let metaMO = fetchedItems[0] as? StocktakeMetaDataMO
+                metaMO?.finishDate = value
+                persistData("update the StocktakeMetaDataMO entity")
+            }
+            else {
+                print("ERROR: could not find the meta data item in CD")
+            }
+        }
+        catch let error as NSError {
+            fatalError("FAILURE to save context: \(error)")
+        }
+    
+    
+    }
+    
     
     func bootstrapCoreData() {
         

@@ -35,7 +35,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="28" sectionFooterHeight="28" id="9jY-TI-TPX">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="0.59933419210000005" blue="0.17612021589999999" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
                             <tableViewSection id="UcM-Xe-pxy">
                                 <cells>
@@ -47,13 +47,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Stock Swift" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uYb-nr-r4Y">
-                                                    <rect key="frame" x="8" y="8" width="141" height="33"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <rect key="frame" x="8" y="8" width="190" height="33"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" red="1" green="0.59933419210000005" blue="0.17612021589999999" alpha="1" colorSpace="calibratedRGB"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Szf-Mh-hgv">
                                         <rect key="frame" x="0.0" y="50" width="600" height="50"/>
@@ -68,11 +69,12 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Stocktake" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OVC-Xx-NBv">
                                                     <rect key="frame" x="57" y="11" width="100" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" red="1" green="0.59933419210000005" blue="0.17612021589999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <segue destination="Ul6-wa-Wk5" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="ux8-3D-S7f"/>
                                         </connections>
@@ -90,11 +92,12 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Dummy 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TMJ-FM-XP5">
                                                     <rect key="frame" x="57" y="11" width="100" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" red="1" green="0.59933419210000005" blue="0.17612021589999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <segue destination="Peu-Nn-f5E" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="Dx6-ij-0Be"/>
                                         </connections>
@@ -112,11 +115,12 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Dummy 2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dEk-tI-caE">
                                                     <rect key="frame" x="57" y="11" width="100" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" red="1" green="0.59933419210000005" blue="0.17612021589999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <segue destination="AMX-PU-5op" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="Ywk-3e-D18"/>
                                         </connections>
@@ -134,11 +138,12 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3hj-Dc-Eiu">
                                                     <rect key="frame" x="57" y="11" width="100" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" red="1" green="0.59933419210000005" blue="0.17612021589999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <segue destination="0wc-tx-zje" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="pCI-dg-qKQ"/>
                                         </connections>
@@ -304,35 +309,133 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5fG-5G-eU9">
-                                <rect key="frame" x="20" y="198" width="560" height="65"/>
-                                <color key="backgroundColor" red="1" green="0.59933419210000005" blue="0.17612021589999999" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
-                                <state key="normal" title="Email Stocktake">
-                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="emailStocktake:" destination="S1R-LO-YfR" eventType="touchUpInside" id="o78-Ii-Lbn"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="250" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="5T8-wX-pGz">
+                                <rect key="frame" x="20" y="83" width="560" height="294"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="We3-LQ-0Pj">
+                                        <rect key="frame" x="0.0" y="0.0" width="560" height="29"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6qY-TZ-gYH">
+                                        <rect key="frame" x="0.0" y="34" width="560" height="3"/>
+                                        <color key="backgroundColor" red="1" green="0.59933419210000005" blue="0.17612021589999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="3" id="yf3-II-hGd"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Person name:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sW8-lw-ERd">
+                                        <rect key="frame" x="0.0" y="42" width="560" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Person name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fa9-jZ-VcK">
+                                        <rect key="frame" x="0.0" y="68" width="560" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Department:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="41M-6F-1tb">
+                                        <rect key="frame" x="0.0" y="94" width="560" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Department name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p8l-za-a1J">
+                                        <rect key="frame" x="0.0" y="120" width="560" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vc1-tL-2If">
+                                        <rect key="frame" x="0.0" y="146" width="560" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start date string" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ubf-LO-i24">
+                                        <rect key="frame" x="0.0" y="172" width="560" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Finish Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dJV-uc-ElP">
+                                        <rect key="frame" x="0.0" y="198" width="560" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Finish date string" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ac1-T8-QYb">
+                                        <rect key="frame" x="0.0" y="224" width="560" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5fG-5G-eU9">
+                                        <rect key="frame" x="0.0" y="250" width="560" height="44"/>
+                                        <color key="backgroundColor" red="1" green="0.59933419210000005" blue="0.17612021589999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="IqI-B1-7iM"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                        <state key="normal" title="Email Stocktake">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="emailStocktake:" destination="S1R-LO-YfR" eventType="touchUpInside" id="o78-Ii-Lbn"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="294" id="8pX-Z7-9YS"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" priority="750" constant="100" id="UTF-sk-W8v"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="UTF-sk-W8v"/>
+                                    </mask>
+                                </variation>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.1479048295" green="0.1479048295" blue="0.1479048295" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="5fG-5G-eU9" firstAttribute="trailing" secondItem="p3o-wc-TDZ" secondAttribute="trailingMargin" id="HFu-hM-sXY"/>
-                            <constraint firstItem="5fG-5G-eU9" firstAttribute="leading" secondItem="p3o-wc-TDZ" secondAttribute="leadingMargin" id="uPU-an-b3f"/>
+                            <constraint firstItem="5T8-wX-pGz" firstAttribute="top" secondItem="UTZ-zf-Ap9" secondAttribute="bottom" constant="19" id="Ko5-4T-TWS"/>
+                            <constraint firstItem="5T8-wX-pGz" firstAttribute="leading" secondItem="p3o-wc-TDZ" secondAttribute="leadingMargin" id="eSh-oO-mcz"/>
+                            <constraint firstItem="5T8-wX-pGz" firstAttribute="trailing" secondItem="p3o-wc-TDZ" secondAttribute="trailingMargin" id="kzf-1e-9iA"/>
+                            <constraint firstItem="iu2-Bw-zC7" firstAttribute="top" relation="lessThanOrEqual" secondItem="5T8-wX-pGz" secondAttribute="bottom" priority="750" constant="400" id="vk1-tu-Uot"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="vk1-tu-Uot"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="1Jh-0V-QOY">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="dUr-Pn-4gw"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="df1-8K-dqe"/>
+                        <barButtonItem key="leftBarButtonItem" title="Back" id="dUr-Pn-4gw">
+                            <connections>
+                                <action selector="backToStocktake:" destination="S1R-LO-YfR" id="HU2-aL-UGs"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="df1-8K-dqe">
+                            <connections>
+                                <segue destination="ZAq-gE-fUP" kind="unwind" identifier="unwindFinishStocktake" unwindAction="unwindFinishStocktake:" id="T6a-x4-uTl"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="backButton" destination="dUr-Pn-4gw" id="EAX-tD-pfs"/>
+                        <outlet property="departmentLabel" destination="p8l-za-a1J" id="baj-KU-ylg"/>
                         <outlet property="doneButton" destination="df1-8K-dqe" id="O5O-WL-ZeA"/>
                         <outlet property="emailButton" destination="5fG-5G-eU9" id="iVk-SQ-uYU"/>
+                        <outlet property="finishDateLabel" destination="ac1-T8-QYb" id="KPw-gj-L90"/>
+                        <outlet property="personNameLabel" destination="Fa9-jZ-VcK" id="LM0-cP-RFf"/>
+                        <outlet property="startDateLabel" destination="Ubf-LO-i24" id="21K-XP-d8c"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pxT-Zx-Pnn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="ZAq-gE-fUP" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="7834" y="-1882"/>
         </scene>
