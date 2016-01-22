@@ -48,9 +48,17 @@ class StocktakeSummaryViewController: UIViewController, MFMailComposeViewControl
             let sub3 = (stocktake?.stocktakeMetaData[StocktakeNewSetupViewController.stocktakeMetadataStruct.startDateKey])!
             let subject = sub0 + sub1 + sep + sub2 + sep + sub3
             
-            mail.setSubject(subject)
-            mail.setMessageBody("yadda yadda yadda.", isHTML: false)
             
+            let stocktakeFileName = sub1 + "_" + sub2 + "_" + sub3
+            
+            mail.setSubject(subject)
+            let body1 = "Hi,\n"
+            let body2 = "Please find attached the stocktake csv file called:\n\n\(stocktakeFileName).\n"
+            let body3 = "Regards,\n"
+            let body4 = "StockSwift"
+            let body = body1 + body2 + body3 + body4
+            
+            mail.setMessageBody(body, isHTML: false)
             
             let actualStocktakeData = stocktakeData()
             
@@ -74,7 +82,7 @@ class StocktakeSummaryViewController: UIViewController, MFMailComposeViewControl
             print(output)
             let theData = output.dataUsingEncoding(NSUTF8StringEncoding)
             
-            mail.addAttachmentData(theData!, mimeType: "text/csv", fileName: "yadda.csv")
+            mail.addAttachmentData(theData!, mimeType: "text/csv", fileName: stocktakeFileName)
             
             presentViewController(mail, animated: true, completion: nil)
         }

@@ -92,6 +92,10 @@ class StocktakeNewSetupViewController: UIViewController, UITextFieldDelegate {
 
     @IBAction func selectDepartment(sender: UIButton) {
         
+        //if a user clicks thru to the department button without hitting enter on keyboard
+        //then make sure the personName textfield has resigned as first responder.
+        self.textFieldShouldReturn(personName)
+        
         let alertController = UIAlertController(title:"Department", message:"Select a department for which the stocktake is for.", preferredStyle: .Alert)
         
         let cancelAction = UIAlertAction(title:"Cancel", style:.Cancel) {(action) in
@@ -144,18 +148,26 @@ class StocktakeNewSetupViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
+    func textFieldShouldEndEditing(textField: UITextField) -> Bool {
+        print("textFieldShouldEndEditing")
+        return true
+    }
+    
     //called after textField resigns as first responder
     func textFieldDidEndEditing(textField: UITextField) {
+        print("textFieldDidEndEditing")
         //disable the save button if the text is empty
         let text = personName.text ?? ""
         stocktakeMetadata?[stocktakeMetadataStruct.personNameKey] = text
         startButton.enabled = !text.isEmpty
+        
     }
     
     func textFieldDidBeginEditing(textField: UITextField) {
         // disable save button while editing
         personName.placeholder = ""
     }
+    
     
     @IBAction func datePickerAction(sender: UIDatePicker) {
         let dateFormatter = NSDateFormatter()

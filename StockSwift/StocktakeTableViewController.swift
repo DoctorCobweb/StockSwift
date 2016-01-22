@@ -74,9 +74,8 @@ class StocktakeTableViewController: UITableViewController{
         
         
         navigationItem.title = "New Stocktake"
-        //navigationItem.leftBarButtonItem?.title = "Save Stocktake"
-        //print(navigationItem.leftBarButtonItem)
         navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor()
+        navigationItem.rightBarButtonItem?.tintColor = UIColor.whiteColor()
         
         
         //searchResultsUpdater is a property that conforms to the new protocol, UISearchResultsUpdating.

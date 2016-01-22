@@ -192,9 +192,14 @@ class StocktakeMenuTableViewController: UITableViewController, NSFetchedResultsC
     */
     
     
-    /*
-    @IBAction func unwindToMenuTableVC(sender: UIStoryboardSegue) {
+    
+    @IBAction func unwindCancelStocktake(sender: UIStoryboardSegue) {
         print("unwindToMenuTableVC func called")
+        if sender.identifier == "unwindCancelStocktake" {
+            let sourceVC = sender.sourceViewController as! StocktakeNewSetupViewController
+        }
+        
+        /*
         if sender.identifier == "unwindStocktakeToMenuVC" {
             let sourceVC = sender.sourceViewController as! StocktakeTableViewController
             print(sourceVC.stockItems?.count)
@@ -202,7 +207,7 @@ class StocktakeMenuTableViewController: UITableViewController, NSFetchedResultsC
             //TODO
             //send off email using a popover or something like a big alert view
         }
+        */
     }
-    */
 
 }
