@@ -43,19 +43,31 @@ class StocktakeSummaryViewController: UIViewController, MFMailComposeViewControl
             mail.mailComposeDelegate = self
             mail.setToRecipients(["andretrosky@gmail.com"])
             
-            let sep = " // "
+            //let sep = " /// "
             let sub0 = "StockSwift: "
             let sub1 = (stocktake?.stocktakeMetaData[StocktakeNewSetupViewController.stocktakeMetadataStruct.departmentKey])!.uppercaseString
-            let sub2 = (stocktake?.stocktakeMetaData[StocktakeNewSetupViewController.stocktakeMetadataStruct.personNameKey])!
-            let sub3 = (stocktake?.stocktakeMetaData[StocktakeNewSetupViewController.stocktakeMetadataStruct.startDateKey])!
-            let subject = sub0 + sub1 + sep + sub2 + sep + sub3
+            let personName = (stocktake?.stocktakeMetaData[StocktakeNewSetupViewController.stocktakeMetadataStruct.personNameKey])!
+            
+            let personNameArray = personName.characters.split {$0 == " "}.map{String($0)}
+            var fixedPersonName = ""
+            
+            for name in personNameArray {
+                fixedPersonName += name
+            }
+            
+            let dateString = (stocktake?.stocktakeMetaData[StocktakeNewSetupViewController.stocktakeMetadataStruct.startDateKey])!
+            let dateArray = dateString.characters.split {$0 == " "}.map{String($0)} //no spaces
+            let fixedDate = dateArray[0] + "-" + dateArray[1]
+            let sub3 = ".csv"
             
             
-            let stocktakeFileName = sub1 + "_" + sub2 + "_" + sub3
+            let subject = sub0 + sub1
+            let stocktakeFileName = sub1 + "_" + fixedPersonName + "_" + fixedDate + sub3
+            
             
             mail.setSubject(subject)
-            let body1 = "Hi,\n"
-            let body2 = "Please find attached the stocktake csv file called:\n\n\(stocktakeFileName).\n"
+            let body1 = "Hi,\n\n"
+            let body2 = "Please find attached the stocktake file called:\n\n\"\(stocktakeFileName)\".\n\n"
             let body3 = "Regards,\n"
             let body4 = "StockSwift"
             let body = body1 + body2 + body3 + body4
