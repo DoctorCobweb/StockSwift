@@ -41,7 +41,6 @@ extension StocktakeTableViewController: UISearchBarDelegate {
 class StocktakeTableViewController: UITableViewController{
 
     // MARK: Properties
-    //var stockItems = [StockItem]()
     var stockItems: [StockItem]?
     var filteredStockItems = [StockItem]()
     var stocktake: Stocktake?
