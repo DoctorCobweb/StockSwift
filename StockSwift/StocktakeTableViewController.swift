@@ -57,7 +57,11 @@ class StocktakeTableViewController: UITableViewController{
     //var stocktakeMetaData = [String:String]()
     
     //putting nil for searchResultsController tells the app that you want to use the same view your searching in to also display the results.
-    let searchController = UISearchController(searchResultsController: nil)
+    //let searchController = UISearchController(searchResultsController: nil)
+    let searchController = CustomSearchController(searchResultsController: nil)
+    
+    
+    
     
     
     override func viewWillAppear(animated: Bool) {
@@ -73,10 +77,7 @@ class StocktakeTableViewController: UITableViewController{
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         
-        navigationItem.title = "New Stocktake"
-        navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor()
-        navigationItem.rightBarButtonItem?.tintColor = UIColor.whiteColor()
-        
+        navigationItem.title = "Stocktake"
         
         //searchResultsUpdater is a property that conforms to the new protocol, UISearchResultsUpdating.
         //this class is assigned to it as we add the protocol methods using a class extension defined up top of file.

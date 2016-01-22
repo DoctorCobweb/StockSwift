@@ -30,8 +30,9 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
         super.viewDidLoad()
         
         navigationItem.title! = "Stock Item Details"
-        cancelButton.tintColor = UIColor.whiteColor()
-        saveButton.tintColor = UIColor.whiteColor()
+        //cancelButton.tintColor = UIColor.whiteColor()
+        //saveButton.tintColor = UIColor.whiteColor()
+        
         newStockAmountTextField.attributedPlaceholder = NSAttributedString(string: "Type here", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
         
         

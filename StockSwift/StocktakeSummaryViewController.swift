@@ -14,8 +14,9 @@ class StocktakeSummaryViewController: UIViewController, MFMailComposeViewControl
     
     //MARK: Properties
     var stocktake: Stocktake?
+    @IBOutlet weak var backButton: UIBarButtonItem!
+    @IBOutlet weak var doneButton: UIBarButtonItem!
     @IBOutlet weak var emailButton: UIButton!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,7 +25,8 @@ class StocktakeSummaryViewController: UIViewController, MFMailComposeViewControl
         print("StocktakeSummaryViewController, viewDidLoad func")
         print(stocktake)
         print(stocktake?.stocktakeMetaData)
-        //print(stocktake?.stocktake)
+        
+        navigationItem.title = "Stocktake Summary"
     }
 
     override func didReceiveMemoryWarning() {

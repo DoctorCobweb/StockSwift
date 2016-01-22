@@ -292,7 +292,7 @@
             </objects>
             <point key="canvasLocation" x="5314" y="-1115"/>
         </scene>
-        <!--Stocktake Summary-->
+        <!--Stocktake Summary View Controller-->
         <scene sceneID="wYe-lI-eQ6">
             <objects>
                 <viewController id="S1R-LO-YfR" customClass="StocktakeSummaryViewController" customModule="StockSwift" customModuleProvider="target" sceneMemberID="viewController">
@@ -316,17 +316,19 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.1479048295" green="0.1479048295" blue="0.1479048295" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="5fG-5G-eU9" firstAttribute="trailing" secondItem="p3o-wc-TDZ" secondAttribute="trailingMargin" id="HFu-hM-sXY"/>
                             <constraint firstItem="5fG-5G-eU9" firstAttribute="leading" secondItem="p3o-wc-TDZ" secondAttribute="leadingMargin" id="uPU-an-b3f"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Stocktake Summary" id="1Jh-0V-QOY">
+                    <navigationItem key="navigationItem" id="1Jh-0V-QOY">
                         <barButtonItem key="leftBarButtonItem" title="Back" id="dUr-Pn-4gw"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="df1-8K-dqe"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="backButton" destination="dUr-Pn-4gw" id="EAX-tD-pfs"/>
+                        <outlet property="doneButton" destination="df1-8K-dqe" id="O5O-WL-ZeA"/>
                         <outlet property="emailButton" destination="5fG-5G-eU9" id="iVk-SQ-uYU"/>
                     </connections>
                 </viewController>
@@ -334,7 +336,7 @@
             </objects>
             <point key="canvasLocation" x="7834" y="-1882"/>
         </scene>
-        <!--Title-->
+        <!--Stocktake Table View Controller-->
         <scene sceneID="Wn4-V9-0Qx">
             <objects>
                 <tableViewController id="Vph-MQ-Qqm" customClass="StocktakeTableViewController" customModule="StockSwift" customModuleProvider="target" sceneMemberID="viewController">
@@ -417,7 +419,7 @@
                         </connections>
                     </tableView>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Title" id="FWy-XV-R2o">
+                    <navigationItem key="navigationItem" id="FWy-XV-R2o">
                         <barButtonItem key="leftBarButtonItem" title="&lt; Stocktake Setup" id="W32-Bj-qY8"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="qWd-Gg-fjD">
                             <connections>
@@ -559,7 +561,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.1479048295" green="0.1479048295" blue="0.1479048295" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="qhp-fB-Zwn" firstAttribute="leading" secondItem="W07-WN-fhi" secondAttribute="leadingMargin" id="29K-5P-FgS"/>
                             <constraint firstItem="qhp-fB-Zwn" firstAttribute="bottom" secondItem="W07-WN-fhi" secondAttribute="bottomMargin" id="Sdh-VB-OaO"/>

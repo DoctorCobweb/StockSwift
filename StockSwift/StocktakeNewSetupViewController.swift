@@ -75,12 +75,8 @@ class StocktakeNewSetupViewController: UIViewController, UITextFieldDelegate {
         //add a bar button programmatically and set
         //its action/target pair
         //navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "cancelNewStocktake:")
-        //navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor()
-        cancelButton.tintColor = UIColor.whiteColor()
-        navigationItem.title = "Setup Stocktake"
-        let orange = UIColor(red: 255.0/255, green: 153.0/255, blue: 45.0/255, alpha: 1.0)
-        navigationController?.navigationBar.barTintColor = orange
         
+        navigationItem.title = "Setup Stocktake"
     }
 
     override func didReceiveMemoryWarning() {
