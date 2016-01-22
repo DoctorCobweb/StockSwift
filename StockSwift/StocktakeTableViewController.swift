@@ -32,17 +32,11 @@ extension StocktakeTableViewController: UISearchResultsUpdating {
     }
 }
 
-
 extension StocktakeTableViewController: UISearchBarDelegate {
     func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
     }
 }
-
-
-
-
-
 
 class StocktakeTableViewController: UITableViewController{
 
@@ -50,18 +44,11 @@ class StocktakeTableViewController: UITableViewController{
     //var stockItems = [StockItem]()
     var stockItems: [StockItem]?
     var filteredStockItems = [StockItem]()
-    
-    
-    //playing around
     var stocktake: Stocktake?
-    //var stocktakeMetaData = [String:String]()
     
     //putting nil for searchResultsController tells the app that you want to use the same view your searching in to also display the results.
     //let searchController = UISearchController(searchResultsController: nil)
     let searchController = CustomSearchController(searchResultsController: nil)
-    
-    
-    
     
     
     override func viewWillAppear(animated: Bool) {
