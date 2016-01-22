@@ -293,25 +293,11 @@ class StocktakeTableViewController: UITableViewController{
         tableView.reloadData()
     }
     
+    
 
-    /*
-    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
-        
-        print("identifier is: \(identifier)")
-        
-        if identifier == "unwindToStocktakeSummary" {
-            print("unwindToStocktakeSummary")
-            return true
-        }
-        else if identifier == "showStockItemDetails"{
-            print("showStockItemDetails")
-            return true
-        }
-        else {
-            return false
-        }
+    @IBAction func backToSetup(sender: UIBarButtonItem) {
+        navigationController?.popViewControllerAnimated(true)
     }
-    */
     
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -378,5 +364,23 @@ class StocktakeTableViewController: UITableViewController{
         }
     }
     
+    /*
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+        
+        print("identifier is: \(identifier)")
+        
+        if identifier == "unwindToStocktakeSummary" {
+            print("unwindToStocktakeSummary")
+            return true
+        }
+        else if identifier == "showStockItemDetails"{
+            print("showStockItemDetails")
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    */
     
 }

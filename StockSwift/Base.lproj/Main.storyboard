@@ -523,7 +523,11 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="FWy-XV-R2o">
-                        <barButtonItem key="leftBarButtonItem" title="&lt; Stocktake Setup" id="W32-Bj-qY8"/>
+                        <barButtonItem key="leftBarButtonItem" title="&lt; Stocktake Setup" id="W32-Bj-qY8">
+                            <connections>
+                                <action selector="backToSetup:" destination="Vph-MQ-Qqm" id="iN3-hB-Yqz"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="done" id="qWd-Gg-fjD">
                             <connections>
                                 <segue destination="8Vd-VR-g4z" kind="presentation" identifier="showStocktakeSummary" id="5Mb-uK-WW5"/>
