@@ -30,10 +30,11 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
         super.viewDidLoad()
         
         navigationItem.title! = "Stock Item Details"
-        //cancelButton.tintColor = UIColor.whiteColor()
-        //saveButton.tintColor = UIColor.whiteColor()
         
         newStockAmountTextField.attributedPlaceholder = NSAttributedString(string: "Type here", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
+        newStockAmountTextField.keyboardType = .DecimalPad
+        
+        addDoneButtonOnKeyboard()
         
         
         saveButton.enabled = false
@@ -54,6 +55,32 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
         // Dispose of any resources that can be recreated.
     }
     
+    func addDoneButtonOnKeyboard() {
+        let doneToolbar: UIToolbar = UIToolbar(frame: CGRectMake(0,0,320,50))
+        doneToolbar.barStyle = UIBarStyle.Default
+        
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+        
+        let done: UIBarButtonItem = UIBarButtonItem(title: "Done", style: .Done, target: self, action: "doneButtonAction")
+        let orange = UIColor(red: 255.0/255, green: 153.0/255, blue: 45.0/255, alpha: 1.0)
+        done.tintColor = orange
+        
+        
+        
+        var items: [UIBarButtonItem] = []
+        items += [flexSpace]
+        items += [done]
+        
+        doneToolbar.items = items
+        doneToolbar.sizeToFit()
+        
+        newStockAmountTextField.inputAccessoryView = doneToolbar
+        
+    }
+    
+    func doneButtonAction() {
+        newStockAmountTextField.resignFirstResponder()
+    }
     
     // MARK: UITextFieldDelegate protocol methods
     
