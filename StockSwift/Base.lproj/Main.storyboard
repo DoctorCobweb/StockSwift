@@ -639,7 +639,7 @@
                                                 <rect key="frame" x="209" y="545" width="90" height="30"/>
                                                 <color key="backgroundColor" red="1" green="0.59933419210000005" blue="0.17612021589999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <state key="normal" title="Edit/ Done">
-                                                    <color key="titleColor" red="0.10980392160000001" green="0.10980392160000001" blue="0.10980392160000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                                 <connections>
                                                     <action selector="editTableViewAction:" destination="KB6-DZ-zKl" eventType="touchUpInside" id="RdL-Cn-fp6"/>
@@ -697,6 +697,7 @@
                         <outlet property="editTableViewButton" destination="nUu-kN-pO6" id="89V-GK-KWB"/>
                         <outlet property="newStockAmountTextField" destination="1ki-Sq-h8T" id="oQS-hg-joK"/>
                         <outlet property="saveButton" destination="WGv-g6-wPb" id="LEG-KF-A9r"/>
+                        <outlet property="scrollView" destination="qhp-fB-Zwn" id="iQL-7j-8tL"/>
                         <outlet property="stockDescriptionLabel" destination="Ihy-3U-aFT" id="xzE-Vq-F3A"/>
                         <outlet property="stockFineDetailLabel" destination="ECE-NH-UDe" id="rpb-rt-exb"/>
                         <outlet property="stockMoneyAmountLabel" destination="JbU-1L-ZHN" id="8cB-ms-fti"/>

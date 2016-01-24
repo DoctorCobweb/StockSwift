@@ -20,11 +20,13 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
     @IBOutlet weak var newStockAmountTextField: UITextField!
     @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var editTableViewButton: UIButton!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     var stockItemMO: StocktakeItemMO?
     var amountsBuffer:[Float] = []
     var amtTableView: UITableView?
     var stockTake: Stocktake?
+    var activeField: UITextField?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +37,7 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
         newStockAmountTextField.keyboardType = .DecimalPad
         
         addDoneButtonOnKeyboard()
+        registerForKeyboardNotifications()
         
         
         saveButton.enabled = false
@@ -65,8 +68,6 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
         let orange = UIColor(red: 255.0/255, green: 153.0/255, blue: 45.0/255, alpha: 1.0)
         done.tintColor = orange
         
-        
-        
         var items: [UIBarButtonItem] = []
         items += [flexSpace]
         items += [done]
@@ -75,16 +76,49 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
         doneToolbar.sizeToFit()
         
         newStockAmountTextField.inputAccessoryView = doneToolbar
-        
     }
     
     func doneButtonAction() {
         newStockAmountTextField.resignFirstResponder()
     }
     
+    func registerForKeyboardNotifications() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWasShown:", name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillBeHidden:", name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    //called when UIKeyboardDidShowNotification is sent
+    func keyboardWasShown(aNotification: NSNotification) {
+        let info = aNotification.userInfo!
+        let kbFrame = (info[UIKeyboardFrameBeginUserInfoKey] as! NSValue).CGRectValue()
+        
+        print("kbFrame is \(kbFrame)")
+        
+        let contentInsets: UIEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, kbFrame.height, 0.0)
+        scrollView.contentInset = contentInsets
+        scrollView.scrollIndicatorInsets = contentInsets
+        
+        //if active field is hidden by kb then scroll so it's visible
+        var aRect: CGRect = self.view.frame
+        aRect.size.height -= kbFrame.height
+        
+        if (!CGRectContainsPoint(aRect, activeField!.frame.origin)) {
+            scrollView.scrollRectToVisible(activeField!.frame, animated:true)
+        }
+    }
+    
+    //called when UIKeyboardWillHideNotification is sent
+    func keyboardWillBeHidden(aNotification: NSNotification) {
+        let contentInsets: UIEdgeInsets = UIEdgeInsetsZero
+        scrollView.contentInset = contentInsets
+        scrollView.scrollIndicatorInsets = contentInsets
+    }
+    
+    
     // MARK: UITextFieldDelegate protocol methods
     
     func textFieldDidBeginEditing(textField: UITextField) {
+        activeField = textField
         newStockAmountTextField.placeholder = ""
     }
     
@@ -96,6 +130,7 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
+        activeField = nil
         //gives us a chance to read the value in the text field
         let entry = textField.text ?? ""
         
