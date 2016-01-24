@@ -1,0 +1,6 @@
+framework module Pods_StockSwift {
+  umbrella header "Pods-StockSwift-umbrella.h"
+
+  export *
+  module * { export * }
+}

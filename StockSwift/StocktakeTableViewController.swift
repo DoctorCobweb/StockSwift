@@ -40,6 +40,7 @@ extension StocktakeTableViewController: UISearchBarDelegate {
 
 class StocktakeTableViewController: UITableViewController{
 
+    @IBOutlet weak var doneButton: UIBarButtonItem!
     // MARK: Properties
     var stockItems: [StockItem]?
     var filteredStockItems = [StockItem]()
@@ -322,7 +323,7 @@ class StocktakeTableViewController: UITableViewController{
                 }
                 
                 //ASSING THE STOCKTAKE OBJECT TO DETAILS VC
-                stockItemDetailViewController.stockTake = stocktake
+                stockItemDetailViewController.stocktake = stocktake
                 
                 //get the stocktakeItemMO for the particular invCode from core data
                 //then pass it along to destination VC
@@ -340,12 +341,15 @@ class StocktakeTableViewController: UITableViewController{
             let dateFormatter = NSDateFormatter()
             dateFormatter.dateFormat = StocktakeNewSetupViewController.stocktakeMetadataStruct.dateFormatKey
             let strFinishDate = dateFormatter.stringFromDate(NSDate())
-            
-            //set the finish time in stocktake meta data when user hits done button
+            print("strFinishDate is \(strFinishDate)")
             stocktake?.updateStocktakeMetaData(forKey: StocktakeNewSetupViewController.stocktakeMetadataStruct.finishDateKey, forValue: strFinishDate)
             
             stocktake?.stocktakeMetaData["finish_date"] = strFinishDate
+            
+            
+            print("above summaryVC")
             let summaryVC = navVC.viewControllers.first as! StocktakeSummaryViewController
+            print("below summaryVC")
             summaryVC.stocktake = stocktake
         }
     }

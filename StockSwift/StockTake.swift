@@ -160,6 +160,8 @@ class Stocktake: NSObject {
             
             if !fetchedItems.isEmpty && fetchedItems.count == 1 {
                 let metaMO = fetchedItems[0] as? StocktakeMetaDataMO
+                
+                //print("metaMO is: \(metaMO)")
                 metaMO?.finishDate = value
                 persistData("update the StocktakeMetaDataMO entity")
             }
@@ -213,7 +215,7 @@ class Stocktake: NSObject {
         print("in persist data")
         
         do {
-            print("going to try and save...")
+            print("going to try and save for action: \(action)")
             try self.moc.save()
             print("SUCCESS: save to persistent store, action: \(action)")
         }

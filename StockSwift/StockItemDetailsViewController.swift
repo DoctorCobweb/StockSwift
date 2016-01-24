@@ -25,7 +25,7 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
     var stockItemMO: StocktakeItemMO?
     var amountsBuffer:[Float] = []
     var amtTableView: UITableView?
-    var stockTake: Stocktake?
+    var stocktake: Stocktake?
     var activeField: UITextField?
 
     override func viewDidLoad() {
@@ -45,7 +45,7 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
         if let item = stockItemMO {
             stockDescriptionLabel.text = item.itemDescription
             stockFineDetailLabel.text = "ID: " + String(item.invCode) + " /// $" + String(item.lastCost) + " per " + item.units
-            stockPhotoImageView.image = stockTake?.getStockItemPhoto(item.invCode)
+            stockPhotoImageView.image = stocktake?.getStockItemPhoto(item.invCode)
             stockPhysicalAmountLabel.text = String(item.physicalAmount)
             stockMoneyAmountLabel.text = String(item.physicalAmount * item.lastCost)
         }
@@ -308,8 +308,13 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
         
         let _newAmount = amountsBuffer.reduce(0, combine: {(run, elem) in (run+elem)})
         
+        
+        print("_newAmount: \(_newAmount)")
         //update the stock amount in Core Data
-        stockTake?.updateStockItem((stockItemMO?.invCode)!, amount: _newAmount)
+        stocktake?.updateStockItem((stockItemMO?.invCode)!, amount: _newAmount)
+        
+        
+        
         
         sourceViewController.updateStocktakeDetails() //reloads the table view
         
