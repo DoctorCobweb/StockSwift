@@ -10,6 +10,7 @@ import UIKit
 import MessageUI
 import CoreData
 
+
 class StocktakeSummaryViewController: UIViewController, MFMailComposeViewControllerDelegate {
     
     //MARK: Properties
@@ -103,16 +104,23 @@ class StocktakeSummaryViewController: UIViewController, MFMailComposeViewControl
                 let _invCode = String(_item.invCode)
                 let _itemDescription = _item.itemDescription
                 let _lastCost = String(_item.lastCost)
-                let _section = _item.section
+                //let _section = _item.section
+                let _sectionOriginal = _item.sectionOriginal
                 let _units = _item.units
                 let _physicalAmount = String(_item.physicalAmount)
                 
-                let line = _invCode + sep + _itemDescription + sep + _lastCost + sep + _section + sep + _units + sep + _physicalAmount + "\n"
+                let line = _invCode + sep +
+                           _itemDescription + sep +
+                           _lastCost + sep +
+                          // _section + sep +
+                           _sectionOriginal + sep +
+                           _units + sep +
+                           _physicalAmount + "\n"
                 
                 output += line
             }
             
-            print(output)
+            //print(output)
             let theData = output.dataUsingEncoding(NSUTF8StringEncoding)
             
             mail.addAttachmentData(theData!, mimeType: "text/csv", fileName: stocktakeFileName)

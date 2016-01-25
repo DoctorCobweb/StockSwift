@@ -14,7 +14,7 @@
 		</dict>
 		<dict>
 			<key>FooterText</key>
-			<string>                                 Apache License
+			<string>Apache License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/
 
@@ -218,7 +218,7 @@
 
 </string>
 			<key>Title</key>
-			<string>SwiftCharts</string>
+			<string>Charts</string>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 		</dict>

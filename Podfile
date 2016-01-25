@@ -4,7 +4,8 @@
  use_frameworks!
 
 target 'StockSwift' do
-pod 'SwiftCharts', '~>0.3'
+#pod 'SwiftCharts', '~>0.3'
+pod 'Charts'
 end
 
 target 'StockSwiftTests' do

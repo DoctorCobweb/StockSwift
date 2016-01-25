@@ -13,7 +13,8 @@ class StocktakeNewSetupViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: Properties
     //var stocktakeMetadata = [String:String]()
-    var stocktakeMetadata: [String:String]?
+    //var stocktakeMetadata: [String:String]?
+    var stocktakeMetadata: [String:String] = [:]
     var stocktake: Stocktake?
     var stockItems: [StockItem]?
     
@@ -38,7 +39,7 @@ class StocktakeNewSetupViewController: UIViewController, UITextFieldDelegate {
         static let departmentKey = "department"
         static let startDateKey = "start_date"
         static let finishDateKey = "finish_date"
-        static let dateFormatKey = "dd-MM-yyyy HH:mm"
+        static let dateFormatKey = "dd-MM-yyyy HH:mm:ss"
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -50,21 +51,45 @@ class StocktakeNewSetupViewController: UIViewController, UITextFieldDelegate {
         //is.
         //we need to reset stocktakeMetadata everytime user comes back to it, otherwise
         //there are CoreData problems with fetching an item.
-        stocktakeMetadata = [:]
+        //stocktakeMetadata = [:]
         
         //set a default time of now.
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = stocktakeMetadataStruct.dateFormatKey
         let strDate =  dateFormatter.stringFromDate(datePicker.date)
-        stocktakeMetadata?[stocktakeMetadataStruct.startDateKey] = strDate
+        stocktakeMetadata[stocktakeMetadataStruct.startDateKey] = strDate
         
         datePicker.setValue(UIColor.whiteColor(), forKey: "textColor")
         
-        department.titleLabel?.text = ""
-        
+        //department.titleLabel?.text = ""
         personName.delegate = self
         personName.text = ""
         personName.attributedPlaceholder = NSAttributedString(string: "Person Name", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
+        
+        let attrStr = NSAttributedString(string:"Department", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
+            
+        department.setAttributedTitle(attrStr, forState: UIControlState.Normal)
+        
+        
+        
+        //print(department.titleLabel?.text)
+        /*
+        if department.titleLabel?.text == nil {
+            
+            let attrStr = NSAttributedString(string: "Department", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
+            
+            
+            department.setAttributedTitle(attrStr, forState: UIControlState.Normal)
+        } else {
+            print(stocktakeMetadata)
+            
+            let attrStr = NSAttributedString(string: (stocktakeMetadata[stocktakeMetadataStruct.departmentKey])!, attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
+            
+            department.setAttributedTitle(attrStr, forState: UIControlState.Normal)
+        
+        
+        }
+        */
     }
     
     
@@ -99,28 +124,40 @@ class StocktakeNewSetupViewController: UIViewController, UITextFieldDelegate {
             print(action)
         }
         let kitchenAction = UIAlertAction(title:"Kitchen", style:.Default) {(action) in print(action)
-            self.stocktakeMetadata?["department"] = departments.kitchenKey
+            self.stocktakeMetadata["department"] = departments.kitchenKey
             self.department.titleLabel?.text = "Kitchen"
+            //let attrStr = NSAttributedString(string:"Kitchen", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
+            //self.department.setAttributedTitle(attrStr, forState: UIControlState.Selected)
         }
         let bottleshopAction = UIAlertAction(title:"Bottleshop", style:.Default) {(action) in print(action)
-            self.stocktakeMetadata?["department"] = departments.bottleshopKey
+            self.stocktakeMetadata["department"] = departments.bottleshopKey
             self.department.titleLabel?.text = "Bottleshop"
+            //let attrStr = NSAttributedString(string:"Bottleshop", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
+            //self.department.setAttributedTitle(attrStr, forState: UIControlState.Selected)
         }
         let gamingAction = UIAlertAction(title:"Gaming", style:.Default) {(action) in print(action)
-            self.stocktakeMetadata?["department"] = departments.gamingKey
+            self.stocktakeMetadata["department"] = departments.gamingKey
             self.department.titleLabel?.text = "Gaming"
+            //let attrStr = NSAttributedString(string:"Gaming", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
+            //self.department.setAttributedTitle(attrStr, forState: UIControlState.Selected)
         }
         let restaurantAction = UIAlertAction(title:"Restaurant", style:.Default) {(action) in print(action)
-            self.stocktakeMetadata?["department"] = departments.restaurantKey
+            self.stocktakeMetadata["department"] = departments.restaurantKey
             self.department.titleLabel?.text = "Restaurant"
+            //let attrStr = NSAttributedString(string:"Restaurant", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
+            //self.department.setAttributedTitle(attrStr, forState: UIControlState.Selected)
         }
         let barAction = UIAlertAction(title:"Bar", style:.Default) {(action) in print(action)
-            self.stocktakeMetadata?["department"] = departments.barKey
+            self.stocktakeMetadata["department"] = departments.barKey
             self.department.titleLabel?.text = "Bar"
+            //let attrStr = NSAttributedString(string:"Bar", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
+            //self.department.setAttributedTitle(attrStr, forState: UIControlState.Selected)
         }
         let tabAction = UIAlertAction(title:"Tab", style:.Default) {(action) in print(action)
-            self.stocktakeMetadata?["department"] = departments.tabKey
+            self.stocktakeMetadata["department"] = departments.tabKey
             self.department.titleLabel?.text = "Tab"
+            //let attrStr = NSAttributedString(string:"Tab", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
+            //self.department.setAttributedTitle(attrStr, forState: UIControlState.Selected)
         }
         
         alertController.addAction(cancelAction)
@@ -155,7 +192,7 @@ class StocktakeNewSetupViewController: UIViewController, UITextFieldDelegate {
         print("textFieldDidEndEditing")
         //disable the save button if the text is empty
         let text = personName.text ?? ""
-        stocktakeMetadata?[stocktakeMetadataStruct.personNameKey] = text
+        stocktakeMetadata[stocktakeMetadataStruct.personNameKey] = text
         startButton.enabled = !text.isEmpty
         
     }
@@ -171,7 +208,7 @@ class StocktakeNewSetupViewController: UIViewController, UITextFieldDelegate {
         dateFormatter.dateFormat = stocktakeMetadataStruct.dateFormatKey
         let strDate =  dateFormatter.stringFromDate(sender.date)
         
-        stocktakeMetadata?[stocktakeMetadataStruct.startDateKey] = strDate
+        stocktakeMetadata[stocktakeMetadataStruct.startDateKey] = strDate
     }
     
     // MARK: - Navigation
@@ -179,17 +216,63 @@ class StocktakeNewSetupViewController: UIViewController, UITextFieldDelegate {
     @IBAction func cancelNewStocktake(sender: AnyObject) {
        navigationController?.popViewControllerAnimated(true)
     }
+    
+    
+    /*
+    @IBAction func unwindBackToSetup(sender: UIStoryboardSegue) {
+        print("unwindBackToSetup")
+        
+        if sender.identifier == "unwindBackToSetup" {
+            if let sourceVC = sender.sourceViewController as? StocktakeTableViewController {
+            
+                let stockMeta = sourceVC.stocktake?.stocktakeMetaData
+                let _personName = stockMeta?[stocktakeMetadataStruct.personNameKey]
+                let _department = stockMeta?[stocktakeMetadataStruct.departmentKey]
+                let _startDate = stockMeta?[stocktakeMetadataStruct.startDateKey]
+                
+                print("_department \(_department)")
+                print(department.titleLabel?.text)
+                
+                personName.text = _personName
+                department.titleLabel?.text = _department
+                
+                print(department.titleLabel?.text)
+                
+                //set the date picker to be _startDate value
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = stocktakeMetadataStruct.dateFormatKey
+                let date =  dateFormatter.dateFromString(_startDate!)
+                datePicker.setDate(date!, animated: true)
+                
+                
+                //set the stocktake meta data dict with source VC values
+                stocktakeMetadata[stocktakeMetadataStruct.personNameKey] = _personName
+                stocktakeMetadata[stocktakeMetadataStruct.departmentKey] = _department
+                stocktakeMetadata[stocktakeMetadataStruct.startDateKey] = _startDate
+            }
+        
+        
+        }
+    }
+    */
 
     @IBAction func startStocktake(sender: UIButton) {
+        print("startStocktake")
         
         //only perform segue if personName, department and date are set properly
-        if stocktakeMetadata?[stocktakeMetadataStruct.personNameKey] != nil && stocktakeMetadata?[stocktakeMetadataStruct.departmentKey] != nil {
+        if stocktakeMetadata[stocktakeMetadataStruct.personNameKey] != nil && stocktakeMetadata[stocktakeMetadataStruct.departmentKey] != nil {
             
             //we setup the stocktake now before the table view is loaded, then
             //pass in the values needed to make table view cells etc. in 
             //prepareForSegue call
-            stocktake = Stocktake(metaData: stocktakeMetadata!)
+            print("***")
+            print(stocktakeMetadata)
+            print("***")
+            stocktake = Stocktake(metaData: stocktakeMetadata)
             stockItems = stocktake?.loadStockItemsFromCoreData()
+            
+            
+            datePicker.setDate(NSDate(), animated: false)
             
             //print("NEW SETUP DEBUGGING")
             //print(stocktakeMetadata)

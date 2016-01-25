@@ -65,6 +65,7 @@ class StocktakeTableViewController: UITableViewController{
         
         
         navigationItem.title = "Stocktake"
+        navigationItem.setHidesBackButton(true, animated: false)
         
         //searchResultsUpdater is a property that conforms to the new protocol, UISearchResultsUpdating.
         //this class is assigned to it as we add the protocol methods using a class extension defined up top of file.
@@ -191,13 +192,18 @@ class StocktakeTableViewController: UITableViewController{
         
         
         //TODO: do away with stockItems
-        
+
         let _item = stocktake?.getSingularStockItem(stockItem.invCode)
         let _itemPhoto = stocktake?.getStockItemPhoto(stockItem.invCode)
-        //print("DEBUGGING")
-        //print(stocktake)
-        //print(_item)
-        //print("END DEBUGGING")
+
+        /*
+        print("DEBUGGING")
+        print(stockItem)
+        print(stockItem.invCode)
+        print(stocktake)
+        print(_item)
+        print("END DEBUGGING")
+        */
         
         // Configure the cell...
         
@@ -282,9 +288,11 @@ class StocktakeTableViewController: UITableViewController{
     
     
 
+    /*
     @IBAction func backToSetup(sender: UIBarButtonItem) {
         navigationController?.popViewControllerAnimated(true)
     }
+    */
     
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation

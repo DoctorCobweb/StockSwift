@@ -240,9 +240,11 @@ class Stocktake: NSObject {
             let fetchedItems = try self.moc.executeFetchRequest(itemFetch)
             
             if !fetchedItems.isEmpty && fetchedItems.count == 1 {
+                print("fetched only 1")
                 return fetchedItems[0] as? StocktakeItemMO
             }
             else {
+                print("fetched zero or more")
                 return nil
             }
         }
