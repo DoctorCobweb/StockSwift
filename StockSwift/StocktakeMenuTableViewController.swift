@@ -190,7 +190,7 @@ class StocktakeMenuTableViewController: UITableViewController, NSFetchedResultsC
     
     
     @IBAction func unwindCancelStocktake(sender: UIStoryboardSegue) {
-        print("unwindToMenuTableVC func called")
+        print("unwindCancelStocktake func called")
         if sender.identifier == "unwindCancelStocktake" {
             let sourceVC = sender.sourceViewController as! StocktakeNewSetupViewController
         }

@@ -212,49 +212,6 @@ class StocktakeNewSetupViewController: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: - Navigation
-    
-    @IBAction func cancelNewStocktake(sender: AnyObject) {
-       navigationController?.popViewControllerAnimated(true)
-    }
-    
-    
-    /*
-    @IBAction func unwindBackToSetup(sender: UIStoryboardSegue) {
-        print("unwindBackToSetup")
-        
-        if sender.identifier == "unwindBackToSetup" {
-            if let sourceVC = sender.sourceViewController as? StocktakeTableViewController {
-            
-                let stockMeta = sourceVC.stocktake?.stocktakeMetaData
-                let _personName = stockMeta?[stocktakeMetadataStruct.personNameKey]
-                let _department = stockMeta?[stocktakeMetadataStruct.departmentKey]
-                let _startDate = stockMeta?[stocktakeMetadataStruct.startDateKey]
-                
-                print("_department \(_department)")
-                print(department.titleLabel?.text)
-                
-                personName.text = _personName
-                department.titleLabel?.text = _department
-                
-                print(department.titleLabel?.text)
-                
-                //set the date picker to be _startDate value
-                let dateFormatter = NSDateFormatter()
-                dateFormatter.dateFormat = stocktakeMetadataStruct.dateFormatKey
-                let date =  dateFormatter.dateFromString(_startDate!)
-                datePicker.setDate(date!, animated: true)
-                
-                
-                //set the stocktake meta data dict with source VC values
-                stocktakeMetadata[stocktakeMetadataStruct.personNameKey] = _personName
-                stocktakeMetadata[stocktakeMetadataStruct.departmentKey] = _department
-                stocktakeMetadata[stocktakeMetadataStruct.startDateKey] = _startDate
-            }
-        
-        
-        }
-    }
-    */
 
     @IBAction func startStocktake(sender: UIButton) {
         print("startStocktake")
@@ -272,7 +229,6 @@ class StocktakeNewSetupViewController: UIViewController, UITextFieldDelegate {
             stockItems = stocktake?.loadStockItemsFromCoreData()
             
             
-            datePicker.setDate(NSDate(), animated: false)
             
             //print("NEW SETUP DEBUGGING")
             //print(stocktakeMetadata)
