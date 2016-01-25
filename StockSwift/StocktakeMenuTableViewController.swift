@@ -14,6 +14,7 @@ class StocktakeMenuTableViewController: UITableViewController, NSFetchedResultsC
     @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet weak var addButton: UIBarButtonItem!
     var fetchedResultsController: NSFetchedResultsController!
+    var selectedStocktakeMetaData: StocktakeMetaDataMO!
     
 
     override func viewDidLoad() {
@@ -102,6 +103,17 @@ class StocktakeMenuTableViewController: UITableViewController, NSFetchedResultsC
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return self.fetchedResultsController.sections![section].name.uppercaseString
     }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        print("in didSelectRowAtIndexPath")
+        
+        selectedStocktakeMetaData = self.fetchedResultsController.objectAtIndexPath(indexPath) as! StocktakeMetaDataMO
+        
+        
+        performSegueWithIdentifier("showPreviousStocktake", sender: nil)
+        //presentViewController(destVC, animated: true, completion: nil)
+    }
 
     /*
     // Override to support conditional editing of the table view.
@@ -177,15 +189,34 @@ class StocktakeMenuTableViewController: UITableViewController, NSFetchedResultsC
         self.tableView.endUpdates()
     }
     
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        print("prepareForSegue")
+        print(sender)
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == "showPreviousStocktake" {
+            let destVC = segue.destinationViewController as! StocktakeTableViewController
+            
+            print("showPreviousStocktake")
+            //print(selectedStocktakeMetaData)
+            
+            // get the metaData for cell selected.
+            var _metaData = [String:String]()
+            _metaData["person_name"] = selectedStocktakeMetaData.personName
+            _metaData["department"] = selectedStocktakeMetaData.department
+            _metaData["start_date"] = selectedStocktakeMetaData.startDate
+            
+            print(_metaData)
+            
+            let theStocktake: Stocktake? = Stocktake(metaData: _metaData)
+            print(theStocktake)
+            destVC.stocktake = theStocktake
+            destVC.stockItems = theStocktake?.loadStockItemsFromCoreData()
+        }
     }
-    */
     
     
     

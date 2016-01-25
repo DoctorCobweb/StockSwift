@@ -195,11 +195,12 @@
                     <connections>
                         <outlet property="addButton" destination="XHH-6m-LVb" id="b1y-Xe-BZN"/>
                         <outlet property="menuButton" destination="PJp-dA-kSM" id="6a7-Tq-LaO"/>
+                        <segue destination="Vph-MQ-Qqm" kind="show" identifier="showPreviousStocktake" id="bOn-lE-yWv"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ieG-br-X86" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3807" y="-1115"/>
+            <point key="canvasLocation" x="3811" y="-1639"/>
         </scene>
         <!--Stocktake New Setup View Controller-->
         <scene sceneID="ipz-7l-wLS">
@@ -536,7 +537,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1J3-83-ySE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6061" y="-1115"/>
+            <point key="canvasLocation" x="4609" y="-1931"/>
         </scene>
         <!--Stock Item Details-->
         <scene sceneID="tGi-Sf-DEz">
@@ -913,6 +914,7 @@
         <image name="stocktake" width="1024" height="1024"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="bOn-lE-yWv"/>
         <segue reference="ux8-3D-S7f"/>
     </inferredMetricsTieBreakers>
 </document>
