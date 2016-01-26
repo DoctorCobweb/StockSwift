@@ -537,7 +537,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1J3-83-ySE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4609" y="-1931"/>
+            <point key="canvasLocation" x="6225" y="-1639"/>
         </scene>
         <!--Stock Item Details-->
         <scene sceneID="tGi-Sf-DEz">
@@ -558,76 +558,76 @@
                                         <rect key="frame" x="8" y="8" width="584" height="1500"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ihy-3U-aFT">
-                                                <rect key="frame" x="0.0" y="78" width="584" height="28"/>
+                                                <rect key="frame" x="0.0" y="14" width="584" height="28"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RMO-ud-haU">
-                                                <rect key="frame" x="0.0" y="341" width="584" height="21"/>
+                                                <rect key="frame" x="0.0" y="277" width="584" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AR7-rf-SPQ">
-                                                <rect key="frame" x="0.0" y="370" width="584" height="3"/>
+                                                <rect key="frame" x="0.0" y="306" width="584" height="3"/>
                                                 <color key="backgroundColor" red="1" green="0.59933419210000005" blue="0.17612021589999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="3" id="Uxs-Vs-HJq"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="fine_details" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ECE-NH-UDe">
-                                                <rect key="frame" x="0.0" y="385" width="584" height="21"/>
+                                                <rect key="frame" x="0.0" y="321" width="584" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Total Physical Amount:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UU2-9m-tkw">
-                                                <rect key="frame" x="0.0" y="414" width="584" height="21"/>
+                                                <rect key="frame" x="0.0" y="350" width="584" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="total_physical_amount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v3V-7G-FOg">
-                                                <rect key="frame" x="0.0" y="443" width="584" height="21"/>
+                                                <rect key="frame" x="0.0" y="379" width="584" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Total $ Amount:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YNV-eH-Q0L">
-                                                <rect key="frame" x="0.0" y="472" width="584" height="21"/>
+                                                <rect key="frame" x="0.0" y="408" width="584" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="total_$_amount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JbU-1L-ZHN">
-                                                <rect key="frame" x="0.0" y="501" width="584" height="21"/>
+                                                <rect key="frame" x="0.0" y="437" width="584" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Add New Amount" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7rK-ar-crs">
-                                                <rect key="frame" x="0.0" y="546" width="201" height="29"/>
+                                                <rect key="frame" x="0.0" y="482" width="201" height="29"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="k4d-LP-nJA">
-                                                <rect key="frame" x="0.0" y="583" width="584" height="3"/>
+                                                <rect key="frame" x="0.0" y="519" width="584" height="3"/>
                                                 <color key="backgroundColor" red="1" green="0.59933419210000005" blue="0.17612021589999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="3" id="dLM-Hj-tS5"/>
                                                 </constraints>
                                             </view>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1ki-Sq-h8T">
-                                                <rect key="frame" x="0.0" y="599" width="300" height="30"/>
+                                                <rect key="frame" x="0.0" y="535" width="300" height="30"/>
                                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="stock2" translatesAutoresizingMaskIntoConstraints="NO" id="gr9-GA-KYL">
-                                                <rect key="frame" x="192" y="117" width="200" height="200"/>
+                                                <rect key="frame" x="192" y="53" width="200" height="200"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="200" id="IIZ-gs-YKI"/>
                                                     <constraint firstAttribute="width" constant="200" id="fQE-zX-2ea"/>
@@ -635,7 +635,7 @@
                                                 </constraints>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nUu-kN-pO6">
-                                                <rect key="frame" x="209" y="545" width="90" height="30"/>
+                                                <rect key="frame" x="209" y="481" width="90" height="30"/>
                                                 <color key="backgroundColor" red="1" green="0.59933419210000005" blue="0.17612021589999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <state key="normal" title="Edit/ Done">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -651,7 +651,7 @@
                                             <constraint firstItem="Ihy-3U-aFT" firstAttribute="leading" secondItem="y5g-8p-7OV" secondAttribute="leading" id="1dQ-CC-PqI"/>
                                             <constraint firstAttribute="height" constant="1500" id="CkE-8m-CHZ"/>
                                             <constraint firstItem="gr9-GA-KYL" firstAttribute="top" secondItem="Ihy-3U-aFT" secondAttribute="bottom" constant="11" id="NQY-fM-mis"/>
-                                            <constraint firstItem="Ihy-3U-aFT" firstAttribute="top" secondItem="y5g-8p-7OV" secondAttribute="top" constant="78" id="b71-a5-w8L"/>
+                                            <constraint firstItem="Ihy-3U-aFT" firstAttribute="top" secondItem="y5g-8p-7OV" secondAttribute="top" constant="5" id="b71-a5-w8L"/>
                                             <constraint firstItem="gr9-GA-KYL" firstAttribute="centerX" secondItem="y5g-8p-7OV" secondAttribute="centerX" id="tEz-65-txQ"/>
                                             <constraint firstAttribute="trailing" secondItem="Ihy-3U-aFT" secondAttribute="trailing" id="zKg-di-8xa"/>
                                         </constraints>
@@ -706,7 +706,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zXJ-9S-PZ0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7074" y="-641"/>
+            <point key="canvasLocation" x="7090" y="-1137"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="WXB-95-lKR">
