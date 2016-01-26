@@ -237,18 +237,16 @@ class StockItemDetailsViewController: UIViewController, UITextFieldDelegate, UIT
     
     @IBAction func editTableViewAction(sender: UIButton) {
         print("editTableViewAction")
-        print(amtTableView?.delegate)
+        //print(amtTableView?.delegate)
         
         if amtTableView?.editing == true {
-            
-            //TODO: this does NOT work, title stays that same
-            sender.titleLabel?.text = "Editblah"
-            
+            let attrStr = NSAttributedString(string:"Edit", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
+            sender.setAttributedTitle(attrStr, forState: UIControlState.Normal)
             amtTableView?.setEditing(false, animated: true)
         }
         else {
-            //TODO: this does NOT work, title stays that same
-            sender.titleLabel?.text = "Done"
+            let attrStr = NSAttributedString(string:"Done", attributes: [NSForegroundColorAttributeName: UIColor.whiteColor()])
+            sender.setAttributedTitle(attrStr, forState: UIControlState.Normal)
             
             //only set editing if there's a table view present
             if let tableView = amtTableView {

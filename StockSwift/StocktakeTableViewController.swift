@@ -196,12 +196,14 @@ class StocktakeTableViewController: UITableViewController{
         let _item = stocktake?.getSingularStockItem(stockItem.invCode)
         let _itemPhoto = stocktake?.getStockItemPhoto(stockItem.invCode)
 
+        /*
         print("DEBUGGING")
         print(stockItem)
         print(stockItem.invCode)
         print(stocktake)
         print(_item)
         print("END DEBUGGING")
+        */
         
         // Configure the cell...
         
