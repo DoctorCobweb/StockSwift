@@ -201,7 +201,6 @@ class StocktakeMenuTableViewController: UITableViewController, NSFetchedResultsC
             let destVC = segue.destinationViewController as! StocktakeTableViewController
             
             print("showPreviousStocktake")
-            //print(selectedStocktakeMetaData)
             
             // get the metaData for cell selected.
             var _metaData = [String:String]()
@@ -209,12 +208,14 @@ class StocktakeMenuTableViewController: UITableViewController, NSFetchedResultsC
             _metaData["department"] = selectedStocktakeMetaData.department
             _metaData["start_date"] = selectedStocktakeMetaData.startDate
             
-            print(_metaData)
             
             let theStocktake: Stocktake? = Stocktake(metaData: _metaData)
-            print(theStocktake)
+            //NOTE: we _don't_ call theStocktake.startup() method here because we don't
+            //want to setup/duplicate the stocktake, merely just get it from core data.
             destVC.stocktake = theStocktake
             destVC.stockItems = theStocktake?.loadStockItemsFromCoreData()
+            //print(_metaData)
+            //print(theStocktake)
         }
     }
     

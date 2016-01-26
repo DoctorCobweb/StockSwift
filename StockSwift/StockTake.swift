@@ -25,10 +25,7 @@ class Stocktake: NSObject {
         
         super.init()
         
-        //IMPORTANT
-        //this has to go below the call to super.init() because
-        //super initializes self
-        startup()
+        //any method calls have to go here, below super.init()
     }
     
     
@@ -244,8 +241,8 @@ class Stocktake: NSObject {
             //CURRENTLY WE'RE ACCIDENTALLY MAKING
             //MANY COPIES OF THE SAME STOCKTAKE
             //WEHN LOADING A PREVIOUS STOCKTAKE.
-            //if !fetchedItems.isEmpty && fetchedItems.count == 1 {
-            if !fetchedItems.isEmpty {
+            if !fetchedItems.isEmpty && fetchedItems.count == 1 {
+            //if !fetchedItems.isEmpty {
                 print("fetched only 1")
                 return fetchedItems[0] as? StocktakeItemMO
             }
@@ -286,12 +283,5 @@ class Stocktake: NSObject {
         let item = getSingularStockItem(invCode)
         item?.physicalAmount += amount
         persistData("updateStockItem")
-    }
-    
-    
-    func createFinalStocktake() {
-        
-        //should we be saving again?
-        print("createFinalStocktake called")
     }
 }

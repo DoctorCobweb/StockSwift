@@ -226,9 +226,15 @@ class StocktakeNewSetupViewController: UIViewController, UITextFieldDelegate {
             print(stocktakeMetadata)
             print("***")
             stocktake = Stocktake(metaData: stocktakeMetadata)
+            
+            //when stocktake first created we must call startup to set ti up.
+            //later on when a user wants to visit an old 
+            //stocktake in StocktakeMenuTableViewController we _don't_ call startup.
+            //
+            //if you do then you will duplicate the stocktake and polute core data 
+            //with duplicate stocktakes. bad
+            stocktake?.startup()
             stockItems = stocktake?.loadStockItemsFromCoreData()
-            
-            
             
             //print("NEW SETUP DEBUGGING")
             //print(stocktakeMetadata)
